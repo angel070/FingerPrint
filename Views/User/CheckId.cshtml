@@ -1,0 +1,58 @@
+﻿@model FingerPrint.View_Model.CheckIdViewModel
+
+@{
+    Layout = "~/Views/Shared/Layout1.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    <div class="card" style="border-radius:5%; width:400px; border-inline-color:grey; margin-left:25%; margin-top:10px;">
+        <div class="card-header">
+            <h4 class="text-center">Please Enter your ID</h4>
+        </div>
+
+        <div class="card-body" style="margin-left:20%">
+
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Userid, htmlAttributes: new { @class = "control-label " })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Userid, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Userid, "", new { @class = "text-danger" })
+                        
+                    </div>
+
+                </div>
+
+
+            </div>
+           
+        </div>
+
+        <div class="card-footer">
+            <div style="margin-left:25%">
+                <input type="submit" value="Submit" class="btn btn-primary" />
+                <a href="~/User/Login">Admin Login</a>
+            </div>
+
+            @* <div class=" d-flex" style="margin-left:0%">
+                    <div class=" col-md-6" style="margin-left:12%">
+                        <input type="submit" value="Submit" class="btn btn-primary" />
+
+                    </div>
+                    <div class="col-md-6 mt-2">
+                        <a href="~/User/Login">Admin Login</a>
+
+                    </div>
+                </div>*@
+
+        </div>
+    </div>
+}
+
+
+

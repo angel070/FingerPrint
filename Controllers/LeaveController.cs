@@ -1,0 +1,154 @@
+using FingerPrint.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Web;
+using System.Web.Mvc;
+using System.Data.Entity;
+
+namespace FingerPrint.Controllers
+{
+    public class LeaveController : Controller
+    {
+		private FingerContext _context;
+
+		public LeaveController()
+		{
+			_context = new FingerContext();
+		}
+		// GET: Leave
+		public ActionResult Index()
+        {
+			if (Session["UserRoles"] != null)
+			{
+				var leave = _context.Leaves.Include(c => c.LeaveType).ToList();
+			    return View(leave);
+			}
+			else
+				return RedirectToAction("Login", "User");
+		}
+
+		public ActionResult Create()
+		{
+			if (Session["UserRoles"] != null)
+			{
+				ViewBag.Leaves = new SelectList(_context.LeaveTypes, "Id", "Type");
+				return View();
+
+			}
+			else
+				return RedirectToAction("Login", "User");
+
+		}
+
+		[HttpPost]
+		public ActionResult Create(Leave _leave)
+		{
+			if (Session["userRoles"] != null)
+			{
+				var timeIn = DateTime.Parse(_leave.DateFrom.ToString());
+				var timeOut = DateTime.Parse(_leave.DateTo.ToString());
+				var diff = timeOut - timeIn;
+				_leave.TotalDays = (double)diff.TotalDays;
+				_context.Leaves.Add(_leave);
+				_context.SaveChanges();
+				TempData["test"] = diff;
+				return RedirectToAction("Index");
+			}
+			else
+				return RedirectToAction("login", "user");
+			
+		}
+
+		public ActionResult Edit(int? id)
+		{
+			if (Session["UserRoles"] != null)
+			{
+				ViewBag.Leaves = new SelectList(_context.LeaveTypes, "Id", "Type");
+
+				if (id == null)
+					return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+				var leave = _context.Leaves.SingleOrDefault(c => c.Id == id);
+
+				if (leave == null)
+					return HttpNotFound();
+
+				return View("Edit", leave);
+
+			}
+			else
+				return RedirectToAction("Login", "User");
+
+
+		}
+
+		[HttpPost]
+		public ActionResult Edit(Leave _leave)
+		{
+
+			if (Session["UserRoles"] != null)
+			{
+				if (_leave == null)
+					return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+				if (!ModelState.IsValid)
+				{
+					return View("Edit", _leave);
+				}
+
+				var Leave_data = _context.Leaves.Find(_leave.Id);
+				if (Leave_data == null)
+					return HttpNotFound();
+
+
+				Leave_data.LeaveTypeId= _leave.LeaveTypeId;
+				Leave_data.StaffId= _leave.StaffId;
+				Leave_data.DateFrom= _leave.DateFrom;
+				Leave_data.DateTo= _leave.DateTo;
+				
+				_context.Entry(Leave_data).State = System.Data.Entity.EntityState.Modified;
+				_context.SaveChanges();
+
+				return RedirectToAction("Index");
+			}
+			else
+				return RedirectToAction("Login", "User");
+
+		}
+
+		public ActionResult Delete(int? id) 
+		{
+			try
+		    {
+				bool result = false;
+				var leave = _context.Leaves.Where(c => c.Id == id).SingleOrDefault();
+
+				if (leave != null)
+				{
+					_context.Leaves.Remove(leave);
+					_context.SaveChanges();
+
+				
+				}
+				//return RedirectToAction("Index");
+				return Json(new { status = result, message = "successfully deleted" });
+			}
+			catch (Exception e)
+			{
+				return Json(new { status = false, message = "This Leave is already used" });
+			}
+
+		}
+
+		protected override void Dispose(bool disposing)
+		{
+			if (disposing)
+				_context.Dispose();
+
+			base.Dispose(disposing);
+
+		}
+	}
+}

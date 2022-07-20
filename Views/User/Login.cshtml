@@ -1,0 +1,83 @@
+@model FingerPrint.View_Model.LoginViewModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Login</title>
+    <link rel="stylesheet" href="~/assets/css/bootstrap.css">
+
+    <style>
+        #login-div {
+            position: absolute;
+            left: 40%;
+            top: 10%;
+           @* border: 1px solid grey;*@
+           border-radius:5%;
+            padding: 0px 0px;
+            background: #ffffff;
+        }
+
+        .card {
+            padding: 50px 50px;
+        }
+       
+    </style>
+</head>
+<body>
+    
+    <div id="login-div">
+       
+        <div class="card">
+            <div class="card-body">
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+
+					<img src="~/assets/images/BSL-logo.png" style="width:80px"/>
+                    <div class="form-horizontal">
+                        <h4 class="text-center">Login</h4>
+                        <hr />
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Username, htmlAttributes: new { @class = "control-label " })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label " })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                       
+
+                        <div class="form-group mt-3">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="Login" class="btn btn-primary  btn-block form-control" />
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+
+            <div class="card-footer bg-white">
+                <p class="text-center">
+                    <a href="#" style="text-decoration:none; ">Forgot Password?</a>
+                </p>
+            </div>
+        </div>
+    </div>
+   
+</body>
+</html>

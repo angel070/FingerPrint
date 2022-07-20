@@ -1,0 +1,176 @@
+﻿@model IEnumerable<FingerPrint.Models.Staff>
+
+@{
+    ViewBag.Title = "MatchFinger";
+    Layout = "~/Views/Shared/Layout1.cshtml";
+    
+}
+
+
+<div class="content-header ">
+    <div class="container-fluid" style="margin-left:0px; padding-left:0px; ">
+        <div class="">
+            <div class="col-sm-12">
+                <h4>
+                    Please Press Your Finger on Fingerprint Sensor by Pressing Capture            
+                </h4>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+<!-- /.content-header -->
+<!--################FORM FOR USER SIGN IN FINGERPRINT ###############-->
+<div class="" style='margin-left:0px; padding-right:0px;'>
+    <table class="table table-striped table-bordered table-primary">
+        <thead>
+            <tr>
+                <th style="width: 40%">
+                    User Name
+                </th>
+                <th style="width: 60%">
+                    Check Time in and Out
+                </th>
+            </tr>
+        </thead>
+
+            <form name="myForm" method="GET" id="postId" action="~/Staff/MatchFinger">
+                <tr>
+                    <td style="width:40%">
+                       
+                        @TempData["FirstName"]
+                        @TempData["LastName"]
+                    </td>
+                    <td>
+                        <input type="button" value="Capture" id="@TempData["Id"]"
+                               class="capturebuttonpadding btn btn-primary btn-sm" style="margin-left:80px"
+                               onclick="Match(@TempData["Id"])" />
+                    </td>
+                </tr>
+                <tr>
+                    <input type="hidden" name="id" id="txtIsoTemplate&@TempData["Id"]" value="@TempData["FingerPrint"]" />
+                </tr>
+
+           </form>
+
+    
+
+    </table>
+</div>
+
+@*<form name="myForm" method="Post" action="~/Staff/MatchFinger">
+    <input type="button" value="Capture" id="@ViewBag.Id"
+           class="capturebuttonpadding btn btn-primary btn-sm" style="margin-left:80px"
+           onclick="Match(@ViewBag.Id)" />
+
+    <input type="hidden" name="id" id="txtIsoTemplate@Viewbag.Id" value="@ViewBag.FingerPrint" />
+</form>*@
+<div class="panel">
+    <table class="d-none" width="100%">
+        <tr class="hide">
+            <td>
+                <input type="text" value="" id="txtStatus" class="form-control hide" />
+            </td>
+        </tr>
+        <tr class="hide">
+            <td>
+                <input type="text" value="" id="id" class="form-control hide" />
+            </td>
+        </tr>
+        <tr class="hide">
+            <td>
+                Quality:
+            </td>
+            <td>
+                <input type="text" value="" id="txtImageInfo" class="form-control" />
+            </td>
+        </tr>
+
+        <tr class="hide">
+            <td>
+                Base64Encoded ISO Template
+            </td>
+            <td>
+                <textarea id="txtIsoTemplate" name="txtIsoTemplate" style="width: 100%; height:50px;"
+                          value="" class="form-control"> </textarea> 
+            </td>
+        </tr>
+        <tr class="hide">
+            <td>
+                Base64Encoded ANSI Template
+            </td>
+            <td>
+                <textarea id="txtAnsiTemplate" style="width: 100%; height:50px;"
+                          class="form-control"> </textarea>
+            </td>
+        </tr>
+        <tr class="hide">
+            <td>
+                Base64Encoded ISO Image
+            </td>
+            <td>
+                <textarea id="txtIsoImage" style="width: 100%; height:50px;"
+                          class="form-control"> </textarea>
+            </td>
+        </tr>
+        <tr class="hide">
+            <td>
+                Base64Encoded Raw Data
+            </td>
+            <td>
+                <textarea id="txtRawData" style="width: 100%; height:50px;"
+                          class="form-control"> </textarea>
+            </td>
+        </tr>
+        <tr class="hide">
+            <td>
+                Base64Encoded Wsq Image Data
+            </td>
+            <td>
+                <textarea id="txtWsqData" style="width: 100%; height:50px;"
+                          class="form-control"> </textarea>
+            </td>
+        </tr>
+        <tr class="hide">
+            <td>
+                Encrypted Base64Encoded Pid/Rbd
+            </td>
+            <td>
+                <textarea id="txtPid" style="width: 100%; height:50px;" class="form-control"> </textarea>
+            </td>
+        </tr>
+        <tr class="hide">
+            <td>
+                Encrypted Base64Encoded Session Key
+            </td>
+            <td>
+                <textarea id="txtSessionKey" style="width: 100%; height:50px;"
+                          class="form-control"> </textarea>
+            </td>
+        </tr>
+        <tr class="hide">
+            <td>
+                Encrypted Base64Encoded Hmac
+            </td>
+            <td>
+                <input type="text" value="" id="txtHmac" class="form-control" />
+            </td>
+        </tr>
+        <tr class="hide">
+            <td>
+                Ci
+            </td>
+            <td>
+                <input type="text" value="" id="txtCi" class="form-control" />
+            </td>
+        </tr>
+        <tr class="hide">
+            <td>
+                Pid/Rbd Ts
+            </td>
+            <td>
+                <input type="text" value="" id="txtPidTs" class="form-control" />
+            </td>
+        </tr>
+    </table>
+</div>
+

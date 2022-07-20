@@ -1,0 +1,152 @@
+@model FingerPrint.Models.Staff
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<div class="card">
+    <div class="card-header">
+        <h2 class="text-center">Edit Staff</h2>
+    </div>
+    <div class="card-body">
+ 
+		<div class="card-body">
+
+			@using (Html.BeginForm())
+			{
+				@Html.AntiForgeryToken()
+				@Html.HiddenFor(model => model.StaffId_clone)
+				@Html.HiddenFor(model => model.Email_clone)
+
+				<div class="form-horizontal">
+
+					@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								@Html.LabelFor(model => model.Staff_id, htmlAttributes: new { @class = "control-label " })
+								<div class="col-md-10">
+									@Html.EditorFor(model => model.Staff_id, new { htmlAttributes = new { @class = "form-control" } })
+									@Html.ValidationMessageFor(model => model.Staff_id, "", new { @class = "text-danger" })
+								</div>
+							</div>
+						</div>
+
+						<div class="col-md-6">
+							<div class="form-group">
+								@Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label " })
+								<div class="col-md-10">
+									@Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+									@Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								@Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label " })
+								<div class="col-md-10">
+									@Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+									@Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+								</div>
+							</div>
+
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								@Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label " })
+								<div class="col-md-10">
+									@Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
+									@Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								@Html.LabelFor(model => model.Phone_no, htmlAttributes: new { @class = "control-label " })
+								<div class="col-md-10">
+									@Html.EditorFor(model => model.Phone_no, new { htmlAttributes = new { @class = "form-control" } })
+									@Html.ValidationMessageFor(model => model.Phone_no, "", new { @class = "text-danger" })
+								</div>
+							</div>
+						</div>
+
+						@*  <div class="col-md-6">
+						<div class="form-group">
+							@Html.LabelFor(model => model.CountryId, htmlAttributes: new { @class = "control-label col-md-2" })
+							<div class="col-md-10">
+								@Html.DropDownList("CountryId", ViewBag.Country as SelectList, "Select Country", new { @class = "form-control" })
+								@Html.ValidationMessageFor(model => model.CountryId, "", new { @class = "text-danger" })
+							</div>
+						</div>
+					</div>*@
+						<div class="col-md-6">
+							<div class="form-group">
+								@Html.LabelFor(model => model.BranchId, htmlAttributes: new { @class = "control-label " })
+								<div class="col-md-10">
+									@Html.DropDownList("BranchId", ViewBag.Branch as SelectList, "Select Branch", new { @class = "form-control" })
+									@Html.ValidationMessageFor(model => model.BranchId, "", new { @class = "text-danger" })
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+
+
+						<div class="col-md-6">
+							<div class="form-group">
+								@Html.LabelFor(model => model.DepartmentId, htmlAttributes: new { @class = "control-label " })
+								<div class="col-md-10">
+									@Html.DropDownList("DepartmentId", ViewBag.department as SelectList, "Select Department", new { @class = "form-control" })
+									@Html.ValidationMessageFor(model => model.DepartmentId, "", new { @class = "text-danger" })
+								</div>
+							</div>
+						</div>
+
+						
+					</div>
+
+
+					@* <div class="col-md-6">
+					<div class="form-group">
+						@Html.LabelFor(model => model.Fingerprint, htmlAttributes: new { @class = "control-label col-md-2" })
+						<div class="col-md-10">
+							@Html.EditorFor(model => model.Fingerprint, new { htmlAttributes = new { @class = "form-control" } })
+							@Html.ValidationMessageFor(model => model.Fingerprint, "", new { @class = "text-danger" })
+						</div>
+					</div>
+				</div>*@
+
+
+					<div class="row">
+						<div class="col-md-6">
+							<div class="col-md-offset-2 col-md-2">
+								<input type="submit" value="Edit" class="btn btn-primary" />
+							</div>
+						</div>
+
+						<div class="col-md-6">
+							<div class="col-md-offset-2 col-md-2">
+								<input type="reset" value="Clear" class="btn btn-primary" />
+							</div>
+						</div>
+					</div>
+
+				</div>
+			}
+
+
+		</div>
+      
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

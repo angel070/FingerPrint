@@ -1,0 +1,101 @@
+﻿@using FingerPrint.Models;
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Individual Report</h2>
+
+
+<table class="table table-bordered table-striped" id=" example">
+    <tr>
+        <th>
+            StaffId
+        </th>
+        <th>
+            firstName
+        </th>
+        <th>
+            LastName
+        </th>
+        <th>
+            Depatment
+        </th>
+        <th>
+            Branch
+        </th>
+        <th>
+            .Date
+        </th>
+        <th>
+            TimeIn
+        </th>
+        <th>
+            CheckOutTime
+        </th>
+        <th>
+            status
+        </th>
+        <th>
+            TotalStaffHours
+        </th>
+
+    </tr>
+
+    @foreach (var item in ViewBag.RangeDt)
+    {
+        <tr>
+            <td>
+                @(item.StaffId)
+            </td>
+            <td>
+                @(item.firstName)
+            </td>
+            <td>
+                @(item.LastName)
+            </td>
+            <td>
+                @(item.Department)
+            </td>
+            <td>
+                @(item.Branch)
+            </td>
+            <td>
+                @(item.Date)
+            </td>
+
+            <td>
+                @(item.TimeIn)
+            </td>
+            <td>
+                @(item.TimeOut)
+            </td>
+            <td>
+                @(item.status)
+            </td>
+            <td>
+                @(item.TotalStaffHours)
+            </td>
+
+        </tr>
+    }
+
+
+</table>
+
+
+@section scripts{
+    <script>
+
+        jQuery(document).ready(function () {
+
+            $('#example').DataTable();
+
+
+            $("#btnPdf").click(function () {
+                var element = document.getElementById('example');
+                html2pdf(element);
+            });
+       });
+    </script>
+}

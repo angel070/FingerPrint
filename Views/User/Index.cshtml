@@ -1,0 +1,136 @@
+@model IEnumerable<FingerPrint.Models.User>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="card">
+    <div class="card-header">
+        <h2 class="text-center">User Details</h2>
+    </div>
+    <div class="card-body">
+
+
+        @*<p>
+            @Html.ActionLink("Create New", "Create")
+        </p>*@
+
+        <p style="text-align:right"><a href="~/User/Create" class="btn btn-primary mb-3 mt-3 ">Create</a></p>
+        <table class="table table-bordered table-striped " id="example">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.UserRolesId)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Email)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Username)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Password)
+                    </th>
+					<th>
+                        @Html.DisplayNameFor(model => model.BranchId)
+                    </th>
+                 
+                    <th>Action</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UserRoles.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Email)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Username)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Password)
+                        </td>
+						<td>
+                            @Html.DisplayFor(modelItem => item.Branch.Name)
+                        </td>
+                       
+						<td>
+							@Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-primary" })  |
+							<a href="#" id="showModal" class="btn btn-danger" onclick="Confirm(@item.Id)">Delete</a>
+						</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <input type="hidden" id="UserDelete" />
+
+        <div class="modal fade" id="deleteModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2 class="modal-title"> Confirm</h2>
+                    </div>
+                    <div class="modal-body">
+                        <h4>Are you sure you want to delete this User?</h4>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="form-group">
+                            <a href="#" id="btnDelete" class="btn btn-primary">Delete</a>
+                            <a href="#" id="btnCancel" class="btn btn-primary">Cancel</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>   
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $('#example').DataTable();
+
+            $(document).ready(function () {
+                $("#btnCancel").click(function () {
+                    window.location.href = "/User/Index";
+                });
+            });
+
+            $("#btnDelete").click(function () {
+                var _id = $("#UserDelete").val();
+
+                $.ajax({
+                    type: "POST",
+                    url: "/User/Delete",
+                    data: { id: _id },
+                    success: function (data) {
+						if (data) {
+							alert(data.message);
+                            $("#deleteModal").modal('hide');
+                            $("#UserDelete").val(null);
+                            window.location.href = "/User/Index";
+                        }
+						else {
+							 $("#deleteModal").modal('hide');
+							alert(data.message);
+
+                        }
+                    }
+                });
+            });
+
+        });
+
+        var Confirm = function (id) {
+            $("#UserDelete").val(id);
+            $("#deleteModal").modal('show');
+        }
+    </script>
+}

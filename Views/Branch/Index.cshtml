@@ -1,0 +1,143 @@
+@model IEnumerable<FingerPrint.Models.Branch>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Index";
+    var UserRole = Session["UserRoles"].ToString();
+}
+@*@if (UserRole != "Admin")
+{
+   
+   @Html.ActionLink("Login Please", "Login","User")
+}
+else
+{*@
+
+    <div class="card">
+        <div class="card-header">
+            <h3 class="text-center">List Of Branches</h3>
+        </div>
+		<div class="card-body">
+			@if (Session["UserRoles"].ToString() == "Admin")
+			 {
+				<p style="text-align:right"><a href="~/Branch/Create" class="btn btn-primary  mb-4 mt-4" style="margin-left:830px">Create</a></p>
+			 }
+
+			<table class="table table-bordered table-striped zero-bottom display" id="example" aria-describedby="tbl-smtp-info" id="example">
+				<thead>
+					<tr>
+						<th>
+							@Html.DisplayNameFor(model => model.Name)
+						</th>
+						<th>
+							@Html.DisplayNameFor(model => model.CountryId)
+						</th>
+						<th>Action</th>
+					</tr>
+				</thead>
+
+				<tbody>
+					@foreach (var item in Model)
+					{
+						<tr>
+							<td>
+								@Html.DisplayFor(modelItem => item.Name)
+							</td>
+							<td>
+								@Html.DisplayFor(modelItem => item.Country.Name)
+							</td>
+							<td>
+								@Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-primary" })   |
+								<a href="#" id="showModal" class="btn btn-danger" onclick="Confirm(@item.Id)">Delete</a>
+							</td>
+						</tr>
+					}
+
+				</tbody>
+			</table>
+
+			<input type="hidden" id="BranchDelete" />
+
+			<div class="modal fade" id="deleteModal">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h2 class="modal-title"> Confirm</h2>
+						</div>
+						<div class="modal-body">
+							<h4>Are you sure you want to delete this country?</h4>
+						</div>
+						<div class="modal-footer">
+							<div class="form-group">
+								<a href="#" id="btnDelete" class="btn btn-primary">Delete</a>
+								<a href="#" id="btnCancel" class="btn btn-primary">Cancel</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+    </div>
+
+    @section scripts{
+        <script>
+            $(document).ready(function () {
+                $('#example').DataTable();
+
+
+
+                $(document).ready(function () {
+                    $("#btnCancel").click(function () {
+                        window.location.href = "/Branch/Index";
+                    });
+                });
+
+                $("#btnDelete").click(function () {
+                    var _id = $("#BranchDelete").val();
+
+                    $.ajax({
+                        type: "POST",
+                        url: "/Branch/Delete",
+                        data: { id: _id },
+                        success: function (data) {
+							if (data.status) {
+								$("#deleteModal").modal('hide');
+								 $("#BranchDelete").val(null);
+								alert(data.message);
+                               
+                                window.location.href = "/Branch/Index";
+                            }
+							else {
+								  $("#deleteModal").modal('hide');
+								alert(data.message);
+
+                            }
+                        }
+                    });
+                });
+            });
+
+            var Confirm = function (id) {
+                $("#BranchDelete").val(id);
+                $("#deleteModal").modal('show');
+            }
+
+
+
+            $("#btnPdf").click(function () {
+                var element = document.getElementById('example');
+                html2pdf(element);
+            });
+
+    //$(document).on('click', '#btn', function () {
+    //    let pdf = new jsPDF();
+    //    let section = $('div.h3,table');
+    //    let page = function () {
+    //        pdf.save('Branches.pdf');
+
+    //    };
+    //    pdf.addHTML(section, page);
+    //});
+
+        </script>
+    }

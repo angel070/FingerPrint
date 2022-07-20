@@ -1,0 +1,166 @@
+@model IEnumerable<FingerPrint.Models.Staff>
+
+@{
+    ViewBag.Title = "Index";
+}
+<div class="card ">
+    <div class="card-header">
+        <h2 class="text-center">Staff Details</h2>
+    </div>
+
+	<div class="card-body" style="overflow-x: auto; margin-bottom:10px">
+		@if (Session["UserRoles"].ToString() == "Admin")
+		 {
+			<p style="text-align:right">
+				<a href="~/Staff/Create" class="btn btn-primary mb-2 mt-3"> Create </a>
+				@* @Html.ActionLink("Create New", "Create")*@
+			</p>
+		 }
+
+	<div class="table-responsive">
+		<table class="table table-bordered table-striped table-primary " style="width:2px; overflow-x: auto;" id="example">
+			<thead>
+				<tr>
+					<th>
+						@Html.DisplayNameFor(model => model.Id)
+					</th>
+					<th>
+						@Html.DisplayNameFor(model => model.Staff_id)
+					</th>
+					<th>
+						@Html.DisplayNameFor(model => model.FirstName)
+					</th>
+					<th>
+						@Html.DisplayNameFor(model => model.LastName)
+					</th>
+					<th>
+						@Html.DisplayNameFor(model => model.Phone_no)
+					</th>
+					<th>
+						@Html.DisplayNameFor(model => model.CountryId)
+					</th>
+					<th>
+						@Html.DisplayNameFor(model => model.BranchId)
+					</th>
+					<th>
+						@Html.DisplayNameFor(model => model.DepartmentId)
+					</th>
+					<th>
+						@Html.DisplayNameFor(model => model.Email)
+					</th>
+
+					<th>Action</th>
+				</tr>
+			</thead>
+
+			<tbody>
+				@foreach (var item in Model)
+				{
+					// var a = @Html.DisplayFor(modelItem => item.Id);
+					<tr>
+						<td>
+							@Html.DisplayFor(modelItem => item.Id)
+						</td>
+						<td>
+							@Html.DisplayFor(modelItem => item.Staff_id)
+						</td>
+						<td>
+							@Html.DisplayFor(modelItem => item.FirstName)
+						</td>
+						<td>
+							@Html.DisplayFor(modelItem => item.LastName)
+						</td>
+						<td>
+							@Html.DisplayFor(modelItem => item.Phone_no)
+						</td>
+						<td>
+							@Html.DisplayFor(modelItem => item.Country.Name)
+						</td>
+						<td>
+							@Html.DisplayFor(modelItem => item.Branch.Name)
+						</td>
+						<td>
+							@Html.DisplayFor(modelItem => item.Department.Name)
+						</td>
+						<td>
+							@Html.DisplayFor(modelItem => item.Email)
+						</td>
+
+						<td>
+						 <a href="@Url.Action("FingerPrintForm", "Staff",new { id= item.Id })"><i class="fa fa-eye"></i> </a>|
+								<a href="#" id="showModal" onclick="Confirm(@item.Id)"><i class="fa fa-trash"></i></a>
+
+						</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+
+		<input type="hidden" id="StaffDelete" />
+
+		<div class="modal fade" id="deleteModal">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h2 class="modal-title"> Confirm</h2>
+					</div>
+					<div class="modal-body">
+						<h4>Are you sure you want to delete Staff?</h4>
+					</div>
+					<div class="modal-footer">
+						<div class="form-group">
+							<a href="#" id="btnDelete" class="btn btn-primary">Delete</a>
+							<a href="#" id="btnCancel" class="btn btn-primary">Cancel</a>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	</div>
+</div>
+
+
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $('#example').DataTable();
+		});
+
+		 $(document).ready(function () {
+                $("#btnCancel").click(function () {
+                    window.location.href = "/Staff/Index";
+                });
+            });
+
+            $("#btnDelete").click(function () {
+                var _id = $("#StaffDelete").val();
+
+                $.ajax({
+                    type: "POST",
+                    url: "/Staff/Delete",
+                    data: { id: _id },
+                    success: function (data) {
+						if (data) {
+
+                            $("#deleteModal").modal('hide');
+                            $("#StaffDelete").val(null);
+                            window.location.href = "/Staff/Index";
+                        }
+                        else {
+                            alert("Something went wrong");
+
+                        }
+                    }
+                });
+            });
+
+        var Confirm = function (id) {
+            $("#StaffDelete").val(id);
+            $("#deleteModal").modal('show');
+        }
+    </script>
+}

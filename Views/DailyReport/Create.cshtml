@@ -1,0 +1,347 @@
+@model FingerPrint.View_Model.DateRangeViewModel
+
+@{
+	ViewBag.Title = "DateRange";
+}
+
+<style>
+	.container {
+		padding: 2rem;
+	}
+
+	button {
+		position: relative;
+		display: inline-block;
+		box-sizing: border-box;
+		margin-left: .167em;
+		margin-right: .167em;
+		margin-bottom: .333em;
+		padding: .5em 1em;
+		border: 1px solid rgba(0, 0, 0, 0.3);
+		border-radius: 2px;
+		cursor: pointer;
+		font-size: .88em;
+		line-height: 1.6em;
+		color: black;
+		white-space: nowrap;
+		overflow: hidden;
+		background-color: rgba(0, 0, 0, 0.1);
+		background: linear-gradient(to bottom, rgba(230, 230, 230, 0.1) 0%, rgba(0, 0, 0, 0.1) 100%);
+		filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, StartColorStr="rgba(230, 230, 230, 0.1)", EndColorStr="rgba(0, 0, 0, 0.1)");
+		-webkit-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		user-select: none;
+		text-decoration: none;
+		outline: none;
+		text-overflow: ellipsis;
+	}
+
+	.dt-buttons {
+		display: none !important;
+	}
+</style>
+
+
+<div class="card" style="overflow-x: auto">
+	<div class="card-header">
+		<h2 class="text-center">Daily Report</h2>
+	</div>
+
+
+
+	<div class="card-body">
+		@Html.AntiForgeryToken()
+
+		<div class="form-horizontal mb-10">
+
+			@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+			<div class="form-group d-flex">
+				@if (Session["UserRoles"].ToString() == "Admin")
+				{
+					<div class="col-md-6">
+						@Html.LabelFor(model => model.Branch, htmlAttributes: new { @class = "control-label col-md-2" })
+
+						@Html.DropDownList("BranchId", ViewBag.branches as SelectList, "All", new { @class = "form-control" })
+						@Html.ValidationMessageFor(model => model.Branch, "", new { @class = "text-danger" })
+					</div>
+				 }	
+				<div class="col-md-6">
+					@Html.LabelFor(model => model.Department, htmlAttributes: new { @class = "control-label col-md-" })
+
+					@Html.DropDownList("Id", ViewBag.Departments as SelectList, "All", new { @class = "form-control" })
+					@Html.ValidationMessageFor(model => model.Department, "", new { @class = "text-danger" })
+				</div>
+			</div>
+
+			<div class="form-group d-flex ">
+				<div class="col-md-6">
+					Date
+					@Html.EditorFor(model => model.DateFrom, new { htmlAttributes = new { @class = "form-control" } })
+					@Html.ValidationMessageFor(model => model.DateFrom, "", new { @class = "text-danger" })
+				</div>
+
+			</div>
+
+			<div class="col-md-6 d-flex mt-4">
+				<div class=" col-md-2">
+					<input type="submit" value="Submit" class="btn btn-primary" id="btnSubmit" />
+				</div>
+
+			</div>
+		</div>
+
+		<div style="text-align: right; margin-top: 1rem;">
+			<button id="pdf-btn">PDF</button>
+			<button id="excel-btn">Excel</button>
+		</div>
+
+		<table class="table table-bordered table-striped  " style="overflow-x: auto" id="example">
+			<thead>
+				<tr>
+					<th>SNo.</th>
+					<th>
+						Staff Id
+					</th>
+					<th>
+						First Name
+					</th>
+					<th>
+						Last Name
+					</th>
+					<th>
+						Department
+					</th>
+					<th>
+						Branch
+					</th>
+					<th>Date</th>
+					<th>Time In</th>
+					<th>Time Out</th>
+					<th>Total Working Hours</th>
+					<th> Percentage Hours</th>
+					<th> OverTime Hours</th>
+					<th> Status</th>
+				</tr>
+			</thead>
+
+			<tbody style="overflow-x: auto;"></tbody>
+
+			<tfoot>
+
+			</tfoot>
+
+		</table>
+
+	</div>
+</div>
+
+@section scripts
+{
+	<script>
+
+		$.fn.dataTable.ext.search.push(
+			function (settings, data, dataIndex) {
+				var branch = $('#BranchId option:selected').text().trim();
+				var department = $('#Id option:selected').text().trim();
+				var dateFrom1 = document.getElementById("DateFrom").value;
+
+				var dateFrom = moment(dateFrom1).format('DD/MM/YYYY');
+				console.log(dateFrom1);
+
+				var branch_data = data[5];
+				var department_data = data[4];
+				var date_data = data[6];
+
+
+				console.log("Branch: " + branch, "Department: " + department, "Date:" + dateFrom);
+
+				if (
+					(branch === 'All' && department === 'All' && dateFrom1 === "" && branch_data.includes("") && department_data.includes("") && date_data.includes("")) ||
+
+					(branch_data.includes(branch) && department_data.includes(department) && date_data.includes(dateFrom))  ||
+
+					(branch === 'All' && department_data.includes(department) && date_data.includes(dateFrom)) ||
+
+					(branch_data.includes(branch) && department === 'All' && date_data.includes(dateFrom)) ||
+
+					(branch_data.includes(branch) && department_data.includes(department) && dateFrom1 ==="") ||
+
+					(branch === 'All'  && department_data.includes(department) && dateFrom1 ==="") ||
+
+					(branch_data.includes(branch) && department === 'All' && dateFrom1 === "") ||
+
+					(branch === 'All' && department === 'All' && date_data.includes(dateFrom) )
+
+					
+				) return true;
+
+				//if (date_data.includes(date)) return true;
+				return false;
+			}
+		);
+
+	</script>
+
+	<script>
+		var pdfDoc;
+		$(document).ready(function () {
+			$('#example').DataTable({
+				dom: 'lBfrtip',
+				buttons: [
+					// 'copy', 'csv', 'excel', 'pdf', 'print'
+					//'excel', 'pdf';
+
+					{
+						extend: 'excel',
+						title: "Daily Report",
+					},
+					{
+						extend: 'pdfHtml5',
+						text: 'PDF',
+						title: "Daily Report",
+
+						customize: function (doc) {
+							pdfDoc = doc;
+
+							doc.pageSize = 'A4';
+							doc.pageOrientation = 'landscape';
+							doc.content[1].table.widths = ['auto', 'auto', 'auto', 'auto', 'auto', 'auto', 'auto','auto','auto','auto','auto','auto','auto'];
+
+							// Change dataTable layout (Table styling)
+							// To use predefined layouts uncomment the line below and comment the custom lines below
+							doc.content[1].layout = 'lightHorizontalLines'; // noBorders , headerLineOnly
+
+							var objLayout = {};
+							objLayout['hLineWidth'] = function (i) { return .25; };
+							objLayout['vLineWidth'] = function (i) { return .25; };
+							//objLayout['hLineColor'] = function (i) { return '#aaa'; };
+							objLayout['hLineColor'] = function (i) { return '#CCCDD0'; };
+							objLayout['vLineColor'] = function (i) { return '#CCCDD0'; };
+							objLayout['paddingLeft'] = function (i) { return 4; };
+							objLayout['paddingRight'] = function (i) { return 4; };
+							doc.content[1].layout = objLayout;
+
+
+							//Serial numbers
+							var tableBodyRows = doc.content[1].table.body;
+
+							$.each(tableBodyRows, function (index, tbody_row) {
+								if (index > 0) {
+
+									tbody_row[0]["text"] = index + '.';
+
+									tbody_row[0].alignment = 'center';
+									tbody_row[4].alignment = 'center';
+									tbody_row[5].alignment = 'right';
+									tbody_row[6].alignment = 'right';
+								}
+							});
+						}
+					}
+				],
+
+				ajax: {
+					url: '@Url.Action("DailyReport")',
+					type: "POST",
+					dataType: "json"
+				},
+
+				columns: [
+					{data: 'sno'},
+					{data: 'StaffId'},
+					{data: 'firstName'},
+					{data: 'LastName'},
+					{data: 'DepartmentStr'},
+					{data: 'BranchStr'},
+					{data: 'Date'},
+					{
+						data: 'TimeIn',
+						render: function (data, type, row) {
+							if (data !== null) {
+								return data;
+							} else {
+								return '_';
+							}
+						}
+					},
+					{
+						data: 'TimeOut',
+						render: function (data, type, row) {
+							if (data !== null) {
+								return data;
+							} else {
+								return '_';
+							}
+						}
+					},
+					{
+						data: 'TotalStaffHours',
+						render: function (data, type, row) {
+							if (data != null) {
+								return data;
+							} else {
+								return '<i class="text-center">_</i>';
+							}
+						}
+					},
+					{
+						data: 'PercentageHours',
+						render: function (data, type, row) {
+							if (data != null) {
+								return data;
+							} else {
+								return '_';
+							}
+						}
+					},
+					{
+						data: 'OverTimeHours',
+						render: function (data, type, row) {
+							if (data != null) {
+								return data;
+							} else {
+								return '_';
+							}
+						}
+					},
+					{data: 'status'}
+				],
+			});
+
+			filterButtonHandler();
+			pdfButtonHandler();
+			excelButtonHandler();
+		});
+
+		function filterButtonHandler() {
+			var $filterButton = $('#btnSubmit');
+			var datatable = new $.fn.dataTable.Api('#example');
+
+			$filterButton.on('click', function (e) {
+				e.preventDefault();
+
+				datatable.draw();
+			});
+		}
+
+		function pdfButtonHandler() {
+			var $pdfButton = $('#pdf-btn');
+
+			$pdfButton.on('click', function (e) {
+				e.preventDefault();
+				$('.dt-button.buttons-pdf.buttons-html5').click();
+			});
+		}
+
+		function excelButtonHandler() {
+			var $excelButton = $('#excel-btn');
+
+			$excelButton.on('click', function (e) {
+				e.preventDefault();
+				$('.dt-button.buttons-excel.buttons-html5').click();
+			});
+		}
+	</script>
+}

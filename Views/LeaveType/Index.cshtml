@@ -1,0 +1,118 @@
+@model IEnumerable<FingerPrint.Models.LeaveType>
+
+@{
+	ViewBag.Title = "Index";
+}
+
+
+<div class="card">
+	<div class="card-header">
+		<h4 class="text-center"> Leave Type</h4>
+	</div>
+
+	<div class="card-body">
+		<p style="text-align:right"><a href="~/LeaveType/Create" class="btn btn-primary  mb-4 mt-1" style="margin-left:830px">Create</a></p>
+		<table class="table table-bordered table-striped">
+			<tr>
+				<th>
+					@Html.DisplayNameFor(model => model.Type)
+				</th>
+				<th>
+					@Html.DisplayNameFor(model => model.ShortType)
+				</th>
+				<th>Action</th>
+			</tr>
+
+			@foreach (var item in Model)
+			{
+				<tr>
+					<td>
+						@Html.DisplayFor(modelItem => item.Type)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.ShortType)
+					</td>
+					<td>
+						@Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-primary" })   |
+						<a href="#" id="showModal" class="btn btn-danger" onclick="Confirm(@item.Id)">Delete</a>
+					</td>
+				</tr>
+			}
+
+		</table>
+
+		<input type="hidden" id="LeaveTypeDelete" />
+
+		<div class="modal fade" id="deleteModal">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h2 class="modal-title"> Confirm</h2>
+					</div>
+					<div class="modal-body">
+						<h4>Are you sure you want to delete?</h4>
+					</div>
+					<div class="modal-footer">
+						<div class="form-group">
+							<a href="#" id="btnDelete" class="btn btn-primary">Delete</a>
+							<a href="#" id="btnCancel" class="btn btn-primary">Cancel</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+@section scripts{
+	<script>
+		$(document).ready(function () {
+			$('#example').DataTable();
+
+
+
+			$(document).ready(function () {
+				$("#btnCancel").click(function () {
+					window.location.href = "/LeaveType/Index";
+				});
+			});
+
+			$("#btnDelete").click(function () {
+				var _id = $("#LeaveTypeDelete").val();
+
+				$.ajax({
+					type: "POST",
+					url: "/LeaveType/Delete",
+					data: { id: _id },
+					success: function (data) {
+						if (data.status) {
+							$("#deleteModal").modal('hide');
+							$("#LeaveTypeDelete").val(null);
+							alert(data.message);
+
+							window.location.href = "/LeaveType/Index";
+						}
+						else {
+							$("#deleteModal").modal('hide');
+							alert(data.message);
+
+						}
+					}
+				});
+			});
+		});
+
+		var Confirm = function (id) {
+			$("#LeaveTypeDelete").val(id);
+			$("#deleteModal").modal('show');
+		}
+
+
+
+		$("#btnPdf").click(function () {
+			var element = document.getElementById('example');
+			html2pdf(element);
+		});
+
+	</script>
+}

@@ -1,0 +1,177 @@
+﻿
+@{
+    ViewBag.Title = "Contribution";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+@* Results Table*@
+
+<h2>Contribution</h2>
+<table class="table table-bordered table-striped table-primary">
+    <tr>
+        <th>
+            SNo
+        </th>
+        <th>
+            Full Name
+        </th>
+        <th>
+            Pledged Amount(TZS)
+        </th>
+        <th>
+            Mobile Number
+        </th>
+        <th>
+            Email Address
+        </th>
+        <th>
+            Control Number
+        </th>
+        <th>
+            Contribution Due Date
+        </th>
+        <th>Action</th>
+    </tr>
+
+
+    <tr>
+        <td>
+            1
+        </td>
+        <td>
+            Angela macha
+        </td>
+        <td>
+            40,000/=
+        </td>
+        <td>
+            0768490984
+        </td>
+        <td>
+            angelarmacha@gmail.com
+        </td>
+        <td>
+            CS12344
+        </td>
+        <td>
+            Monday,12.3.2020
+        </td>
+
+        <td>
+            <a class="btn btn-danger" id="showModal" onclick="Confirm(id=1)"> Reservation</i> </a>
+        </td>
+    </tr>
+
+  
+
+
+</table>
+
+
+
+@*Model begin*@
+
+<div class="modal" id="showModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Confirm</h2>
+            </div>
+            <div class="modal-body">
+                 <div class="card-content">
+                   
+                    <div class="card-body">
+                        <div class="row  ">
+                            <div class="col-md-12 d-flex">
+                                <div class="col-md-6 col-sm-6">
+                                    <div class="form-horizontal">
+
+                                        <div class="form-group">
+                                            SNo
+                                            <div class="col-md-10">
+                                                <input class="form-control" />
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            Full Name
+                                            <div class="col-md-10">
+                                                <input class="form-control" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            Pledged Amount
+                                            <div class="col-md-10">
+                                                <input class="form-control" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            Phone number
+                                            <div class="col-md-10">
+                                                <input class="form-control" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                        @* another form*@
+                            <div class="col-md-6 col-sm-6 ml-4">
+                                <div class="form-horizontal">
+
+                                    <div class="form-group">
+                                        Email Address
+                                        <div class="col-md-10">
+                                            <input class="form-control" />
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        Control Number
+                                        <div class="col-md-10">
+                                            <input class="form-control" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        Contribution Due Date
+                                        <div class="col-md-10">
+                                            <input class="form-control" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        Enter Number of People
+                                        <div class="col-md-10">
+                                            <input class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                                <h6>Wil you attend?</h6>
+                                <div class="modal-footer">
+                                    <div>
+                                        <a href="#" class="btn btn-primary" id="" Yesbtn">Yes</a>
+                                        <a href="#" class="btn btn-primary" id="" Nobtn">No</a>
+                                    </div>
+                                </div>
+                            </div>
+        </div>
+
+    </div>
+
+@*Model end*@
+
+
+    <script>
+              @*  $(Document).ready(function () {
+
+                    $("#Cancelbtn").click(function () {
+                        window.location.href = "~/Branch/Index";
+                    })
+                })*@
+
+                var Confirm = function (id) {
+
+                    $("#showModal").modal('show');
+                }
+    </script>

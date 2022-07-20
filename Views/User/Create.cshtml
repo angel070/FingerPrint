@@ -1,0 +1,106 @@
+@model FingerPrint.Models.User
+
+@{
+    ViewBag.Title = "Create";
+}
+
+
+
+@using (Html.BeginForm())
+ {
+    <div class="card" style="width:600px; margin-left:20%; padding-left:0%;">
+        <div class="card-header">
+            <h4 class="text-center">User Registration</h4>
+        </div>
+        <div class="card-body">
+
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Username, htmlAttributes: new { @class = "control-label " })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label " })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.UserRolesId, "UserRolesId", htmlAttributes: new { @class = "control-label " })
+                            <div class="col-md-10">
+                                @Html.DropDownList("UserRolesId", ViewBag.Users as SelectList, "Select Roles", new { @class = "form-select " })
+                                @Html.ValidationMessageFor(model => model.UserRolesId, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+				 
+					   <div class="row">
+					   		<div class="col-6">
+					   			<div class="form-group">
+					   						@Html.LabelFor(model => model.BranchId, htmlAttributes: new  { @class = "control-label " })
+												<div class="col-md-10">
+									@Html.DropDownList("BranchId", ViewBag.Branches as SelectList, "Select Branch", new { @class = "form-control" })
+													@Html.ValidationMessageFor(model => model.BranchId, "", new { @class = "text-danger" })
+												</div>
+								   </div>
+
+						   </div>
+					   </div>
+
+
+                @*<div class="form-group">
+                    @Html.LabelFor(model => model.IsActive, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        <div class="checkbox">
+                            @Html.EditorFor(model => model.IsActive)
+                            @Html.ValidationMessageFor(model => model.IsActive, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>*@
+
+                <div class="form-group d-flex">
+                    <div class="col-md-offset-2 col-md-2">
+                        <input type="submit" value="Create" class="btn btn-primary" />
+                    </div>
+                    <div class="col-md-offset-2 col-md-2">
+                        <input type="reset" value="Clear" class="btn btn-primary" />
+                    </div>
+                </div>
+            </div>
+        
+        </div>
+    </div>
+ }
+
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }

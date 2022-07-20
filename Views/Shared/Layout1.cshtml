@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap"
+          rel="stylesheet">
+    <link rel="stylesheet" href="~/assets/css/bootstrap.css">
+
+    <link rel="stylesheet" href="~/assets/vendors/simple-datatables/style.css">
+    <!--fontawesome-->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet"
+          href="~/assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
+    <link rel="stylesheet"
+          href="~/assets/vendors/bootstrap-icons/bootstrap-icons.css">
+    <link rel="stylesheet" href="~/assets/css/app.css">
+    <link rel="shortcut icon"
+          href="~/assets/images/favicon.svg" type="image/x-icon">
+    
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - BIZ-BAZ</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+</head>
+
+<body>
+    <div class="card" style="background: #f4f6f9; margin-left:20%;margin-right:20%; margin-top:30px; padding-right:0% ">
+        <div class="card-body">
+            <div id="app" style="">
+
+                <div id="">
+                    <header class="mb-3">
+                        <a href="#" class="burger-btn d-block d-xl-none">
+                            <i class="bi bi-justify fs-3"></i>
+                        </a>
+                    </header>
+
+                    <section class="nav-section">
+                        <div class="card">
+                            <div class="card-header ">
+                                <h4 class="card-title text-center">WELCOME STAFF AT BIZ-LOGIC SOLUTIONS BIOMETRIC ATTENDANCE SYSTEM </h4>
+                            </div>
+                        </div>
+                    </section>
+
+                    <div class="page-heading">
+                        <div class="page-title">
+                            <div class="row">
+                                <div class="col-12 col-md-6 order-md-1 order-last">
+
+                                    <p></p>
+                                </div>
+                                @*<div class="col-12 col-md-6 order-md-2 order-first">
+                                    <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
+                                        <ol class="breadcrumb">
+                                            <li class="breadcrumb-item">
+                                                
+                                            </li>
+
+                                        </ol>
+                                    </nav>*@
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    @RenderBody()
+
+                </div>
+            </div>
+
+        </div>
+
+ 
+
+    <footer class="text-center">
+        <div class="footer clearfix mb-0 text-muted text-center">
+            <div class="float-start ">
+                <p>@DateTime.Now.Year &copy; Mazer</p>
+            </div>
+            <div class="float-start">
+                <p class="text-center">
+                    Crafted with
+                    <span class="text-danger"><i class="bi bi-heart"></i></span> by
+                    <a href="http://ahmadsaugi.com">Biz-Logic Solution</a>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+
+    <script src="~/assets/js/bootstrap.bundle.min.js"></script>
+    <script src="~/assets/vendors/simple-datatables/simple-datatables.js">
+    </script>
+    <script src=" ~/js/mfs.js"></script>
+    <script src="~/js/mfs100Scripts.js"></script>
+
+
+
+    @Scripts.Render("~/bundles/jquery")
+    @*    @Scripts.Render("~/bundles/bootstrap")*@
+    @RenderSection("scripts", required: false)
+</body>
+
+</html>

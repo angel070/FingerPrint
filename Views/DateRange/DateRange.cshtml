@@ -1,0 +1,437 @@
+@model FingerPrint.View_Model.DateRangeViewModel
+
+@{
+	ViewBag.Title = "DateRange";
+}
+
+<style>
+	.container {
+		padding: 2rem;
+	}
+
+	button {
+		position: relative;
+		display: inline-block;
+		box-sizing: border-box;
+		margin-left: .167em;
+		margin-right: .167em;
+		margin-bottom: .333em;
+		padding: .5em 1em;
+		border: 1px solid rgba(0, 0, 0, 0.3);
+		border-radius: 2px;
+		cursor: pointer;
+		font-size: .88em;
+		line-height: 1.6em;
+		color: black;
+		white-space: nowrap;
+		overflow: hidden;
+		background-color: rgba(0, 0, 0, 0.1);
+		background: linear-gradient(to bottom, rgba(230, 230, 230, 0.1) 0%, rgba(0, 0, 0, 0.1) 100%);
+		filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, StartColorStr="rgba(230, 230, 230, 0.1)", EndColorStr="rgba(0, 0, 0, 0.1)");
+		-webkit-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		user-select: none;
+		text-decoration: none;
+		outline: none;
+		text-overflow: ellipsis;
+	}
+
+	.dt-buttons {
+		display: none !important;
+	}
+</style>
+
+<div class="card" style="overflow-x: auto">
+	<div class="card-header">
+		<h2 class="text-center">Individual Report</h2>
+	</div>
+
+	<div class="card-body">
+		@Html.AntiForgeryToken()
+
+		<div class="form-horizontal mb-10">
+
+			@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+			<div class="form-group d-flex">
+				<div class="col-md-6">
+					@Html.LabelFor(model => model.Staff_Id, htmlAttributes: new { @class = "control-label col-md-2" })
+
+					@Html.EditorFor(model => model.Staff_Id, new { htmlAttributes = new { @class = "form-control" } })
+					@Html.ValidationMessageFor(model => model.Staff_Id, "", new { @class = "text-danger" })
+				</div>
+
+				<div class="col-md-6">
+					@Html.LabelFor(model => model.DateFrom, htmlAttributes: new { @class = "control-label col-md-2" })
+
+					@Html.EditorFor(model => model.DateFrom, new { htmlAttributes = new { @class = "form-control" } })
+					@Html.ValidationMessageFor(model => model.DateFrom, "", new { @class = "text-danger" })
+				</div>
+
+			</div>
+
+
+			<div class="form-group d-flex ">
+
+
+				<div class="col-md-6">
+					@Html.LabelFor(model => model.DateTo, htmlAttributes: new { @class = "control-label col-md-2" })
+
+					@Html.EditorFor(model => model.DateTo, new { htmlAttributes = new { @class = "form-control" } })
+					@Html.ValidationMessageFor(model => model.DateTo, "", new { @class = "text-danger" })
+				</div>
+			</div>
+
+			<div class="col-md-6 d-flex mt-4">
+				<div class=" col-md-2">
+					<input type="submit" value="Submit" class="btn btn-primary" id="btnSubmit" />
+				</div>
+
+			</div>
+		</div>
+
+		<div style="text-align: right; margin-top: 1rem;">
+			<button id="pdf-btn">PDF</button>
+			<button id="excel-btn">Excel</button>
+		</div>
+		<table class="table table-bordered table-striped  " style="overflow-x: auto" id="example">
+			<thead>
+				<tr>
+					<th>SNo.</th>
+					<th>
+						Staff Id
+					</th>
+					<th>
+						First Name
+					</th>
+					<th>
+						Last Name
+					</th>
+					<th>
+						Department
+					</th>
+					<th>
+						Branch
+					</th>
+					<th>Date</th>
+					<th>Time In</th>
+					<th>Time Out</th>
+					<th>Total Working Hours</th>
+					<th> Percentage Hours</th>
+					<th> OverTime Hours</th>
+					<th> Status</th>
+				</tr>
+			</thead>
+
+			<tbody></tbody>
+
+			<tfoot>
+				<tr>
+					@*<th colspan="4" style="text-align:right">Total:</th>*@
+					<th></th>
+					<th></th>
+					<th></th>
+					<th></th>
+					<th></th>
+					<th></th>
+					<th></th>
+					<th></th>
+					<th></th>
+					<th></th>
+					<th></th>
+					<th></th>
+					<th></th>
+					
+				</tr>
+			</tfoot>
+
+		</table>
+
+	</div>
+</div>
+@section scripts
+{
+	<script>
+
+		$.fn.dataTable.ext.search.push(
+
+
+			function (settings, data, dataIndex) {
+
+				var staffId = document.getElementById("Staff_Id").value
+				var dateFrom1 = document.getElementById("DateFrom").value;
+				var dateTo1 = document.getElementById("DateTo").value;
+				var dateFrom = moment(document.getElementById("DateFrom").value).format('DD/MM/YYYY');
+				var dateTo = moment(document.getElementById("DateTo").value).format('DD/MM/YYYY');
+
+				var date_data = data[6];
+				var staffId_data = data[1];
+				console.log(dateTo);
+				//var TotalPrice = Convert.ToDecimal(dt.Compute("SUM(staffId_data)", string.Empty));
+				//console.log(TotalPrice);
+				if (
+					(staffId === 'All' && dateFrom1 === "" && dateTo1 === "" && staffId_data.includes("") && date_data.includes("")) ||
+
+					(staffId_data.includes(staffId) && date_data >= dateFrom && date_data <= dateTo) ||
+
+					(staffId === 'All' && date_data >= dateFrom && date_data <= dateTo) ||
+
+					(staffId === 'All' && dateFrom1 === "" && date_data <= dateTo) ||
+
+					(staffId === 'All' && date_data >= dateFrom && dateTo1 === "") ||
+
+					(staffId_data.includes(staffId) && dateFrom1 === "" && dateTo1 === "") ||
+
+					(staffId_data.includes(staffId) && date_data >= dateFrom && dateTo1 === "") ||
+
+					(staffId_data.includes(staffId) && dateFrom1 === "" && date_data <= dateTo)
+
+				) return true;
+
+				return false;
+			}
+		);
+
+		function filterButtonHandler() {
+			var $filterButton = $('#btnSubmit');
+			var datatable = new $.fn.dataTable.Api('#example');
+
+			$filterButton.on('click', function (e) {
+				e.preventDefault();
+
+				console.log($filterButton);
+				console.log(datatable);
+
+				datatable.draw();
+			});
+		}
+
+
+	</script>
+
+	<script>
+		var pdfDoc;
+		$(document).ready(function () {
+			//jQuery.fn.dataTable.Api.register( 'sum()', function ( ) {
+   //     return this.flatten().reduce( function ( a, b ) {
+   //       if ( typeof a === 'string' ) {
+   //         a = a.replace(/[^\d.-]/g, '') * 1;
+   //       }
+   //       if ( typeof b === 'string' ) {
+   //         b = b.replace(/[^\d.-]/g, '') * 1;
+   //       }
+
+   //       return a + b;
+   //     }, 0 );
+  	//});
+
+    //jQuery.fn.dataTable.Api.register('sum()', function () {
+    //    return this.flatten().reduce(function (a, b) {
+    //        if (typeof a === 'string') {
+    //            a = a.replace(/[^\d.-]/g, '') * 1;
+    //        }
+    //        if (typeof b === 'string') {
+    //            b = b.replace(/[^\d.-]/g, '') * 1;
+    //        }
+    //        return a + b;
+    //    }, 0);
+    //});
+
+    //function formatNumber(num, isDollars) {
+    //    if (num && isDollars) {
+    //        return `$${num.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`;
+    //    }
+    //    return num.toFixed(2);
+    //}
+			$('#example').DataTable({
+				footerCallback: function (row, data, start, end,display) {
+
+					var api = this.api();
+
+					        var intVal = function (i) {
+                              return typeof i === 'string' ? i.replace(/[\$,]/g, '') * 1 : typeof i === 'number' ? i : 0;
+                           };
+
+					       total = api
+							.column(11)
+							.data()
+							.reduce(function (a, b) {
+								return intVal(a) + intVal(b);
+							}, 0);
+ 
+						// Total over this page
+						pageTotal = api
+							.column(11, { page: 'current' })
+							.data()
+							.reduce(function (a, b) {
+								return intVal(a) + intVal(b);
+							}, 0);
+ 
+					// Update footer
+					$(api.column(11).footer()).html(' total: ' + total.toFixed(2));
+
+				},
+
+				
+				dom: 'lBfrtip',
+				buttons: [
+					// 'copy', 'csv', 'excel', 'pdf', 'print'
+					//'excel', 'pdf';
+
+					{
+						extend: 'excel',
+						title: "Individual Report",
+					},
+					{
+						extend: 'pdfHtml5',
+						text: 'PDF',
+						title: "Individual Report",
+
+						customize: function (doc) {
+							pdfDoc = doc;
+
+							doc.pageSize = 'A4';
+							doc.pageOrientation = 'landscape';
+							doc.content[1].table.widths = ['auto', 'auto', 'auto', 'auto', 'auto', 'auto', 'auto','auto','auto','auto','auto','auto','auto'];
+
+							// Change dataTable layout (Table styling)
+							// To use predefined layouts uncomment the line below and comment the custom lines below
+							doc.content[1].layout = 'lightHorizontalLines'; // noBorders , headerLineOnly
+
+							var objLayout = {};
+							objLayout['hLineWidth'] = function (i) { return .25; };
+							objLayout['vLineWidth'] = function (i) { return .25; };
+							//objLayout['hLineColor'] = function (i) { return '#aaa'; };
+							objLayout['hLineColor'] = function (i) { return '#CCCDD0'; };
+							objLayout['vLineColor'] = function (i) { return '#CCCDD0'; };
+							objLayout['paddingLeft'] = function (i) { return 4; };
+							objLayout['paddingRight'] = function (i) { return 4; };
+							doc.content[1].layout = objLayout;
+
+
+							//Serial numbers
+							var tableBodyRows = doc.content[1].table.body;
+
+							$.each(tableBodyRows, function (index, tbody_row) {
+								if (index > 0) {
+
+									tbody_row[0]["text"] = index + '.';
+
+									tbody_row[0].alignment = 'center';
+									tbody_row[4].alignment = 'center';
+									tbody_row[5].alignment = 'right';
+									tbody_row[6].alignment = 'right';
+								}
+							});
+						}
+					}
+				],
+				//data
+				ajax: {
+					url: '@Url.Action("IndividualReport")',
+					type: "POST",
+					dataType: "json"
+				},
+
+				columns: [
+					{data: 'sno'},
+					{data: 'StaffId'},
+					{data: 'firstName'},
+					{data: 'LastName'},
+					{data: 'DepartmentStr'},
+					{data: 'BranchStr'},
+					{data: 'Date'},
+					{
+						data: 'TimeIn',
+						render: function (data, type, row) {
+							if (data !== null) {
+								return data;
+							} else {
+								return '_';
+							}
+						}
+					},
+					{
+						data: 'TimeOut',
+						render: function (data, type, row) {
+							if (data !== null) {
+								return data;
+							} else {
+								return '_';
+							}
+						}
+					},
+					{
+						data: 'TotalStaffHours',
+						render: function (data, type, row) {
+							if (data != null) {
+								return data;
+							} else {
+								return '<i class="text-center">_</i>';
+							}
+						}
+					},
+					{
+						data: 'PercentageHours',
+						render: function (data, type, row) {
+							if (data != null) {
+								return data;
+							} else {
+								return '_';
+							}
+						}
+					},
+					{
+						data: 'OverTimeHours',
+						render: function (data, type, row) {
+							if (data != null) {
+								return data;
+							} else {
+								return '_';
+							}
+						}
+					},
+					{data: 'status'}
+				],
+
+			});
+
+			filterButtonHandler();
+			pdfButtonHandler();
+			excelButtonHandler();
+		});
+
+		function filterButtonHandler() {
+			var $filterButton = $('#btnSubmit');
+			var datatable = new $.fn.dataTable.Api('#example');
+
+			$filterButton.on('click', function (e) {
+				e.preventDefault();
+
+				datatable.draw();
+			});
+		}
+
+		function pdfButtonHandler() {
+			var $pdfButton = $('#pdf-btn');
+
+			$pdfButton.on('click', function (e) {
+				e.preventDefault();
+				$('.dt-button.buttons-pdf.buttons-html5').click();
+			});
+		}
+
+		function excelButtonHandler() {
+			var $excelButton = $('#excel-btn');
+
+			$excelButton.on('click', function (e) {
+				e.preventDefault();
+				$('.dt-button.buttons-excel.buttons-html5').click();
+			});
+		}
+		
+	</script>
+
+
+}

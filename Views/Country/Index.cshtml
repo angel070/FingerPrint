@@ -1,0 +1,117 @@
+@model IEnumerable<FingerPrint.Models.Country>
+
+@{
+	ViewBag.Title = "Index";
+}
+
+
+
+<div class="card">
+	<div class="card-header">
+		<h2 class="text-center">List Of Countries</h2>
+
+	</div>
+	<div class="card-body">
+		
+		@if (Session["UserRoles"].ToString() == "Admin")
+		{
+		  <p style="text-align:right"> <a href="/Country/Create" class="btn btn-primary mb-4 mt-4 text-right">Create</a></p> 
+		}
+
+		<table class="table table-bordered table-striped" id="example">
+			<thead>
+				<tr>
+					<th>
+						@Html.DisplayNameFor(model => model.Name)
+					</th>
+					<th>Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (var item in Model)
+				{
+					<tr >
+						<td id="country">
+							
+							@Html.DisplayFor(modelItem => item.Name)
+						</td>
+						<td>
+							@Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-primary"})|
+							<a href="#" id="showModal" class="btn btn-danger" onclick="Confirm(@item.Id)">Delete</a>
+						</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+
+		<input type="hidden" id="CountryDelete" />
+		<div class="modal fade" id="deleteModal">
+			
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h2 class="modal-title"> Confirm</h2>
+						@TempData["CountryDelete"]
+					</div>
+					<div class="modal-body">
+						<h4>Are you sure you want to delete this country?</h4>
+						
+					</div>
+					<div class="modal-footer">
+						<div class="form-group">
+							<a href="#" id="btnDelete" class="btn btn-primary">Delete</a>
+							<a href="#" id="btnCancel" class="btn btn-primary">Cancel</a>
+							
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+@section scripts{
+	<script>
+		$(document).ready(function () {
+
+			$('#example').DataTable();
+
+
+			$(document).ready(function () {
+				$("#btnCancel").click(function () {
+					window.location.href = "/Country/Index";
+				});
+			});
+
+			$("#btnDelete").click(function () {
+				var _id = $("#CountryDelete").val();
+				
+				$.ajax({
+					type: "POST",
+					url: "/Country/Delete",
+					data: { id: _id },
+					success: function (data) {	
+						if (data) {
+							
+							//const country = document.getElementById("country");
+							//country.remove();
+							$("#deleteModal").modal('hide');
+							$("#CountryDelete").val(null);
+							window.location.href = "/Country/Index";
+							alert(data.message);
+						}
+						else {
+							$("#deleteModal").modal('hide');
+							alert(data.message);
+						}
+					}
+				});
+			});
+
+		});
+		var Confirm = function (id) {
+			$("#CountryDelete").val(id);
+			$("#deleteModal").modal('show');
+		}
+	</script>
+
+}

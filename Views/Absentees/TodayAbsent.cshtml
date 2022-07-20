@@ -1,0 +1,242 @@
+@model IEnumerable<FingerPrint.Models.StaffCheckInAndOutReport>
+
+@{
+	ViewBag.Title = "TodayAbsent";
+}
+<h2>TodayAbsent</h2>
+<style>
+	.container {
+		padding: 2rem;
+	}
+
+	button {
+		position: relative;
+		display: inline-block;
+		box-sizing: border-box;
+		margin-left: .167em;
+		margin-right: .167em;
+		margin-bottom: .333em;
+		padding: .5em 1em;
+		border: 1px solid rgba(0, 0, 0, 0.3);
+		border-radius: 2px;
+		cursor: pointer;
+		font-size: .88em;
+		line-height: 1.6em;
+		color: black;
+		white-space: nowrap;
+		overflow: hidden;
+		background-color: rgba(0, 0, 0, 0.1);
+		background: linear-gradient(to bottom, rgba(230, 230, 230, 0.1) 0%, rgba(0, 0, 0, 0.1) 100%);
+		filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, StartColorStr="rgba(230, 230, 230, 0.1)", EndColorStr="rgba(0, 0, 0, 0.1)");
+		-webkit-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		user-select: none;
+		text-decoration: none;
+		outline: none;
+		text-overflow: ellipsis;
+	}
+
+	.dt-buttons {
+		display: none !important;
+	}
+</style>
+
+
+<div style="text-align: right; margin-top: 1rem;">
+	<button id="pdf-btn">PDF</button>
+	<button id="excel-btn">Excel</button>
+</div>
+<table class="table table-bordered table-striped" id="example">
+	<thead>
+		<tr>
+			<th>
+				@Html.DisplayNameFor(model => model.StaffId)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.firstName)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.LastName)
+			</th>
+
+			<th>
+				@Html.DisplayNameFor(model => model.DepartmentStr)
+			</th>
+
+			<th>
+				@Html.DisplayNameFor(model => model.BranchStr)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Date)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.TimeIn)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.TimeOut)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.status)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.TotalStaffHours)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.PercentageHours)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.OverTimeHours)
+			</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var item in Model)
+		{
+
+			<tr>
+				<td>
+					@Html.DisplayFor(modelItem => item.StaffId)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.firstName)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.LastName)
+				</td>
+
+				<td>
+					@Html.DisplayFor(modelItem => item.DepartmentStr)
+				</td>
+
+				<td>
+					@Html.DisplayFor(modelItem => item.BranchStr)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Date)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.TimeIn)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.TimeOut)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.status)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.TotalStaffHours)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.PercentageHours)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.OverTimeHours)
+				</td>
+				<td>
+					@Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+					@Html.ActionLink("Details", "Details", new { id = item.Id }) |
+					@Html.ActionLink("Delete", "Delete", new { id = item.Id })
+				</td>
+			</tr>
+		}
+	</tbody>
+
+</table>
+
+@section scripts{
+	<script>
+		var pdfDoc;
+		$(document).ready(function () {
+			$('#example').DataTable({
+				dom: 'lBfrtip',
+				buttons: [
+					// 'copy', 'csv', 'excel', 'pdf', 'print'
+					//'excel', 'pdf';
+
+					{
+						extend: 'excel',
+						title: "Absent Employees Report",
+					},
+					{
+						extend: 'pdfHtml5',
+						text: 'PDF',
+						title: "Absent Employees Report",
+
+						customize: function (doc) {
+							pdfDoc = doc;
+
+							//doc.pageSize = 'A6';
+							//doc.pageOrientation = 'landscape';
+							doc.content[1].table.widths = ['auto', 'auto', 'auto', 'auto', 'auto', 'auto', 'auto'];
+
+							// Change dataTable layout (Table styling)
+							// To use predefined layouts uncomment the line below and comment the custom lines below
+							doc.content[1].layout = 'lightHorizontalLines'; // noBorders , headerLineOnly
+
+							var objLayout = {};
+							objLayout['hLineWidth'] = function (i) { return .25; };
+							objLayout['vLineWidth'] = function (i) { return .25; };
+							//objLayout['hLineColor'] = function (i) { return '#aaa'; };
+							objLayout['hLineColor'] = function (i) { return '#CCCDD0'; };
+							objLayout['vLineColor'] = function (i) { return '#CCCDD0'; };
+							objLayout['paddingLeft'] = function (i) { return 4; };
+							objLayout['paddingRight'] = function (i) { return 4; };
+							doc.content[1].layout = objLayout;
+
+
+							//Serial numbers
+							var tableBodyRows = doc.content[1].table.body;
+
+							$.each(tableBodyRows, function (index, tbody_row) {
+								if (index > 0) {
+
+									tbody_row[0]["text"] = index + '.';
+
+									tbody_row[0].alignment = 'center';
+									tbody_row[4].alignment = 'center';
+									tbody_row[5].alignment = 'right';
+									tbody_row[6].alignment = 'right';
+								}
+							});
+						}
+					}
+				]
+			});
+
+			filterButtonHandler();
+			pdfButtonHandler();
+			excelButtonHandler();
+		});
+
+		function filterButtonHandler() {
+			var $filterButton = $('#filter-btn');
+			var datatable = new $.fn.dataTable.Api('#example');
+
+			$filterButton.on('click', function (e) {
+				e.preventDefault();
+
+				datatable.draw();
+			});
+		}
+
+		function pdfButtonHandler() {
+			var $pdfButton = $('#pdf-btn');
+
+			$pdfButton.on('click', function (e) {
+				e.preventDefault();
+				$('.dt-button.buttons-pdf.buttons-html5').click();
+			});
+		}
+
+		function excelButtonHandler() {
+			var $excelButton = $('#excel-btn');
+
+			$excelButton.on('click', function (e) {
+				e.preventDefault();
+				$('.dt-button.buttons-excel.buttons-html5').click();
+			});
+		}
+	</script>
+}

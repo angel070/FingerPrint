@@ -1,0 +1,137 @@
+﻿@model FingerPrint.Models.Staff
+
+
+@{
+
+    ViewBag.Title = "Fingerprint";
+}
+
+<div class="row">
+    <div class="col-3">
+
+        <div class="card ">
+            <div class="card-header">
+                NUMBER OF USERS
+            </div>
+
+            <div class="card-body text-center">
+                @*
+                    @ViewBag.totalStaffs*@
+            </div>
+        </div>
+    </div>
+
+    <div class="col-3">
+
+        <div class="card ">
+            <div class="card-header">
+                REGISTERED EVENTS
+            </div>
+
+            <div class="card-body text-center">
+               
+            </div>
+        </div>
+    </div>
+
+    <div class="col-3">
+
+        <div class="card ">
+            <div class="card-header">
+                COMPLETED EVENTS
+            </div>
+
+            <div class="card-body text-center">
+               
+            </div>
+        </div>
+    </div>
+
+    <div class="col-3">
+
+        <div class="card ">
+            <div class="card-header">
+                UPCOMING EVENTS
+            </div>
+
+            <div class="card-body text-center">
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="row">
+
+
+
+    <div class="col-6">
+        <div class="card " style="height:350px;width:480px">
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+
+            <canvas id="myChart" style="width:100%;max-width:480px;height:350px"></canvas>
+
+            <script>
+                var xValues = ["Jan", "feb", "Mar", "Apr", "May", "june", "july", "Aug", "Sept", "Oct", "Nov", "Dec"];
+                var yValues = [1, 2, 10,74, 8,20,100,34,49,20,17,43];
+                var barColors = ["red", "green", "blue", "orange", "brown", "grey", "indigo", "black", "violet", "yellow", "maroon", "olive"];
+
+                new Chart("myChart", {
+                    type: "bar",
+                    data: {
+                        labels: xValues,
+                        datasets: [{
+                            backgroundColor: barColors,
+                            data: yValues
+                        }]
+                    },
+                    options: {
+                        legend: { display: false },
+                        title: {
+                            display: true,
+                            text: "TOTAL NUMBER OF CUSTOMERS EACH MONTH"
+                        }
+                    }
+                });
+            </script>
+        </div>
+    </div>
+
+
+    <div class="col-6">
+        <div id="piechart"></div>
+
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+        <script type="text/javascript">
+            // Load google charts7
+            google.charts.load('current', { 'packages': ['corechart'] });
+            google.charts.setOnLoadCallback(drawChart);
+
+            // Draw the chart and set the chart values
+            function drawChart() {
+                var data = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                    ['GENERATED CARDS', 6],
+                    ['FAILED CARDS', 2],
+                ]);
+
+                // Optional; add a title and set the width and height of the chart
+                var options = { 'title': 'CARD DETAILS', 'width': 550, 'height': 350 };
+
+                // Display the chart inside the <div> element with id="piechart"
+                var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+                chart.draw(data, options);
+            }
+        </script>
+
+    </div>
+</div>
+
+
+
+
+
+

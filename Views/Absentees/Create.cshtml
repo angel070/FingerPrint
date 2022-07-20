@@ -1,0 +1,326 @@
+@model FingerPrint.View_Model.DateRangeViewModel
+
+@{
+	ViewBag.Title = "LateStaffs";
+}
+
+<style>
+	.container {
+		padding: 2rem;
+	}
+
+	button {
+		position: relative;
+		display: inline-block;
+		box-sizing: border-box;
+		margin-left: .167em;
+		margin-right: .167em;
+		margin-bottom: .333em;
+		padding: .5em 1em;
+		border: 1px solid rgba(0, 0, 0, 0.3);
+		border-radius: 2px;
+		cursor: pointer;
+		font-size: .88em;
+		line-height: 1.6em;
+		color: black;
+		white-space: nowrap;
+		overflow: hidden;
+		background-color: rgba(0, 0, 0, 0.1);
+		background: linear-gradient(to bottom, rgba(230, 230, 230, 0.1) 0%, rgba(0, 0, 0, 0.1) 100%);
+		filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, StartColorStr="rgba(230, 230, 230, 0.1)", EndColorStr="rgba(0, 0, 0, 0.1)");
+		-webkit-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		user-select: none;
+		text-decoration: none;
+		outline: none;
+		text-overflow: ellipsis;
+	}
+
+	.dt-buttons {
+		display: none !important;
+	}
+</style>
+
+
+<div class="card">
+	<div class="card-header">
+		<h2 class="text-center"> Absentees Report </h2>
+	</div>
+	<div class="card-body">
+		@using (Html.BeginForm())
+		{
+			@Html.AntiForgeryToken()
+
+			<div class="form-horizontal">
+				@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+				<div class="form-group d-flex">
+					@if (Session["UserRoles"].ToString() == "Admin")
+					 {
+						<div class="col-md-6">
+
+							@Html.LabelFor(model => model.Branch, htmlAttributes: new { @class = "control-label col-md-2" })
+
+							@Html.DropDownList("BranchId", ViewBag.branches as SelectList, "All", new { @class = "form-control" })
+							@Html.ValidationMessageFor(model => model.Branch, "", new { @class = "text-danger" })
+						</div>
+					 }
+					<div class="col-md-6">
+						@Html.LabelFor(model => model.Department, htmlAttributes: new { @class = "control-label col-md-" })
+
+						@Html.DropDownList("Id", ViewBag.Departments as SelectList, "All", new { @class = "form-control" })
+						@Html.ValidationMessageFor(model => model.Department, "", new { @class = "text-danger" })
+					</div>
+				</div>
+
+				<div class="d-flex col-md-12">
+					<div class="col-md-6">
+						@Html.LabelFor(model => model.DateFrom, htmlAttributes: new { @class = "control-label col-md-2" })
+						<div class="col-md-10">
+							@Html.EditorFor(model => model.DateFrom, new { htmlAttributes = new { @class = "form-control" } })
+							@Html.ValidationMessageFor(model => model.DateFrom, "", new { @class = "text-danger" })
+						</div>
+					</div>
+
+					<div class="col-md-6">
+						@Html.LabelFor(model => model.DateTo, htmlAttributes: new { @class = "control-label col-md-2" })
+						<div class="col-md-10">
+							@Html.EditorFor(model => model.DateTo, new { htmlAttributes = new { @class = "form-control" } })
+							@Html.ValidationMessageFor(model => model.DateTo, "", new { @class = "text-danger" })
+						</div>
+					</div>
+				</div>
+
+				<div class="form-group mt-2">
+					<div class="col-md-offset-2 col-md-10">
+						<input type="submit" value="Submit" id="btnSubmit" class="btn btn-primary" />
+					</div>
+				</div>
+			</div>
+
+			<div style="text-align: right; margin-top: 1rem;">
+				<button id="pdf-btn">PDF</button>
+				<button id="excel-btn">Excel</button>
+			</div>
+
+			<table class="table table-bordered table-striped" style="overflow-x:auto" id="example">
+				<thead>
+					<tr>
+						<th>SNo.</th>
+						<th>
+							Staff Id
+						</th>
+						<th>
+							First Name
+						</th>
+						<th>
+							Last Name
+						</th>
+						<th>
+							Department
+						</th>
+						<th>
+							Branch
+						</th>
+						<th>Date</th>
+						<th>status</th>
+
+					</tr>
+				</thead>
+
+				<tbody></tbody>
+
+				<tfoot>
+
+				</tfoot>
+
+			</table>
+		}
+
+	</div>
+</div>
+
+@section scripts
+{
+	<script>
+
+		$.fn.dataTable.ext.search.push(
+			function (settings, data, dataIndex) {
+				var branch = $('#BranchId option:selected').text();
+				var department = $('#Id option:selected').text();
+				var dateFrom1 = document.getElementById("DateFrom").value;
+				var dateTo1 = document.getElementById("DateTo").value;
+
+				var dateFrom = moment(document.getElementById("DateFrom").value).format('DD/MM/YYYY');
+				var dateTo = moment(document.getElementById("DateTo").value).format('DD/MM/YYYY');
+
+				console.log(branch,department);
+				var branch_data = data[5];
+				var department_data = data[4];
+				var date_data = data[6];
+
+				if (
+					(branch === 'All' && department === 'All' && dateFrom1 === "" && dateTo1 === "" && branch_data.includes("") && department_data.includes("") && date_data.includes("")) ||
+
+					(branch_data.includes(branch) && department_data.includes(department) && date_data >= dateFrom && date_data <= dateTo)|| 
+
+					(branch === 'All' && department_data.includes(department) && date_data >= dateFrom && date_data <= dateTo) ||
+
+					(branch_data.includes(branch) && department === 'All' && date_data >= dateFrom && date_data <= dateTo) ||
+
+					(branch === 'All' && department === 'All' && date_data >= dateFrom && date_data <= dateTo) ||
+
+					(branch_data.includes(branch) && department_data.includes(department) && date_data >= dateFrom && dateTo1 ==="") ||
+
+					(branch_data.includes(branch) && department_data.includes(department) && dateFrom1 === "" && dateTo1 === "") ||
+
+					(branch === '' && department === 'All' && dateFrom1 === "" && dateTo1 === "" ) 
+					) return true;
+
+				return false;
+			}
+		);
+
+		function filterButtonHandler() {
+			var $filterButton = $('#btnSubmit');
+			var datatable = new $.fn.dataTable.Api('#example');
+
+			$filterButton.on('click', function (e) {
+				e.preventDefault();
+
+				console.log($filterButton);
+				console.log(datatable);
+
+				datatable.draw();
+			});
+		}
+
+	</script>
+
+	<script>
+		var pdfDoc;
+		$(document).ready(function () {
+
+			$('#btnSubmit').on('click', function (e) {
+				e.preventDefault();
+				var datatable = new $.fn.dataTable.Api('#example');
+
+				console.log(datatable);
+
+				datatable.draw();
+            });
+
+			$('#example').DataTable({
+				dom: 'lBfrtip',
+				buttons: [
+					// 'copy', 'csv', 'excel', 'pdf', 'print'
+					//'excel', 'pdf';
+
+					{
+						extend: 'excel',
+						title: "Absentees Report",
+					},
+					{
+						extend: 'pdfHtml5',
+						text: 'PDF',
+						title: "Absentees Report",
+
+						customize: function (doc) {
+							pdfDoc = doc;
+
+							doc.pageSize = 'A4';
+							doc.pageOrientation = 'potrait';
+							doc.content[1].table.widths = ['auto', 'auto', '*', '*', '*', '*', '*','*'];
+
+							// Change dataTable layout (Table styling)
+							// To use predefined layouts uncomment the line below and comment the custom lines below
+							doc.content[1].layout = 'lightHorizontalLines'; // noBorders , headerLineOnly
+
+							var objLayout = {};
+							objLayout['hLineWidth'] = function (i) { return .25; };
+							objLayout['vLineWidth'] = function (i) { return .25; };
+							//objLayout['hLineColor'] = function (i) { return '#aaa'; };
+							objLayout['hLineColor'] = function (i) { return '#CCCDD0'; };
+							objLayout['vLineColor'] = function (i) { return '#CCCDD0'; };
+							objLayout['paddingLeft'] = function (i) { return 4; };
+							objLayout['paddingRight'] = function (i) { return 4; };
+							doc.content[1].layout = objLayout;
+
+
+							//Serial numbers
+							var tableBodyRows = doc.content[1].table.body;
+
+							$.each(tableBodyRows, function (index, tbody_row) {
+								if (index > 0) {
+
+									tbody_row[0]["text"] = index + '.';
+
+									tbody_row[1].alignment = 'center';
+									tbody_row[4].alignment = 'left';
+									tbody_row[5].alignment = 'left';
+									tbody_row[6].alignment = 'left';
+								}
+							});
+						}
+					}
+				],
+
+				//data
+				ajax: {
+					url: '@Url.Action("Absentees")',
+					type: "POST",
+					dataType: "json"
+				},
+
+				columns: [
+					{data: 'sno'},
+					{data: 'StaffId'},
+					{data: 'firstName'},
+					{data: 'LastName'},
+					{data: 'DepartmentStr'},
+					{data: 'BranchStr'},
+					{data: 'Date'},
+					{data: 'status'},
+					
+				],
+			});
+
+			filterButtonHandler();
+			pdfButtonHandler();
+			excelButtonHandler();
+		});
+
+		function filterButtonHandler() {
+			var $filterButton = $('#filter-btn');
+			var datatable = new $.fn.dataTable.Api('#example');
+
+			$filterButton.on('click', function (e) {
+				e.preventDefault();
+
+				datatable.draw();
+			});
+		}
+
+		function pdfButtonHandler() {
+			var $pdfButton = $('#pdf-btn');
+
+			$pdfButton.on('click', function (e) {
+				e.preventDefault();
+				$('.dt-button.buttons-pdf.buttons-html5').click();
+			});
+		}
+
+		function excelButtonHandler() {
+			var $excelButton = $('#excel-btn');
+
+			$excelButton.on('click', function (e) {
+				e.preventDefault();
+				$('.dt-button.buttons-excel.buttons-html5').click();
+			});
+		}
+	</script>
+
+}
+
+

@@ -1,0 +1,137 @@
+@model IEnumerable<FingerPrint.Models.Leave>
+
+@{
+	ViewBag.Title = "Index";
+}
+
+
+<div class="card">
+	<div class="card-header">
+		<h4 class="text-center">Leave</h4>
+	</div>
+	<div class="card-body">
+		<p style="text-align:right"><a href="~/Leave/Create" class="btn btn-primary  mb-4 mt-1" style="margin-left:830px">Create</a></p>
+		<table class="table table-bordered table-striped">
+			<tr>
+				<th>
+					@Html.DisplayNameFor(model => model.StaffId)
+				</th>
+				<th>
+					@Html.DisplayNameFor(model => model.LeaveType)
+				</th>
+
+				<th>
+					@Html.DisplayNameFor(model => model.DateFrom)
+				</th>
+				<th>
+					@Html.DisplayNameFor(model => model.DateTo)
+				</th>
+				<th>
+					@Html.DisplayNameFor(model => model.TotalDays)
+				</th>
+
+				<th>Action</th>
+			</tr>
+
+			@foreach (var item in Model)
+			{
+				<tr>
+					<td>
+						@Html.DisplayFor(modelItem => item.StaffId)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.LeaveType.Type)
+					</td>
+
+					<td>
+						@Html.DisplayFor(modelItem => item.DateFrom)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.DateTo)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.TotalDays)
+					</td>
+
+					<td>
+						@Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-primary" })   |
+						<a href="#" id="showModal" class="btn btn-danger" onclick="Confirm(@item.Id)">Delete</a>
+					</td>
+				</tr>
+			}
+
+		</table>
+
+		<input type="hidden" id="LeaveDelete" />
+
+		<div class="modal fade" id="deleteModal">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h2 class="modal-title"> Confirm</h2>
+					</div>
+					<div class="modal-body">
+						<h4>Are you sure you want to delete?</h4>
+					</div>
+					<div class="modal-footer">
+						<div class="form-group">
+							<a href="#" id="btnDelete" class="btn btn-primary">Delete</a>
+							<a href="#" id="btnCancel" class="btn btn-primary">Cancel</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+@section scripts{
+	<script>
+		$(document).ready(function () {
+			$('#example').DataTable();
+
+			$(document).ready(function () {
+				$("#btnCancel").click(function () {
+					window.location.href = "/Leave/Index";
+				});
+			});
+
+			$("#btnDelete").click(function () {
+				var _id = $("#LeaveDelete").val();
+
+				$.ajax({
+					type: "POST",
+					url: "/Leave/Delete",
+					data: { id: _id },
+					success: function (data) {
+						if (data.status) {
+							$("#deleteModal").modal('hide');
+							$("#LeaveDelete").val(null);
+							alert(data.message);
+
+							window.location.href = "/LeaveDelete/Index";
+						}
+						else {
+							$("#deleteModal").modal('hide');
+							alert(data.message);
+
+						}
+					}
+				});
+			});
+		});
+
+		var Confirm = function (id) {
+			$("#LeaveDelete").val(id);
+			$("#deleteModal").modal('show');
+		}
+
+
+
+		$("#btnPdf").click(function () {
+			var element = document.getElementById('example');
+			html2pdf(element);
+		});
+
+	</script>
+}

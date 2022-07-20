@@ -1,0 +1,285 @@
+﻿
+@{
+    ViewBag.Title = "EventAdminDashboard";
+}
+
+<h2>Event Admin Dashboard</h2>
+
+
+
+<div class="row text-lg-center">
+
+
+    <div class="col-4">
+
+        <div class="card ">
+            <div class="card-header">
+                NUMBER OF INVITEES
+            </div>
+
+            <div class="card-body text-center">
+                @ViewBag.totalUsers
+            </div>
+        </div>
+    </div>
+
+    <div class="col-4">
+
+        <div class="card ">
+            <div class="card-header">
+                CHECKED IN GUESTS
+            </div>
+
+            <div class="card-body text-center">
+                @ViewBag.totalBranches
+            </div>
+        </div>
+    </div>
+
+    <div class="col-4">
+
+        <div class="card ">
+            <div class="card-header">
+                REMAINED GUESTS
+            </div>
+
+            <div class="card-body text-center">
+                @ViewBag.totalBranches
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@*<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+*@
+<div class="row mt-4">
+
+    <div class="col-6">
+        <div class="card " style="height:350px;width:480px">
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+
+            <canvas id="myChart" style="width:100%;max-width:480px;height:350px"></canvas>
+
+            <script>
+                var xValues = ["Food", "Drinks", "Music", "Hall", "Decoration", "Maids", "Mc"];
+                var yValues = [1000000, 200000, 1000000, 740000, 80000, 2000000, 1000000, 34000];
+                var barColors = ["red", "green", "blue", "orange", "brown", "grey", "indigo", "black"];
+
+                new Chart("myChart", {
+                    type: "bar",
+                    data: {
+                        labels: xValues,
+                        datasets: [{
+                            backgroundColor: barColors,
+                            data: yValues
+                        }]
+                    },
+                    options: {
+                        legend: { display: false },
+                        title: {
+                            display: true,
+                            text: "BUDGET"
+                        }
+                    }
+                });
+            </script>
+        </div>
+    </div>
+
+    <div class="col-6">
+        <div id="piechart"></div>
+
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+        <script type="text/javascript">
+            // Load google charts7
+            google.charts.load('current', { 'packages': ['corechart'] });
+            google.charts.setOnLoadCallback(drawChart);
+
+            // Draw the chart and set the chart values
+            function drawChart() {
+                var data = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                    [' CONTRIBUTION', 60000000],
+                    ['REMAINED AMOUNT', 20000000],
+                ]);
+
+                // Optional; add a title and set the width and height of the chart
+                var options = { 'title': 'CONTRIBUTION', 'width': 550, 'height': 350 };
+
+                // Display the chart inside the <div> element with id="piechart"
+                var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+                chart.draw(data, options);
+            }
+        </script>
+
+    </div>
+</div>
+
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+<div class="row">
+    <div class="col-6">
+        <div class="card">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Contribution Summary</h6>
+                </div>
+                <div class="card-body">
+                    <h4 class="small font-weight-bold">
+                        Number of People contributed <span class="float-right" style="margin-left:200px">20%</span>
+                    </h4>
+                    <div class="progress mb-4">
+                        <div class="progress-bar bg-danger" role="progressbar" style="width: 20%"
+                             aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                    <h4 class="small font-weight-bold">
+                        People who contributed 100% <span class="float-right" style="margin-left:150px">Completed</span>
+                    </h4>
+                    <div class="progress mb-4">
+                        <div class="progress-bar bg-warning" role="progressbar" style="width: 100%"
+                             aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                    <h4 class="small font-weight-bold">
+                        People contributed above 50%<span class="float-right" style="margin-left:200px">60%</span>
+                    </h4>
+                    <div class="progress mb-4">
+                        <div class="progress-bar" role="progressbar" style="width: 60%"
+                             aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                    <h4 class="small font-weight-bold">
+                        People contributed below 50% <span class="float-right" style="margin-left:195px">80%</span>
+                    </h4>
+                    <div class="progress mb-4">
+                        <div class="progress-bar bg-info" role="progressbar" style="width: 80%"
+                             aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                    <h4 class="small font-weight-bold">
+                        Not yet contributed<span class="float-right" style="margin-left:255px">40%</span>
+                    </h4>
+                    <div class="progress">
+                        <div class="progress-bar bg-success" role="progressbar" style="width: 40%"
+                             aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-6">
+        <div class="card">
+            <div class="card-body">
+                <canvas id="myChart" style="width:100%; max-width:4px; height:0px"></canvas>
+
+
+                <script type="text/javascript">
+                    window.onload = function () {
+                        var chart = new CanvasJS.Chart("chartContainer",
+                            {
+                                title: {
+                                    text: "ESTIMATED BUDGET VS ACTUAL BUDGET"
+
+                                },
+                                data: [{
+                                    type: "column",
+                                    dataPoints: [
+                                        { x: 10, y: 200 },
+                                        { x: 20, y: 155 },
+                                        { x: 30, y: 150 },
+                                        { x: 40, y: 165 },
+                                        { x: 50, y: 195 },
+                                        { x: 60, y: 168 },
+                                        { x: 70, y: 128 },
+                                        { x: 80, y: 134 },
+                                        { x: 90, y: 114 }
+                                    ]
+                                },
+                                {
+                                    type: "line",
+                                    dataPoints: [
+                                        { x: 10, y: 71 },
+                                        { x: 20, y: 55 },
+                                        { x: 30, y: 50 },
+                                        { x: 40, y: 65 },
+                                        { x: 50, y: 95 },
+                                        { x: 60, y: 68 },
+                                        { x: 70, y: 28 },
+                                        { x: 80, y: 34 },
+                                        { x: 90, y: 14 }
+                                    ]
+                                }
+
+                                ]
+                            });
+
+                        chart.render();
+                    }
+                </script>
+                <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+
+                <div id="chartContainer" style="height: 300px; width: 100%;">
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="chartjs-doughnut">
+
+</div>
+
+<script>
+    new Chart(document.getElementById("chartjs-doughnut"), {
+        type: "doughnut",
+        data: {
+            labels: ["Social", "Search Engines", "Direct", "Other"],
+            datasets: [{
+                data: [260, 125, 54, 146],
+                backgroundColor: [
+                    window.theme.primary,
+                    window.theme.success,
+                    window.theme.warning,
+                    "#dee2e6"
+                ],
+                borderColor: "transparent"
+            }]
+        },
+        options: {
+            maintainAspectRatio: false,
+            cutoutPercentage: 65,
+        }
+    });
+</script>
+
+<div id="chart1"></div>
+<link rel="stylesheet" type="text/css" href="http://www.shieldui.com/shared/components/latest/css/light/all.min.css" />
+<script type="text/javascript" src="http://www.shieldui.com/shared/components/latest/js/shieldui-all.min.js"></script>
+
+<script>
+    jQuery(function ($) {
+        var data1 = [12, 3, 4, 2, 12, 3, 4, 17, 22, 34, 54, 67];
+        var data2 = [3, 9, 12, 14, 22, 32, 45, 12, 67, 45, 55, 7];
+        var data3 = [23, 19, 11, 134, 242, 352, 435, 22, 637, 445, 555, 57];
+
+        $("#chart1").shieldChart({
+            exportOptions: {
+                image: false,
+                print: false
+            },
+            axisY: {
+                title: {
+                    text: "Break-Down for selected quarter"
+                }
+            },
+            dataSeries: [{
+                seriesType: "bar",
+                data: data1
+            }]
+        });
+</script>
