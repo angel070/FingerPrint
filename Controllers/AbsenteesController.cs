@@ -89,9 +89,14 @@ namespace FingerPrint.Controllers
 		
 		public ActionResult TodayAbsent()
 		{
-			DateTime dat = DateTime.Now.Date;
-			ViewBag.TodayAbsent = _context.StaffCheckInAndOutReports.Where(c => c.status == "Absent" && c.Date == dat).ToList();
-			return View(ViewBag.TodayAbsent);
+			if (Session["UserRoles"] != null)
+			{
+				DateTime dat = DateTime.Now.Date;
+			   ViewBag.TodayAbsent = _context.StaffCheckInAndOutReports.Where(c => c.status == "Absent" && c.Date == dat).ToList();
+			  return View(ViewBag.TodayAbsent);
+			}
+			else
+				return Json("Login", "User");
 		}
 
     }

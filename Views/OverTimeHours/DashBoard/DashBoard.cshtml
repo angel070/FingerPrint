@@ -1,0 +1,50 @@
+
+@{
+    ViewBag.Title = "DashBoard";
+}
+
+<h2>DashBoard</h2>
+
+<div class="row">
+	<div class="col-3">
+		<div class="card">
+			<div class="card-header text-center">
+				Total Branches
+			</div>
+			<div class="card-body text-center">
+				@ViewBag.Branches
+			</div>
+		</div>
+	</div>
+
+	<div class="col-3">
+		<div class="card">
+			<div class="card-header text-center">
+				Total Departments
+			</div>
+			<div class="card-body text-center">
+				@ViewBag.Departments
+			</div>
+		</div>
+	</div>
+	<div class="col-3">
+		<div class="card">
+			<div class="card-header text-center">
+				Total Users
+			</div>
+			<div class="card-body text-center">
+				@ViewBag.Users
+			</div>
+		</div>
+	</div>
+	<div class="col-3">
+		<div class="card">
+			<div class="card-header text-center">
+				Total Employees
+			</div>
+			<div class="card-body text-center">
+				@ViewBag.staff
+			</div>
+		</div>
+	</div>
+</div>

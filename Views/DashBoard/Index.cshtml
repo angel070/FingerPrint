@@ -13,116 +13,179 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
 
 </head>
-    <body class="sb-na-fixed">
-       
-            <div id="layoutSidenav_content">
-                <main>
-					<div class="container-fluid px-4">
-						<h1 class="text-center text-uppercase mb-2">Admin Dashboard</h1>
-						@*<ol class="breadcrumb mb-4 text-center">
-			<li class="breadcrumb-item active text-uppercase"> Admin Dashboard</li>
-		</ol>*@
-						<div class="row">
-							<div class="col-xl-3 col-md-6">
-								<div class="card bg-primary text-white mb-4">
-									<div class="card-body text-center">
-										Total Employees<br />
-										@ViewBag.Staff
-									</div>
-									<div class="card-footer d-flex align-items-center justify-content-between">
-										<a class="small text-white stretched-link" href="~/Staff/Index">View Details</a>
-										<div class="small text-white"><i class="fas fa-angle-right"></i></div>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-3 col-md-6">
-								<div class="card bg-success text-white mb-4">
-									<div class="card-body text-center">
-										Present<br />
-										@ViewBag.Present
-									</div>
+<body class="sb-na-fixed">
 
-									<div class="card-footer d-flex align-items-center justify-content-between">
-										<a class="small text-white stretched-link" href="~/StaffCheckInAndOut/Present">View Details</a>
-										<div class="small text-white"><i class="fas fa-angle-right"></i></div>
-									</div>
-								</div>
+	<div id="layoutSidenav_content">
+		<main>
+			<div class="container-fluid px-4">
+				<h1 class="text-center text-uppercase mb-2">Admin Dashboard</h1>
+				@*<ol class="breadcrumb mb-4 text-center">
+						<li class="breadcrumb-item active text-uppercase"> Admin Dashboard</li>
+					</ol>*@
+				<div class="row">
+					<div class="col-xl-3 col-md-6">
+						<div class="card bg-primary text-white mb-4">
+							<div class="card-body text-center">
+								Total Employees<br />
+								@ViewBag.Staff
 							</div>
-							<div class="col-xl-3 col-md-6">
-								<div class="card bg-warning text-white mb-4">
-									<div class="card-body text-center">
-										Absent<br />
-										@ViewBag.TodayAbsent
-									</div>
-									<div class="card-footer d-flex align-items-center justify-content-between">
-										<a class="small text-white stretched-link" href="~/Absentees/TodayAbsent">View Details</a>
-										<div class="small text-white"><i class="fas fa-angle-right"></i></div>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-3 col-md-6">
-								<div class="card bg-danger text-white mb-4">
-									<div class="card-body text-center">
-										Late Comers<br />
-										@ViewBag.LateReport
-									</div>
-									<div class="card-footer d-flex align-items-center justify-content-between">
-										<a class="small text-white stretched-link" href="~/StaffCheckInAndOut/LateEmployees">View Details</a>
-										<div class="small text-white"><i class="fas fa-angle-right"></i></div>
-									</div>
-								</div>
+							<div class="card-footer d-flex align-items-center justify-content-between">
+								<a class="small text-white stretched-link" href="~/Staff/Index">View Details</a>
+								<div class="small text-white"><i class="fas fa-angle-right"></i></div>
 							</div>
 						</div>
-
-						<div>
-
 					</div>
-                 </div>
-          
-                </main>
-                
-            </div>
-			<div class="card col-6">
-				<canvas id="myChart" style="width:50%;"></canvas>
+					<div class="col-xl-3 col-md-6">
+						<div class="card bg-success text-white mb-4">
+							<div class="card-body text-center">
+								Present<br />
+								@ViewBag.Present
+							</div>
+
+							<div class="card-footer d-flex align-items-center justify-content-between">
+								<a class="small text-white stretched-link" href="~/StaffCheckInAndOut/Present">View Details</a>
+								<div class="small text-white"><i class="fas fa-angle-right"></i></div>
+							</div>
+						</div>
+					</div>
+					<div class="col-xl-3 col-md-6">
+						<div class="card bg-warning text-white mb-4">
+							<div class="card-body text-center">
+								Absent<br />
+								@ViewBag.TodayAbsent
+							</div>
+							<div class="card-footer d-flex align-items-center justify-content-between">
+								<a class="small text-white stretched-link" href="~/Absentees/TodayAbsent">View Details</a>
+								<div class="small text-white"><i class="fas fa-angle-right"></i></div>
+							</div>
+						</div>
+					</div>
+					<div class="col-xl-3 col-md-6">
+						<div class="card bg-danger text-white mb-4">
+							<div class="card-body text-center">
+								Late Comers<br />
+								@ViewBag.LateReport
+							</div>
+							<div class="card-footer d-flex align-items-center justify-content-between">
+								<a class="small text-white stretched-link" href="~/StaffCheckInAndOut/LateEmployees">View Details</a>
+								<div class="small text-white"><i class="fas fa-angle-right"></i></div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div>
+
+				</div>
 			</div>
+
+		</main>
+
+	</div>
+    <div class="row">
+        <div class="col-6">
+            <div class="card">
+                <canvas id="doughnutChart" ></canvas>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="card " style="height:50%">
+                <canvas id="barChart" style="height:50%" ></canvas>
+            </div>
+        </div>
+    </div>
+	<table class="table table-bordered table-striped" >
+		<tr>
+			<th> Branch</th>
+			<th>Today Present</th>
+			<th>Today Absent</th>
+		</tr>
+		<tbody>
+
+			@foreach (var item in ViewBag.AllBranches)
+			 {
+			<tr>
+				<td>@item.Name</td>
+
+			
+	
+
+				<td>@ViewBag.TotalBranchEmployee</td>
+
+
+				
+
+			</tr>
+			 }
 		
 
-		<script>
-			var xValues = ["Branches", "Departments", "Users"];
-			var yValues = [@ViewBag.Branches, @ViewBag.Departments, @ViewBag.Users];
-			var barColors = [
-			  "#b91d47",
-			  "#00aba9",
-			  "#2b5797"
-			
-			];
+		</tbody>
 
-			new Chart("myChart", {
-			  type: "doughnut",
-			  data: {
-				labels: xValues,
-				datasets: [{
-				  backgroundColor: barColors,
-				  data: yValues
-				}]
-			  },
-			  options: {
-				title: {
-				  display: true,
-				  //text: "World Wide mmWine Production 2018"
-				}
-			  }
-			});
+	</table>
 
+
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+
+	<script>
+		var xDoughnutValues = ["Branches", "Departments", "Users"];
+					var yDoughnutValues = [@ViewBag.Branches, @ViewBag.Departments, @ViewBag.Users];
+					var doughnutColors = [
+						"#b91d47",
+						"#00aba9",
+						"#2b5797"
+
+					];
+					new Chart("doughnutChart", {
+					type: "doughnut",
+					data: {
+							labels: xDoughnutValues,
+						datasets: [{
+								backgroundColor: doughnutColors,
+							data: yDoughnutValues
+
+						}]
+                    },
+            options: {
+					title: {
+						display: true,
+                    //text: "World Wide mmWine Production 2018"
+                }
+					}
+				});
+
+		
+
+		//var xValues = ["Food", "Drinks", "Music", "Hall", "Decoration", "Maids", "Mc"];
+		//var yValues = [1000000, 200000, 1000000, 740000, 80000, 2000000, 1000000, 34000];
+		//var barColors = ["red", "green", "blue", "orange", "brown", "grey", "indigo", "black"];
+
+		//new Chart("barChart", {
+		//	type: "bar",
+		//	data: {
+		//		labels: xValues,
+		//		datasets: [{
+		//			backgroundColor: barColors,
+		//			data: yValues
+		//		}]
+		//	},
+		//	options: {
+		//		legend: { display: false },
+		//		title: {
+		//			display: true,
+		//			text: "BUDGET"
+		//		}
+		//	}
+		//});
 
     </script>
-                                   
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-        <script src="~/dash/js/scripts.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
-        <script src="~/dash/assets/demo/chart-area-demo.js"></script>
-        <script src="~/dash/assets/demo/chart-bar-demo.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
-        <script src="~/dash/js/datatables-simple-demo.js"></script>
-    </body>
+
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+	<script src="~/dash/js/scripts.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+	<script src="~/dash/assets/demo/chart-area-demo.js"></script>
+	<script src="~/dash/assets/demo/chart-bar-demo.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
+	<script src="~/dash/js/datatables-simple-demo.js"></script>
+</body>
 </html>

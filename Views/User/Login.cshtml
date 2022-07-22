@@ -24,8 +24,9 @@
         }
 
         .card {
-            padding: 50px 50px;
+            padding: 50px 70px;
         }
+      
        
     </style>
 </head>
@@ -33,13 +34,13 @@
     
     <div id="login-div">
        
-        <div class="card">
+        <div class="card">  
             <div class="card-body">
                 @using (Html.BeginForm())
                 {
                     @Html.AntiForgeryToken()
 
-					<img src="~/assets/images/BSL-logo.png" style="width:80px"/>
+					<img  src="~/assets/images/biz_logo_circle1.png" style="width: 100px;margin-left:25%;margin-top:3px"/>
                     <div class="form-horizontal">
                         <h4 class="text-center">Login</h4>
                         <hr />

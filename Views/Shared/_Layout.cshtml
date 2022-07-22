@@ -40,9 +40,10 @@
 			<h2 style="margin-left:180px">ATTENDANCE MANAGEMENT SYSTEM</h2>
 			<ul style="margin-right:40px">
 				<li class="nav-item dropdown">
+					
 					<a class="nav-link dropdown-toggle text-white  " href="#" role="button" data-bs-toggle="dropdown" style="text-align:right">@Session["UserRoles"]</a>
 					<ul class="dropdown-menu">
-						<li><a class="dropdown-item text-white" href="#">Change Password</a></li>
+						<li><a class="dropdown-item " href="~/ChangePassword/Create">Change Password</a></li>
 						<li><a class="dropdown-item" href="~/User/Logout">Logout</a></li>
 					</ul>
 				</li>
@@ -92,58 +93,59 @@
 									</ul>
 								</div>
 							</li>
-						 }
-					
-							<li class="sidebar-item">
-								<a href="~/TimeInAndOut/Index" class='sidebar-link' onclick="
-                               toggle_active_class()">
-									<i class="bi bi-alarm-fill"></i>
-									<span>Set Time</span>
-								</a>
-							</li>
-							<li class="sidebar-item">
-								<a href="~/Holiday/Index" class='sidebar-link' onclick="
-                               toggle_active_class()">
-									<i class="bi bi-calendar-check-fill"></i>
-									<span>Holidays</span>
-								</a>
-							</li>
-							<li class="sidebar-item">
-								<a href="~/Staff/Index" class='sidebar-link' onclick="
-                               toggle_active_class()">
-									<i class="bi bi-people-fill"></i>
-									<span>Staff</span>
-								</a>
-							</li>
+						}
 
-							<li class="sidebar-item">
-								<div class="dropdown">
-									<a class=" dropdown-toggle sidebar-link" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-										<i class="bi bi-file-bar-graph-fill"></i>
-										<span>Reports</span>
-									</a>
+						<li class="sidebar-item">
+							<a href="~/TimeInAndOut/Index" class='sidebar-link' onclick="
+                               toggle_active_class()">
+								<i class="bi bi-alarm-fill"></i>
+								<span>Set Time</span>
+							</a>
+						</li>
+						
+						<li class="sidebar-item">
+							<a href="~/Holiday/Index" class='sidebar-link' onclick="
+                               toggle_active_class()">
+								<i class="bi bi-calendar-check-fill"></i>
+								<span>Holidays</span>
+							</a>
+						</li>
+						<li class="sidebar-item">
+							<a href="~/Staff/Index" class='sidebar-link' onclick="
+                               toggle_active_class()">
+								<i class="bi bi-people-fill"></i>
+								<span>Staff</span>
+							</a>
+						</li>
 
-									<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-										<li><a class="dropdown-item" href="~/StaffCheckInAndOut/Index"> Attendance</a></li>
-										<li><a class="dropdown-item" href="~/DailyReport/Create">Daily Report</a></li>
-										<li><a class="dropdown-item" href="~/BranchReport/Create">Branch Report</a></li>
-										<li><a class="dropdown-item" href="~/DepartmentReport/Create">Department Report</a></li>
-										<li><a class="dropdown-item" href="~/DateRange/DateRange">Individual Report</a></li>
-										<li><a class="dropdown-item" href="~/LateReport/LateStaffs">Late Report</a></li>
-										<li><a class="dropdown-item" href="~/OverTimeHours/Index">OverTimeReport</a></li>
-										<li><a class="dropdown-item" href="~/Absentees/Create">Absentees Report</a></li>
-									</ul>
-								</div>
-							</li>
-
-							<li class="sidebar-item  ">
-								<a href="~/User/Logout" class='sidebar-link'>
-									<form id="logout-form" action="#" method="POST"
-										  class="d-none"></form> <i class="bi bi-box-arrow-down-right"></i>
-									<span> Logout </span>
+						<li class="sidebar-item">
+							<div class="dropdown">
+								<a class=" dropdown-toggle sidebar-link" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+									<i class="bi bi-file-bar-graph-fill"></i>
+									<span>Reports</span>
 								</a>
-							</li>
-						</ul>
+
+								<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+									<li><a class="dropdown-item" href="~/StaffCheckInAndOut/Index"> Attendance</a></li>
+									<li><a class="dropdown-item" href="~/DailyReport/Create">Daily Report</a></li>
+									<li><a class="dropdown-item" href="~/BranchReport/Create">Branch Report</a></li>
+									<li><a class="dropdown-item" href="~/DepartmentReport/Create">Department Report</a></li>
+									<li><a class="dropdown-item" href="~/DateRange/DateRange">Individual Report</a></li>
+									<li><a class="dropdown-item" href="~/LateReport/LateStaffs">Late Report</a></li>
+									<li><a class="dropdown-item" href="~/OverTimeHours/Index">OverTimeReport</a></li>
+									<li><a class="dropdown-item" href="~/Absentees/Create">Absentees Report</a></li>
+								</ul>
+							</div>
+						</li>
+
+						<li class="sidebar-item  ">
+							<a href="~/User/Logout" class='sidebar-link'>
+								<form id="logout-form" action="#" method="POST"
+									  class="d-none"></form> <i class="bi bi-box-arrow-down-right"></i>
+								<span> Logout </span>
+							</a>
+						</li>
+					</ul>
 
 				</div>
 				<button class="sidebar-toggler btn x"><i data-feather="x"></i></button>
@@ -160,11 +162,11 @@
 			@RenderBody()
 
 
-			<footer style="Scroll-behavior:auto; text-align:center">
+			<footer style="top:100%; position:fixed; height:100% ; margin-left:20%" class="text-center">
 				<div class="footer clearfix mb-0 text-muted footer-static ">
 
-					<div>
-						<p class="m-lg-4">
+					<div class="text-center">
+						<p class="m-lg-4 ">
 							@DateTime.Now.Year &copy; Bizlogic Solutions Company Ltd <a href="http://ahmadsaugi.com">
 							</a>
 						</p>

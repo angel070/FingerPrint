@@ -21,39 +21,53 @@ namespace FingerPrint.Controllers
         {
             _context = new FingerContext();
         }
-        // GET: User
-        public ActionResult Index()
-		{	
-				var user = _context.Users.Include(c=>c.UserRoles).Include(u=>u.Branch).ToList();
-              return View(user);
-			
-		}
+		// GET: User
+		public ActionResult Index()
+		{
+			if (Session["userRoles"] != null)
+			{
+				var user = _context.Users.Include(c => c.UserRoles).Include(u => u.Branch).ToList();
+				return View(user);
+
+			}
+			else
+				return RedirectToAction("login", "user");
+		
+
+	    }
 
 		public ActionResult Create()
-		{	
+		{
+			if (Session["userRoles"] != null)
+			{
 				ViewBag.Users = new SelectList(_context.Roles, "Id", "Name");
 				ViewBag.Branches = new SelectList(_context.Branches, "Id", "Name");
 				return View();
-	    }
+
+			}
+			else
+				return RedirectToAction("login", "user");
+		}
 
 	[HttpPost]
         public ActionResult Create(User _user)
         {
-		
+			if (Session["userRoles"] != null)
+			{
 				if (!ModelState.IsValid)
 					return View("Create", _user);
 
-				/*  if (_context.Users.Where(u => u.Email == _user.Email).Any())
-				  {
-
-					  ModelState.AddModelError("Email","Email Already Exists");
-					  return View("Create", _user);
-				  }*/
-
+			     _user.Username = _user.Email;
+			     _user.Password = _user.Email;
+			      _user.IsActive = true;
 				_context.Users.Add(_user);
 				_context.SaveChanges();
 
 				return RedirectToAction("Index");
+			}
+			else
+				return RedirectToAction("login", "user");
+
 		}
 
 		public ActionResult Edit(int? id)
@@ -164,7 +178,7 @@ namespace FingerPrint.Controllers
             Session.RemoveAll();
             Session.Remove("UserRoles");
             Session.Abandon();
-            return RedirectToAction("Login");
+            return RedirectToAction("CheckId");
         }
 
         public ActionResult CheckId()

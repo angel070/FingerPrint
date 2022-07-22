@@ -18,24 +18,26 @@ namespace FingerPrint.Controllers
 		// GET: TodaysReport
 		public ActionResult Index()
 		{
-			var dt = DateTime.Now.Date;
-			var today = _context.StaffCheckInAndOutReports.Where(c => c.Date == dt).ToList();
-			return View(today);
+			if (Session["UserRoles"] != null)
+			{
+				var dt = DateTime.Now.Date;
+			   var today = _context.StaffCheckInAndOutReports.Where(c => c.Date == dt).ToList();
+			   return View(today);
+			}
+			else
+				return RedirectToAction("Login", "User");
 		}
 		public ActionResult Create()
 		{
-			//if (Session["UserRoles"] != null)
-			//{
-			ViewBag.branches = new SelectList(_context.Branches, "id", "name");
+			if (Session["UserRoles"] != null)
+			{
+				ViewBag.branches = new SelectList(_context.Branches, "id", "name");
 			ViewBag.departments = new SelectList(_context.Departments, "id", "name");
-			//	var dt = DateTime.Now.Date;
-			//	var today = _context.StaffCheckInAndOutReports.Where(c => c.Date == dt).ToList();
-			//	return View(today);
-			//}
-			//else
-			//	return RedirectToAction("Login", "User");
-			return View();
-
+				
+				return View();
+			}
+			else
+				return RedirectToAction("Login", "User");
 		}
 
 		[HttpPost]

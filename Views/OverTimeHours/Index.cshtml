@@ -52,52 +52,56 @@
 		{
 			@Html.AntiForgeryToken()
 
-			<div class="form-horizontal">
-				@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+		<div class="form-horizontal">
+			@Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-				<div class="form-group d-flex">
-					@if (Session["UserRoles"].ToString() == "Admin")
-					{
-						<div class="col-md-6">
-							@Html.LabelFor(model => model.Branch, htmlAttributes: new { @class = "control-label col-md-2" })
-
-							@Html.DropDownList("BranchId", ViewBag.branches as SelectList, "All", new { @class = "form-control" })
-							@Html.ValidationMessageFor(model => model.Branch, "", new { @class = "text-danger" })
-						</div>
-					}
-
-						<div class="col-md-6">
-							@Html.LabelFor(model => model.Department, htmlAttributes: new { @class = "control-label col-md-" })
-
-							@Html.DropDownList("Id", ViewBag.Departments as SelectList, "All", new { @class = "form-control" })
-							@Html.ValidationMessageFor(model => model.Department, "", new { @class = "text-danger" })
-						</div>
-					</div>
-
-				<div class="d-flex col-md-12">
-					<div class="col-md-6">
-						@Html.LabelFor(model => model.DateFrom, htmlAttributes: new { @class = "control-label col-md-2" })
-						<div class="col-md-10">
-							@Html.EditorFor(model => model.DateFrom, new { htmlAttributes = new { @class = "form-control" } })
-							@Html.ValidationMessageFor(model => model.DateFrom, "", new { @class = "text-danger" })
-						</div>
-					</div>
-
-					<div class="col-md-6">
-						@Html.LabelFor(model => model.DateTo, htmlAttributes: new { @class = "control-label col-md-2" })
-						<div class="col-md-10">
-							@Html.EditorFor(model => model.DateTo, new { htmlAttributes = new { @class = "form-control" } })
-							@Html.ValidationMessageFor(model => model.DateTo, "", new { @class = "text-danger" })
-						</div>
+			<div class="d-flex col-md-12">
+				<div class="col-md-6">
+					@Html.LabelFor(model => model.DateFrom, htmlAttributes: new { @class = "control-label col-md-2" })
+					<div class="col-md-10">
+						@Html.EditorFor(model => model.DateFrom, new { htmlAttributes = new { @class = "form-control" } })
+						@Html.ValidationMessageFor(model => model.DateFrom, "", new { @class = "text-danger" })
 					</div>
 				</div>
 
-				<div class="form-group mt-2">
-					<div class="col-md-offset-2 col-md-10">
-						<input type="submit" value="Submit" id="btnSubmit" class="btn btn-primary" />
+				<div class="col-md-6">
+					@Html.LabelFor(model => model.DateTo, htmlAttributes: new { @class = "control-label col-md-2" })
+					<div class="col-md-10">
+						@Html.EditorFor(model => model.DateTo, new { htmlAttributes = new { @class = "form-control" } })
+						@Html.ValidationMessageFor(model => model.DateTo, "", new { @class = "text-danger" })
 					</div>
 				</div>
 			</div>
+
+			<div class="form-group d-flex">
+				<div class="col-md-6">
+					@Html.LabelFor(model => model.Department, htmlAttributes: new { @class = "control-label col-md-" })
+
+					@Html.DropDownList("Id", ViewBag.Departments as SelectList, "All", new { @class = "form-control" })
+					@Html.ValidationMessageFor(model => model.Department, "", new { @class = "text-danger" })
+				</div>
+
+				@if (Session["UserRoles"].ToString() == "Admin")
+				{
+					<div class="col-md-6">
+						@Html.LabelFor(model => model.Branch, htmlAttributes: new { @class = "control-label col-md-2" })
+
+						@Html.DropDownList("BranchId", ViewBag.branches as SelectList, "All", new { @class = "form-control" })
+						@Html.ValidationMessageFor(model => model.Branch, "", new { @class = "text-danger" })
+					</div>
+				}
+
+
+			</div>
+
+
+
+			<div class="form-group mt-2">
+				<div class="col-md-offset-2 col-md-10">
+					<input type="submit" value="Submit" id="btnSubmit" class="btn btn-primary" />
+				</div>
+			</div>
+		</div>
 
 			<div style="text-align: right; margin-top: 1rem;">
 				<button id="pdf-btn">PDF</button>

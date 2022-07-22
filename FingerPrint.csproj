@@ -145,6 +145,7 @@
     <Compile Include="Controllers\BasicSchedulerController.cs" />
     <Compile Include="Controllers\BranchController.cs" />
     <Compile Include="Controllers\BranchReport.cs" />
+    <Compile Include="Controllers\ChangePasswordController.cs" />
     <Compile Include="Controllers\CountryController.cs" />
     <Compile Include="Controllers\DashBoardController.cs" />
     <Compile Include="Controllers\DateRangeController.cs" />
@@ -361,6 +362,18 @@
     <Compile Include="Migrations\202207200845585_migrationToAllFields.designer.cs">
       <DependentUpon>202207200845585_migrationToAllFields.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202207210716436_ModifyTableUsers1.cs" />
+    <Compile Include="Migrations\202207210716436_ModifyTableUsers1.designer.cs">
+      <DependentUpon>202207210716436_ModifyTableUsers1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202207210847437_ModifyTableNamePassword.cs" />
+    <Compile Include="Migrations\202207210847437_ModifyTableNamePassword.designer.cs">
+      <DependentUpon>202207210847437_ModifyTableNamePassword.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202207210852213_ModifyTableNamePasswo.cs" />
+    <Compile Include="Migrations\202207210852213_ModifyTableNamePasswo.designer.cs">
+      <DependentUpon>202207210852213_ModifyTableNamePasswo.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Branch.cs" />
     <Compile Include="Models\Event.cs" />
@@ -379,6 +392,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="View_Model\BranchCountryViewModel.cs" />
+    <Compile Include="View_Model\ChangePasswordViewModel.cs" />
     <Compile Include="View_Model\CheckIdViewModel.cs" />
     <Compile Include="View_Model\DepartmentViewModel.cs" />
     <Compile Include="View_Model\DateRangeViewModel.cs" />
@@ -2619,6 +2633,7 @@
     <Content Include="Scripts\dhtmlxScheduler\locale\recurring\repeat_template_ro.html" />
     <Content Include="Scripts\dhtmlxScheduler\locale\recurring\repeat_template_ru.html" />
     <Content Include="Scripts\dhtmlxScheduler\locale\recurring\repeat_template_sk.html" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.6.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.6.0.js" />
     <Content Include="Scripts\jquery-3.6.0.min.js" />
@@ -2654,6 +2669,7 @@
     <Content Include="Views\Country\Edit.cshtml" />
     <Content Include="Views\Absentees\TodayAbsent.cshtml" />
     <Content Include="Views\Absentees\Create.cshtml" />
+    <Content Include="Views\ChangePassword\Create.cshtml" />
     <None Include="Views\DashBoard\Index.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -2876,6 +2892,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202207200845585_migrationToAllFields.resx">
       <DependentUpon>202207200845585_migrationToAllFields.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202207210716436_ModifyTableUsers1.resx">
+      <DependentUpon>202207210716436_ModifyTableUsers1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202207210847437_ModifyTableNamePassword.resx">
+      <DependentUpon>202207210847437_ModifyTableNamePassword.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202207210852213_ModifyTableNamePasswo.resx">
+      <DependentUpon>202207210852213_ModifyTableNamePasswo.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
