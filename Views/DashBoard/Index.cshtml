@@ -12,22 +12,30 @@
 	<script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
 
+	<link rel="stylesheet" type="text/css" href="~/Datatable/datatables.min.css" />
+
 </head>
 <body class="sb-na-fixed">
 
 	<div id="layoutSidenav_content">
 		<main>
 			<div class="container-fluid px-4">
-				<h1 class="text-center text-uppercase mb-2">Admin Dashboard</h1>
-				@*<ol class="breadcrumb mb-4 text-center">
-						<li class="breadcrumb-item active text-uppercase"> Admin Dashboard</li>
-					</ol>*@
+				@if (Session["UserRoles"].ToString() == "Admin")
+				{
+					<h2 class="text-center text-uppercase mb-2">Admin Dashboard</h2>
+				}
+
+				@if (Session["userRoles"].ToString() == "Branch")
+				{
+					<h3 class="text-center text-uppercase mb-2"> @Session["UserBranchName"] Branch Dashboard</h3>
+				}
+
 				<div class="row">
 					<div class="col-xl-3 col-md-6">
 						<div class="card bg-primary text-white mb-4">
 							<div class="card-body text-center">
 								Total Employees<br />
-								@ViewBag.Staff
+								@ViewBag.staff
 							</div>
 							<div class="card-footer d-flex align-items-center justify-content-between">
 								<a class="small text-white stretched-link" href="~/Staff/Index">View Details</a>
@@ -82,48 +90,60 @@
 		</main>
 
 	</div>
-    <div class="row">
-        <div class="col-6">
-            <div class="card">
-                <canvas id="doughnutChart" ></canvas>
-            </div>
-        </div>
-        <div class="col-6">
-            <div class="card " style="height:50%">
-                <canvas id="barChart" style="height:50%" ></canvas>
-            </div>
-        </div>
-    </div>
-	<table class="table table-bordered table-striped" >
-		<tr>
-			<th> Branch</th>
-			<th>Today Present</th>
-			<th>Today Absent</th>
-		</tr>
-		<tbody>
-
-			@foreach (var item in ViewBag.AllBranches)
-			 {
-			<tr>
-				<td>@item.Name</td>
-
-			
-	
-
-				<td>@ViewBag.TotalBranchEmployee</td>
 
 
-				
-
-			</tr>
-			 }
-		
-
-		</tbody>
-
-	</table>
+	<div class="row mt-5">
+		<div class="col-6">
+			<div class="card" style="width:80%">
+				<canvas id="doughnutChart" class="p-lg-5"></canvas>
+			</div>
+		</div>
 
 
+		<div class="col-6">
+			@*<div class="card " style="height:50%">
+					<canvas id="barChart" style="height:50%" ></canvas>
+				</div>*@
+
+
+
+			<table class="table table-bordered table-striped" id="example">
+				<tr>
+					<th>
+						@if (Session["userRoles"].ToString() == "Admin")
+						{
+							<p>Branches</p>
+						}
+
+						@if (Session["userRoles"].ToString() == "Branch")
+						{
+							<p> Departments</p>
+						}
+					</th>
+
+
+					<th>Today Present</th>
+					<th>Today Absent</th>
+				</tr>
+				<tbody>
+
+					@foreach (FingerPrint.Models.BranchLog item in ViewBag.TotalBranchEmployee)
+					{
+						<tr>
+							<td>@item.Branch</td>
+
+							<td>@item.StaffPresent</td>
+
+							<td>@item.StaffAbsent</td>
+						</tr>
+					}
+
+				</tbody>
+
+			</table>
+
+		</div>
+	</div>
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 
@@ -154,7 +174,7 @@
 					}
 				});
 
-		
+
 
 		//var xValues = ["Food", "Drinks", "Music", "Hall", "Decoration", "Maids", "Mc"];
 		//var yValues = [1000000, 200000, 1000000, 740000, 80000, 2000000, 1000000, 34000];
@@ -178,8 +198,13 @@
 		//	}
 		//});
 
-    </script>
-
+	</script>
+	<script>
+		$(document).ready(function () {
+			$('#example').DataTable();
+		}
+	</script>
+	<link rel="stylesheet" type="text/css" href="~/Datatable/datatables.min.css" />
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 	<script src="~/dash/js/scripts.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>

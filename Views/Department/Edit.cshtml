@@ -4,7 +4,7 @@
     ViewBag.Title = "Edit";
 }
 
-<div class="card" style="width:600px; margin-left:20%; padding-left:0%;">
+<div class="card" style="width:600px; margin-left:20%;margin-top:17%;padding-left:0%;">
     <div class="card-header">
         <h4 class="text-center">Create Department</h4>
     </div>
@@ -33,7 +33,7 @@
                     <div class="form-group">
                         @Html.LabelFor(model => model.BranchId, htmlAttributes: new { @class = "control-label " })
                         <div class="col-md-10">
-                            @Html.DropDownList("BranchId", ViewBag.department as SelectList, "Select Branch", new { @class = "form-control" })
+                            @Html.DropDownList("BranchId", ViewBag.department as SelectList, "Select Branch", new { @class = "form-select" })
                             @Html.ValidationMessageFor(model => model.BranchId, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -42,7 +42,7 @@
 
                 <div class="form-group d-flex">
                     <div class="col-md-offset-2 col-md-2">
-                        <input type="submit" value="Save" class="btn btn-primary" />
+                        <input type="submit" value="Update" class="btn btn-primary" />
                     </div>
                     <div class="col-md-offset-2 col-md-2">
                         <input type="reset" value="Clear" class="btn btn-primary" />

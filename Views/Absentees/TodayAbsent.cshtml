@@ -3,147 +3,122 @@
 @{
 	ViewBag.Title = "TodayAbsent";
 }
-<h2>TodayAbsent</h2>
-<style>
-	.container {
-		padding: 2rem;
-	}
+<div class="card">
+	<div class="card-header">
+		<h2 class="text-center">TodayAbsent</h2>
+	</div>
+	<div class="card-body">
+		
+		<style>
+			.container {
+				padding: 2rem;
+			}
 
-	button {
-		position: relative;
-		display: inline-block;
-		box-sizing: border-box;
-		margin-left: .167em;
-		margin-right: .167em;
-		margin-bottom: .333em;
-		padding: .5em 1em;
-		border: 1px solid rgba(0, 0, 0, 0.3);
-		border-radius: 2px;
-		cursor: pointer;
-		font-size: .88em;
-		line-height: 1.6em;
-		color: black;
-		white-space: nowrap;
-		overflow: hidden;
-		background-color: rgba(0, 0, 0, 0.1);
-		background: linear-gradient(to bottom, rgba(230, 230, 230, 0.1) 0%, rgba(0, 0, 0, 0.1) 100%);
-		filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, StartColorStr="rgba(230, 230, 230, 0.1)", EndColorStr="rgba(0, 0, 0, 0.1)");
-		-webkit-user-select: none;
-		-moz-user-select: none;
-		-ms-user-select: none;
-		user-select: none;
-		text-decoration: none;
-		outline: none;
-		text-overflow: ellipsis;
-	}
+			button {
+				position: relative;
+				display: inline-block;
+				box-sizing: border-box;
+				margin-left: .167em;
+				margin-right: .167em;
+				margin-bottom: .333em;
+				padding: .5em 1em;
+				border: 1px solid rgba(0, 0, 0, 0.3);
+				border-radius: 2px;
+				cursor: pointer;
+				font-size: .88em;
+				line-height: 1.6em;
+				color: black;
+				white-space: nowrap;
+				overflow: hidden;
+				background-color: rgba(0, 0, 0, 0.1);
+				background: linear-gradient(to bottom, rgba(230, 230, 230, 0.1) 0%, rgba(0, 0, 0, 0.1) 100%);
+				filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, StartColorStr="rgba(230, 230, 230, 0.1)", EndColorStr="rgba(0, 0, 0, 0.1)");
+				-webkit-user-select: none;
+				-moz-user-select: none;
+				-ms-user-select: none;
+				user-select: none;
+				text-decoration: none;
+				outline: none;
+				text-overflow: ellipsis;
+			}
 
-	.dt-buttons {
-		display: none !important;
-	}
-</style>
+			.dt-buttons {
+				display: none !important;
+			}
+		</style>
 
 
-<div style="text-align: right; margin-top: 1rem;">
-	<button id="pdf-btn">PDF</button>
-	<button id="excel-btn">Excel</button>
+		<div style="text-align: right; margin-top: 1rem;">
+			<button id="pdf-btn">PDF</button>
+			<button id="excel-btn">Excel</button>
+		</div>
+		<table class="table table-bordered table-striped" id="example">
+			<thead>
+				<tr>
+					<th>
+						@Html.DisplayNameFor(model => model.StaffId)
+					</th>
+					<th>
+						@Html.DisplayNameFor(model => model.firstName)
+					</th>
+					<th>
+						@Html.DisplayNameFor(model => model.LastName)
+					</th>
+
+					<th>
+						@Html.DisplayNameFor(model => model.DepartmentStr)
+					</th>
+
+					<th>
+						@Html.DisplayNameFor(model => model.BranchStr)
+					</th>
+					<th>
+						@Html.DisplayNameFor(model => model.Date)
+					</th>
+
+					<th>
+						@Html.DisplayNameFor(model => model.status)
+					</th>
+
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (var item in Model)
+				{
+
+					<tr>
+						<td>
+							@Html.DisplayFor(modelItem => item.StaffId)
+						</td>
+						<td>
+							@Html.DisplayFor(modelItem => item.firstName)
+						</td>
+						<td>
+							@Html.DisplayFor(modelItem => item.LastName)
+						</td>
+
+						<td>
+							@Html.DisplayFor(modelItem => item.DepartmentStr)
+						</td>
+
+						<td>
+							@Html.DisplayFor(modelItem => item.BranchStr)
+						</td>
+						<td>
+							@Html.DisplayFor(modelItem => item.Date)
+						</td>
+
+						<td>
+							@Html.DisplayFor(modelItem => item.status)
+						</td>
+
+					</tr>
+				}
+			</tbody>
+
+		</table>
+	</div>
 </div>
-<table class="table table-bordered table-striped" id="example">
-	<thead>
-		<tr>
-			<th>
-				@Html.DisplayNameFor(model => model.StaffId)
-			</th>
-			<th>
-				@Html.DisplayNameFor(model => model.firstName)
-			</th>
-			<th>
-				@Html.DisplayNameFor(model => model.LastName)
-			</th>
-
-			<th>
-				@Html.DisplayNameFor(model => model.DepartmentStr)
-			</th>
-
-			<th>
-				@Html.DisplayNameFor(model => model.BranchStr)
-			</th>
-			<th>
-				@Html.DisplayNameFor(model => model.Date)
-			</th>
-			<th>
-				@Html.DisplayNameFor(model => model.TimeIn)
-			</th>
-			<th>
-				@Html.DisplayNameFor(model => model.TimeOut)
-			</th>
-			<th>
-				@Html.DisplayNameFor(model => model.status)
-			</th>
-			<th>
-				@Html.DisplayNameFor(model => model.TotalStaffHours)
-			</th>
-			<th>
-				@Html.DisplayNameFor(model => model.PercentageHours)
-			</th>
-			<th>
-				@Html.DisplayNameFor(model => model.OverTimeHours)
-			</th>
-			<th></th>
-		</tr>
-	</thead>
-	<tbody>
-		@foreach (var item in Model)
-		{
-
-			<tr>
-				<td>
-					@Html.DisplayFor(modelItem => item.StaffId)
-				</td>
-				<td>
-					@Html.DisplayFor(modelItem => item.firstName)
-				</td>
-				<td>
-					@Html.DisplayFor(modelItem => item.LastName)
-				</td>
-
-				<td>
-					@Html.DisplayFor(modelItem => item.DepartmentStr)
-				</td>
-
-				<td>
-					@Html.DisplayFor(modelItem => item.BranchStr)
-				</td>
-				<td>
-					@Html.DisplayFor(modelItem => item.Date)
-				</td>
-				<td>
-					@Html.DisplayFor(modelItem => item.TimeIn)
-				</td>
-				<td>
-					@Html.DisplayFor(modelItem => item.TimeOut)
-				</td>
-				<td>
-					@Html.DisplayFor(modelItem => item.status)
-				</td>
-				<td>
-					@Html.DisplayFor(modelItem => item.TotalStaffHours)
-				</td>
-				<td>
-					@Html.DisplayFor(modelItem => item.PercentageHours)
-				</td>
-				<td>
-					@Html.DisplayFor(modelItem => item.OverTimeHours)
-				</td>
-				<td>
-					@Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-					@Html.ActionLink("Details", "Details", new { id = item.Id }) |
-					@Html.ActionLink("Delete", "Delete", new { id = item.Id })
-				</td>
-			</tr>
-		}
-	</tbody>
-
-</table>
 
 @section scripts{
 	<script>
@@ -157,12 +132,13 @@
 
 					{
 						extend: 'excel',
-						title: "Absent Employees Report",
+			            title: "Today Absent Report",
+
 					},
 					{
 						extend: 'pdfHtml5',
 						text: 'PDF',
-						title: "Absent Employees Report",
+						title: "Today Absent Report",
 
 						customize: function (doc) {
 							pdfDoc = doc;

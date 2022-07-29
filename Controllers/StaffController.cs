@@ -85,11 +85,11 @@ namespace FingerPrint.Controllers
 				}
 				var nameexits = _context.Staffs.Where(c => c.Staff_id == Staff_id).SingleOrDefault();
 
-				bool UserExists = (nameexits != null)? true: false;
+				bool UserExists = (nameexits != null) ? false : true;
 
 				return Json(UserExists);
 
-			}
+            }
 
 			catch (Exception)
 
@@ -101,18 +101,17 @@ namespace FingerPrint.Controllers
 		[HttpPost]
 		public ActionResult CheckEmailExists(string Email, string Email_clone)
 		{
-
-			bool UserExists = false;
 			try
 			{
-				if (Email == Email_clone) return Json(!UserExists);
-
-
+				if (Email == Email_clone)
+				{
+					return Json(true);
+				}
 				var nameexits = _context.Staffs.Where(c => c.Email == Email).SingleOrDefault();
 
-				var userExists = (nameexits != null) ? true : false;
+				bool UserExists = (nameexits != null) ? false : true;
 
-				return Json(!UserExists);
+				return Json(UserExists);
 
 			}
 
@@ -121,6 +120,25 @@ namespace FingerPrint.Controllers
 			{
 				return Json(false);
 			}
+			//bool UserExists = false;
+			//try
+			//{
+			//	if (Email == Email_clone) return Json(!UserExists);
+
+
+			//	var nameexits = _context.Staffs.Where(c => c.Email == Email).SingleOrDefault();
+
+			//	var userExists = (nameexits != null) ? true : false;
+
+			//	return Json(userExists);
+
+			//}
+
+			//catch (Exception)
+
+			//{
+			//	return Json(false);
+			//}
 		}
 
 		public ActionResult Edit(int? id)

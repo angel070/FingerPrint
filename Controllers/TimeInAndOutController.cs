@@ -50,21 +50,20 @@ namespace FingerPrint.Controllers
 			var timeIn = DateTime.Parse(_time.TimeIn.ToString());
 			var timeOut = DateTime.Parse(_time.TimeOut.ToString());
 			var diff = timeOut - timeIn;
-
+			var hours = diff.TotalMinutes / 60;
 			if (Session["UserRoles"] != null)
 			{
 				if (_time.Id > 0)
 				{
 					_context.Entry(_time).State = System.Data.Entity.EntityState.Modified;
 				}
-
 				var AddedTime = _context.TimeInAndOuts.Where(c=>c.Days == _time.Days && c.BranchId == _time.BranchId && c.DepartmentId == _time.DepartmentId).SingleOrDefault();
 				if( AddedTime != null)
 				{
 					TempData["AddedTime"] = "This Is already Exists";
 					return RedirectToAction("Create");
 				}
-				_time.WorkingHours = diff.Hours;
+				_time.WorkingHours =(decimal) hours;
 				_time.CreatedDate = DateTime.Now.Date;
 				_context.TimeInAndOuts.Add(_time);
 				_context.SaveChanges();
@@ -73,42 +72,6 @@ namespace FingerPrint.Controllers
 			}
 			else
 				return RedirectToAction("Login", "User");
-		}
-
-		public ActionResult CheckDaysExists(DayOfWeek Days)
-		{
-
-			bool UserExists = false;
-			try
-
-			{
-				var Dayexists = _context.TimeInAndOuts.Where(c => c.Days == Days).SingleOrDefault();
-
-				if (Dayexists != null)
-
-				{
-
-					UserExists = true;
-
-				}
-
-				else
-
-				{
-
-					UserExists = false;
-
-				}
-
-				return Json(!UserExists, JsonRequestBehavior.AllowGet);
-
-			}
-
-			catch (Exception)
-
-			{
-				return Json(false, JsonRequestBehavior.AllowGet);
-			}
 		}
 
 		public ActionResult Delete(int ? id)
@@ -134,13 +97,14 @@ namespace FingerPrint.Controllers
 
 		public ActionResult Edit(int? id)
 		{
+			ViewBag.Branches = new SelectList(_context.Branches, "Id", "Name");
+			ViewBag.Departments = new SelectList(_context.Departments, "Id", "Name");
 			if (Session["UserRoles"] != null)
 			{
 				if (id == null)
 				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-				var timeinandout = _context.TimeInAndOuts.SingleOrDefault(c => c.Id == id);
-
+				var timeinandout = _context.TimeInAndOuts.Where(c => c.Id == id).SingleOrDefault();
 				if (timeinandout == null)
 					return HttpNotFound();
 
@@ -155,10 +119,12 @@ namespace FingerPrint.Controllers
 		[HttpPost]
 		public ActionResult Edit(TimeInAndOut time)
 		{
+			
+			DateTime dat = DateTime.Now.Date;
 			if (Session["UserRoles"] != null)
 			{
 				if (time == null)
-				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+					return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
 				if (!ModelState.IsValid)
 				{
@@ -166,21 +132,28 @@ namespace FingerPrint.Controllers
 				}
 
 				var time_data = _context.TimeInAndOuts.Find(time.Id);
-				var ValidateDay = _context.TimeInAndOuts.Where(c => c.Days == time.Days);
-				if(ValidateDay != null)
+				var validateday = _context.TimeInAndOuts.Where(c => c.Days == time.Days);
+				if (validateday == null)
 				{
-					return View("Edit",time);
-				}else
+					return View("edit", time);
+				}
+				ViewBag.Branches = new SelectList(_context.Branches, "Id", "Name");
+				ViewBag.Departments = new SelectList(_context.Departments, "Id", "Name");
 
-				 if(time_data == null)
+				if (time_data == null)
 					return HttpNotFound();
+
+				var timeIn = DateTime.Parse(time.TimeIn.ToString());
+				var timeOut = DateTime.Parse(time.TimeOut.ToString());
+				var diff = timeOut - timeIn;
+				var hours = diff.TotalMinutes / 60;
 
 				time_data.TimeIn = time.TimeIn;
 				time_data.TimeOut = time.TimeOut;
 				time_data.Days = time.Days;
-				time_data.BranchId = time.BranchId;
+				time_data.WorkingHours =(decimal) hours;
 				time_data.DepartmentId = time.DepartmentId;
-				time_data.WorkingHours = time.WorkingHours;
+				time_data.BranchId = time.BranchId;
 				_context.Entry(time_data).State = System.Data.Entity.EntityState.Modified;
 				_context.SaveChanges();
 

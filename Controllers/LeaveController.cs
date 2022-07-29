@@ -47,10 +47,22 @@ namespace FingerPrint.Controllers
 		{
 			if (Session["userRoles"] != null)
 			{
+				var staffNames = _context.Staffs.Where(c => c.Staff_id == _leave.StaffId).SingleOrDefault();
+				
+				if (staffNames == null)
+				{
+					ViewBag.Leaves = new SelectList(_context.LeaveTypes, "Id", "Type");
+					TempData["ExistId"] = "Id does not exist";
+					return View();
+				}
+				ViewBag.Leaves = new SelectList(_context.LeaveTypes, "Id", "Type");
+
 				var timeIn = DateTime.Parse(_leave.DateFrom.ToString());
 				var timeOut = DateTime.Parse(_leave.DateTo.ToString());
 				var diff = timeOut - timeIn;
+				
 				_leave.TotalDays = (double)diff.TotalDays;
+				_leave.Name = staffNames.FirstName + " " + staffNames.LastName;
 				_context.Leaves.Add(_leave);
 				_context.SaveChanges();
 				TempData["test"] = diff;
@@ -90,24 +102,37 @@ namespace FingerPrint.Controllers
 
 			if (Session["UserRoles"] != null)
 			{
-				if (_leave == null)
+			
+				 if (_leave == null)
 					return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
 				if (!ModelState.IsValid)
 				{
 					return View("Edit", _leave);
 				}
+				var timeIn = DateTime.Parse(_leave.DateFrom.ToString());
+				var timeOut = DateTime.Parse(_leave.DateTo.ToString());
+				var diff = timeOut - timeIn;
+				
 
 				var Leave_data = _context.Leaves.Find(_leave.Id);
 				if (Leave_data == null)
 					return HttpNotFound();
-
-
-				Leave_data.LeaveTypeId= _leave.LeaveTypeId;
+				var staffNames = _context.Staffs.Where(c => c.Staff_id == _leave.StaffId).SingleOrDefault();
+				if (staffNames == null)
+				{
+					
+					ViewBag.Leaves = new SelectList(_context.LeaveTypes, "Id", "Type");
+					TempData["ExistId"] = "Id does not exist";
+					return View();
+				}
+				
 				Leave_data.StaffId= _leave.StaffId;
 				Leave_data.DateFrom= _leave.DateFrom;
 				Leave_data.DateTo= _leave.DateTo;
-				
+				Leave_data.Name = staffNames.FirstName + " " + staffNames.LastName;
+				Leave_data.TotalDays = (double)diff.TotalDays;
+
 				_context.Entry(Leave_data).State = System.Data.Entity.EntityState.Modified;
 				_context.SaveChanges();
 
@@ -130,7 +155,6 @@ namespace FingerPrint.Controllers
 					_context.Leaves.Remove(leave);
 					_context.SaveChanges();
 
-				
 				}
 				//return RedirectToAction("Index");
 				return Json(new { status = result, message = "successfully deleted" });

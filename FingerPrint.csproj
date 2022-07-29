@@ -155,6 +155,7 @@
     <Compile Include="Controllers\LateReportController.cs" />
     <Compile Include="Controllers\LeaveController.cs" />
     <Compile Include="Controllers\LeaveTypeController.cs" />
+    <Compile Include="Controllers\LogoController.cs" />
     <Compile Include="Controllers\OverTimeHoursController.cs" />
     <Compile Include="Controllers\StaffCheckInAndOutController.cs" />
     <Compile Include="Controllers\StaffController.cs" />
@@ -374,12 +375,26 @@
     <Compile Include="Migrations\202207210852213_ModifyTableNamePasswo.designer.cs">
       <DependentUpon>202207210852213_ModifyTableNamePasswo.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202207270826187_AddnameToLeave.cs" />
+    <Compile Include="Migrations\202207270826187_AddnameToLeave.designer.cs">
+      <DependentUpon>202207270826187_AddnameToLeave.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202207290854585_AddingTableLogo.cs" />
+    <Compile Include="Migrations\202207290854585_AddingTableLogo.designer.cs">
+      <DependentUpon>202207290854585_AddingTableLogo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202207290901582_ModifyTableLogo.cs" />
+    <Compile Include="Migrations\202207290901582_ModifyTableLogo.designer.cs">
+      <DependentUpon>202207290901582_ModifyTableLogo.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Branch.cs" />
+    <Compile Include="Models\BranchLog.cs" />
     <Compile Include="Models\Event.cs" />
     <Compile Include="Models\Holiday.cs" />
     <Compile Include="Models\Leave.cs" />
     <Compile Include="Models\LeaveType.cs" />
+    <Compile Include="Models\Logo.cs" />
     <Compile Include="Models\StaffCheckInAndOutReport.cs" />
     <Compile Include="Models\TimeInAndOut.cs" />
     <Compile Include="Models\User.cs" />
@@ -2633,7 +2648,9 @@
     <Content Include="Scripts\dhtmlxScheduler\locale\recurring\repeat_template_ro.html" />
     <Content Include="Scripts\dhtmlxScheduler\locale\recurring\repeat_template_ru.html" />
     <Content Include="Scripts\dhtmlxScheduler\locale\recurring\repeat_template_sk.html" />
+    <None Include="Properties\PublishProfiles\FingerPrintProject.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
+    <None Include="Properties\PublishProfiles\FolderProfile1.pubxml" />
     <None Include="Scripts\jquery-3.6.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.6.0.js" />
     <Content Include="Scripts\jquery-3.6.0.min.js" />
@@ -2735,9 +2752,12 @@
     <Content Include="Views\Leave\Create.cshtml" />
     <Content Include="Views\Leave\Edit.cshtml" />
     <Content Include="Views\LeaveType\Edit.cshtml" />
+    <Content Include="Views\Logo\Create.cshtml" />
+    <Content Include="Views\Logo\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Upload\Logo\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -2902,6 +2922,15 @@
     <EmbeddedResource Include="Migrations\202207210852213_ModifyTableNamePasswo.resx">
       <DependentUpon>202207210852213_ModifyTableNamePasswo.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202207270826187_AddnameToLeave.resx">
+      <DependentUpon>202207270826187_AddnameToLeave.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202207290854585_AddingTableLogo.resx">
+      <DependentUpon>202207290854585_AddingTableLogo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202207290901582_ModifyTableLogo.resx">
+      <DependentUpon>202207290901582_ModifyTableLogo.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\dhtmlxScheduler\dhtmlxscheduler.d.ts" />
@@ -2935,15 +2964,6 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
-    <Error Condition="!Exists('packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
-    <Error Condition="!Exists('packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
-    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.3.6.0\build\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.3.6.0\build\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets'))" />
-  </Target>
   <Import Project="packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
   <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.3.6.0\build\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.3.6.0\build\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

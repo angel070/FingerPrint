@@ -10,7 +10,7 @@
 	@*<link rel="stylesheet" href="~/assets/css/bootstrap.css">*@
 	<link rel="stylesheet" href="https://www.w3schools.com/" />
 
-    <link rel="stylesheet" href="~/assets/vendors/simple-datatables/style.css">
+	<link rel="stylesheet" href="~/assets/vendors/simple-datatables/style.css">
 	<!--fontawesome-->
 	<link rel="stylesheet"
 		  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -36,31 +36,34 @@
 
 <body>
 	<div id="app">
-		<nav class="navbar  fixed-top navbar-light bg-success" style="color:White;margin-left:300px;margin-right:1px">
-			<h2 style="margin-left:180px">ATTENDANCE MANAGEMENT SYSTEM</h2>
+		<nav class="navbar  fixed-top navbar-light bg-success" style="color:White;margin-left:0px;margin-right:1px">
+			<img src="~/assets/images/biz_logo_circle1.png" style="width:80px; height:100%; background-color:white;" />
+			<h2 style="margin-left:20%" >ATTENDANCE MANAGEMENT SYSTEM</h2>
+
 			<ul style="margin-right:40px">
 				<li class="nav-item dropdown">
-					
-					<a class="nav-link dropdown-toggle text-white  " href="#" role="button" data-bs-toggle="dropdown" style="text-align:right">@Session["UserRoles"]</a>
+
+					<a class="nav-link dropdown-toggle text-white " href="#" role="button" data-bs-toggle="dropdown" style="text-align:right">@Session["UserRoles"]</a>
 					<ul class="dropdown-menu">
 						<li><a class="dropdown-item " href="~/ChangePassword/Create">Change Password</a></li>
 						<li><a class="dropdown-item" href="~/User/Logout">Logout</a></li>
 					</ul>
 				</li>
 			</ul>
+
 		</nav>
 
-		<div id="sidebar" class="active">
-			<div class="sidebar-wrapper active bg-light">
-				<div class="sidebar-header">
+		<div id="sidebar" class="active" >
+			<div class="sidebar-wrapper active bg-light" style="width:17%; padding-top:10%">
+				@*<div class="sidebar-header">
 					<div class="d-flex justify-content-between">
 						<div class="toggler">
-							<img src="~/assets/images/biz_logo_circle1.png" style="width:90px; margin-left:30px; height:100px;width:100px" />
+							<img src="~/assets/images/biz_logo_circle1.png" style="width:100px; margin-left:30px; height:100px; margin-top:50%; margin-bottom:0%" />
 						</div>
 					</div>
-				</div>
+				</div>*@
 
-				<div class="sidebar-menu bg-light" style="background-color:#367588;color:white; padding-top:0px; height:30px; width:20px">
+				<div class="sidebar-menu bg-light" style="background-color:#367588;color:white; margin-top:0px; height:50px; width:20px">
 
 					<ul class="menu mb-2">
 
@@ -90,62 +93,79 @@
 										<li><a class="dropdown-item" href="~/Holiday/Index">Holidays</a></li>
 										<li><a class="dropdown-item" href="~/LeaveType/Index">Leave Type</a></li>
 										<li><a class="dropdown-item" href="~/Leave/Index">Leave </a></li>
+										<li><a class="dropdown-item" href="~/Logo/Index">Upload Logo </a></li>
 									</ul>
 								</div>
 							</li>
 						}
 
-						<li class="sidebar-item">
-							<a href="~/TimeInAndOut/Index" class='sidebar-link' onclick="
-                               toggle_active_class()">
-								<i class="bi bi-alarm-fill"></i>
-								<span>Set Time</span>
-							</a>
-						</li>
-						
-						<li class="sidebar-item">
-							<a href="~/Holiday/Index" class='sidebar-link' onclick="
-                               toggle_active_class()">
-								<i class="bi bi-calendar-check-fill"></i>
-								<span>Holidays</span>
-							</a>
-						</li>
-						<li class="sidebar-item">
-							<a href="~/Staff/Index" class='sidebar-link' onclick="
-                               toggle_active_class()">
-								<i class="bi bi-people-fill"></i>
-								<span>Staff</span>
-							</a>
-						</li>
+						@if (Session["UserRoles"].ToString() == "Branch")
+						{
+							<li class="sidebar-item">
+								<div class="dropdown">
+									<a class=" dropdown-toggle sidebar-link " href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+										<i class="bi bi-gear-fill"></i>
+										<span >Setup</span>
+									</a>
 
-						<li class="sidebar-item">
-							<div class="dropdown">
-								<a class=" dropdown-toggle sidebar-link" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-									<i class="bi bi-file-bar-graph-fill"></i>
-									<span>Reports</span>
+									<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+										<li><a class="dropdown-item" href="~/Department/Index">Department</a></li>
+										<li><a class="dropdown-item" href="~/TimeInAndOut/Index">Set Time</a></li>
+										<li><a class="dropdown-item" href="~/Holiday/Index">Holidays</a></li>
+										<li><a class="dropdown-item" href="~/LeaveType/Index">Leave Type</a></li>
+										<li><a class="dropdown-item" href="~/Leave/Index">Leave </a></li>
+									</ul>
+								</div>
+							</li>
+						}
+
+				
+						@if (Session["UserRoles"].ToString() == "Branch")
+						{
+							<li class="sidebar-item">
+								<a href="~/Holiday/Index" class='sidebar-link' onclick="
+                               toggle_active_class()">
+									<i class="bi bi-calendar-check-fill"></i>
+									<span>Holidays</span>
 								</a>
+							</li>
+						 }
+							<li class="sidebar-item">
+								<a href="~/Staff/Index" class='sidebar-link' onclick="
+                               toggle_active_class()">
+									<i class="bi bi-people-fill"></i>
+									<span>Staff</span>
+								</a>
+							</li>
 
-								<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-									<li><a class="dropdown-item" href="~/StaffCheckInAndOut/Index"> Attendance</a></li>
-									<li><a class="dropdown-item" href="~/DailyReport/Create">Daily Report</a></li>
-									<li><a class="dropdown-item" href="~/BranchReport/Create">Branch Report</a></li>
-									<li><a class="dropdown-item" href="~/DepartmentReport/Create">Department Report</a></li>
-									<li><a class="dropdown-item" href="~/DateRange/DateRange">Individual Report</a></li>
-									<li><a class="dropdown-item" href="~/LateReport/LateStaffs">Late Report</a></li>
-									<li><a class="dropdown-item" href="~/OverTimeHours/Index">OverTimeReport</a></li>
-									<li><a class="dropdown-item" href="~/Absentees/Create">Absentees Report</a></li>
-								</ul>
-							</div>
-						</li>
+							<li class="sidebar-item">
+								<div class="dropdown">
+									<a class=" dropdown-toggle sidebar-link" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+										<i class="bi bi-file-bar-graph-fill"></i>
+										<span>Reports</span>
+									</a>
 
-						<li class="sidebar-item  ">
-							<a href="~/User/Logout" class='sidebar-link'>
-								<form id="logout-form" action="#" method="POST"
-									  class="d-none"></form> <i class="bi bi-box-arrow-down-right"></i>
-								<span> Logout </span>
-							</a>
-						</li>
-					</ul>
+									<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+										<li><a class="dropdown-item" href="~/StaffCheckInAndOut/Index"> Attendance</a></li>
+										<li><a class="dropdown-item" href="~/DailyReport/Create">Daily Report</a></li>
+										<li><a class="dropdown-item" href="~/BranchReport/Create">Branch Report</a></li>
+										<li><a class="dropdown-item" href="~/DepartmentReport/Create">Department Report</a></li>
+										<li><a class="dropdown-item" href="~/DateRange/DateRange">Individual Report</a></li>
+										<li><a class="dropdown-item" href="~/LateReport/LateStaffs">Late Report</a></li>
+										<li><a class="dropdown-item" href="~/OverTimeHours/Index">OverTimeReport</a></li>
+										<li><a class="dropdown-item" href="~/Absentees/Create">Absentees Report</a></li>
+									</ul>
+								</div>
+							</li>
+
+							<li class="sidebar-item  ">
+								<a href="~/User/Logout" class='sidebar-link'>
+									<form id="logout-form" action="#" method="POST"
+										  class="d-none"></form> <i class="bi bi-box-arrow-down-right"></i>
+									<span> Logout </span>
+								</a>
+							</li>
+						</ul>
 
 				</div>
 				<button class="sidebar-toggler btn x"><i data-feather="x"></i></button>
@@ -162,7 +182,7 @@
 			@RenderBody()
 
 
-			<footer style="top:100%; position:fixed; height:100% ; margin-left:20%" class="text-center">
+			<footer style="top:90%; position:fixed; height:100% ; margin-left:20%" class="text-center">
 				<div class="footer clearfix mb-0 text-muted footer-static ">
 
 					<div class="text-center">

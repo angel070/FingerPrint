@@ -145,6 +145,9 @@
 
 	<script>
 
+		$("#DateFrom").on("change", function(){
+		  $("#DateTo").attr("min", $(this).val());
+		});
 		$.fn.dataTable.ext.search.push(
 			function (settings, data, dataIndex) {
 				var branch = $('#BranchId option:selected').text();

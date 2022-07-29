@@ -112,14 +112,17 @@ namespace FingerPrint.Controllers
 				if (user_data == null)
 					return HttpNotFound();
 
-				user_data.Username = user.Username;
+				user_data.FirstName = user.FirstName;
+				user_data.LastName = user.LastName;
+				user_data.Username = user.Email;
 				user_data.UserRolesId = user.UserRolesId;
-				user_data.Password = user.Password;
+				user_data.Password = user_data.Password;
 				user_data.Email = user.Email;
 				user_data.BranchId = user.BranchId; 
+				user_data.PhoneNumber = user.PhoneNumber;
+				user_data.IsActive = true;
 				_context.Entry(user_data).State = System.Data.Entity.EntityState.Modified;
 				_context.SaveChanges();
-
 				return RedirectToAction("Index");
 			}
 			else
@@ -153,9 +156,12 @@ namespace FingerPrint.Controllers
                     Session["UserName"] = login.Username;
                     Session["UserRoles"] = FoundRole.Name;
                     Session["UserBranch"] = login.BranchId;
+
+					var branchName = _context.Branches.Where(c => c.Id == login.BranchId).SingleOrDefault();
+					Session["UserBranchName"] = branchName.Name;
 					Session.Timeout = 10;
 
-                    return RedirectToAction("Index", "Country");
+                    return RedirectToAction("Index", "DashBoard");
                 }
                 /*if (login == null)
                   {
@@ -192,19 +198,18 @@ namespace FingerPrint.Controllers
         {
             
             var FoundStaff = _context.Staffs.Where(c => c.Staff_id == check.Userid).FirstOrDefault();
-           /* Staff staff = new Staff()
-            {
-                Id = FoundStaff.Id,
-                FirstName=FoundStaff.FirstName.ToString(),
-                LastName=FoundStaff.LastName.ToString(),
-                Fingerprint=FoundStaff.Fingerprint.ToString(),
-            };*/
 
             if (FoundStaff == null)
             {
-                return Content("Wrong Id");
+				TempData["WrongId"] = "Wrong Id";
+				return View();
             }
-            else
+            if(FoundStaff.Fingerprint == null)
+			{
+				TempData["EmptyFinger"] = "Finger Print is not registered";
+
+				return View();
+			}
             ViewBag.Id = FoundStaff.Id.ToString();
             ViewBag.FirstName = FoundStaff.FirstName.ToString();
             ViewBag.LastName = FoundStaff.LastName.ToString();

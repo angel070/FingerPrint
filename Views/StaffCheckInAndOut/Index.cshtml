@@ -100,7 +100,6 @@
 						<th>
 							@Html.DisplayNameFor(model => model.OverTimeHours)
 						</th>
-						<th>Action</th>
 					</tr>
 				</thead>
 
@@ -161,9 +160,9 @@
 							@Html.DisplayFor(modelItem => item.OverTimeHours)
 						</td>
 
-						<td>
+						@*<td>
 							@Html.ActionLink("Delete", "Delete", new { id = item.Id })
-						</td>
+						</td>*@
 					</tr>
 					}
 
@@ -197,8 +196,8 @@
                         customize: function (doc) {
                             pdfDoc = doc;
 
-                            //doc.pageSize = 'A6';
-                            //doc.pageOrientation = 'landscape';
+                            doc.pageSize = 'A4';
+                            doc.pageOrientation = 'landscape';
                             doc.content[1].table.widths = ['auto', 'auto', 'auto', 'auto', 'auto', 'auto', 'auto','auto', 'auto', 'auto', 'auto', 'auto'];
 
                             // Change dataTable layout (Table styling)

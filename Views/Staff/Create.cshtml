@@ -4,7 +4,7 @@
     ViewBag.Title = "Create";
 }
 
-<div class="card">
+<div class="card" style="width:650px;  margin-left:17%;margin-top:5%; padding-left:0%;">
     <div class="card-header">
         <h2 class="text-center">Create Staff</h2>
     </div>
@@ -16,6 +16,7 @@
 			{
 				@Html.ValidationSummary(true)
 				@Html.AntiForgeryToken()
+				
 
 				<div class="form-horizontal">
 
@@ -30,7 +31,7 @@
 								</div>
 							</div>
 						</div>
-						
+
 
 						<div class="col-md-6">
 							<div class="form-group">
@@ -40,7 +41,7 @@
 									@Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
 								</div>
 							</div>
-							
+
 						</div>
 					</div>
 

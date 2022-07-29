@@ -1,7 +1,7 @@
 @model IEnumerable<FingerPrint.Models.Staff>
 
 @{
-    ViewBag.Title = "Index";
+	ViewBag.Title = "Index";
 }
 <div class="card ">
     <div class="card-header">
@@ -9,20 +9,19 @@
     </div>
 
 	<div class="card-body" style="overflow-x: auto; margin-bottom:10px">
-		@if (Session["UserRoles"].ToString() == "Admin")
-		 {
+	
 			<p style="text-align:right">
 				<a href="~/Staff/Create" class="btn btn-primary mb-2 mt-3"> Create </a>
 				@* @Html.ActionLink("Create New", "Create")*@
 			</p>
-		 }
+		
 
 	<div class="table-responsive">
 		<table class="table table-bordered table-striped table-primary " style="width:2px; overflow-x: auto;" id="example">
 			<thead>
 				<tr>
 					<th>
-						@Html.DisplayNameFor(model => model.Id)
+						Sno
 					</th>
 					<th>
 						@Html.DisplayNameFor(model => model.Staff_id)
@@ -52,15 +51,18 @@
 					<th>Action</th>
 				</tr>
 			</thead>
-
+			
 			<tbody>
-				@foreach (var item in Model)
-				{
-					// var a = @Html.DisplayFor(modelItem => item.Id);
-					<tr>
-						<td>
-							@Html.DisplayFor(modelItem => item.Id)
-						</td>
+				
+				@{
+					int sno = 1;
+					}
+					  @foreach (var item in Model)
+					  {
+
+					   <tr>
+						<td> @(sno++)</td>
+
 						<td>
 							@Html.DisplayFor(modelItem => item.Staff_id)
 						</td>
@@ -87,12 +89,13 @@
 						</td>
 
 						<td>
-						 <a href="@Url.Action("FingerPrintForm", "Staff",new { id= item.Id })"><i class="fa fa-eye"></i> </a>|
-								<a href="#" id="showModal" onclick="Confirm(@item.Id)"><i class="fa fa-trash"></i></a>
+							<a href="@Url.Action("FingerPrintForm", "Staff", new { id = item.Id })"><i class="fa fa-eye"></i> </a>|
+							<a href="#" id="showModal" onclick="Confirm(@item.Id)"><i class="fa fa-trash"></i></a>
 
 						</td>
 					</tr>
-				}
+						}
+					
 			</tbody>
 		</table>
 
@@ -106,6 +109,7 @@
 					</div>
 					<div class="modal-body">
 						<h4>Are you sure you want to delete Staff?</h4>
+
 					</div>
 					<div class="modal-footer">
 						<div class="form-group">

@@ -4,7 +4,7 @@
     ViewBag.Title = "Create";
 }
 
-<div class="card">
+<div class="card" style="width:600px;margin-left:17%;margin-top:13%">
 	<div class="card-header">
 		<h4 class="text-center">Edit Leave</h4>
 	</div>
@@ -17,11 +17,12 @@
 			@Html.ValidationSummary(true, "", new { @class = "text-danger" })
 			<div class="row">
 				<div class="form-group col-md-6">
-					@Html.LabelFor(model => model.StaffId, htmlAttributes: new { @class = "control-label col-md-2" })
+					@Html.LabelFor(model => model.StaffId, htmlAttributes: new { @class = "control-label col-md-" })
 					<div class="col-md-10">
 						@Html.EditorFor(model => model.StaffId, new { htmlAttributes = new { @class = "form-control" } })
 						@Html.ValidationMessageFor(model => model.StaffId, "", new { @class = "text-danger" })
 					</div>
+					<h6 class="text-danger">@TempData["ExistId"]</h6>
 				</div>
 
 				<div class="form-group col-md-6">
@@ -36,7 +37,7 @@
 
 			<div class="row">
 				<div class="form-group col-md-6">
-					@Html.LabelFor(model => model.DateFrom, htmlAttributes: new { @class = "control-label col-md-2" })
+					@Html.LabelFor(model => model.DateFrom, htmlAttributes: new { @class = "control-label col-md-" })
 					<div class="col-md-10">
 						@Html.EditorFor(model => model.DateFrom, new { htmlAttributes = new { @class = "form-control" } })
 						@Html.ValidationMessageFor(model => model.DateFrom, "", new { @class = "text-danger" })
@@ -44,7 +45,7 @@
 				</div>
 
 				<div class="form-group col-md-6">
-					@Html.LabelFor(model => model.DateTo, htmlAttributes: new { @class = "control-label col-md-2" })
+					@Html.LabelFor(model => model.DateTo, htmlAttributes: new { @class = "control-label col-md-" })
 					<div class="col-md-10">
 						@Html.EditorFor(model => model.DateTo, new { htmlAttributes = new { @class = "form-control" } })
 						@Html.ValidationMessageFor(model => model.DateTo, "", new { @class = "text-danger" })
@@ -54,7 +55,7 @@
 		
 			<div class="form-group">
 				<div class="col-md-offset-2 col-md-10">
-					<input type="submit" value="Create" class="btn btn-primary" />
+					<input type="submit" value="Update" class="btn btn-primary" />
 				</div>
 			</div>
 		</div>

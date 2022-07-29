@@ -6,7 +6,7 @@
 
 @using (Html.BeginForm())
 {
-    <div class="card" style="width:600px; margin-left:20%; padding-left:0%; ">
+    <div class="card" style="width:650px; height:220px; margin-left:17%;margin-top:17%; padding-left:0%;">
 
         <div class="card-header">
             <h4 class="text-center">Edit Branch</h4>
@@ -35,7 +35,7 @@
                         <div class="form-group">
                             @Html.LabelFor(model => model.CountryId, htmlAttributes: new { @class = "control-label" })
                             <div class="col-md-10">
-                                @Html.DropDownList("CountryId", ViewBag.Branches as SelectList, "Select Country", new { @class = "form-control" })
+                                @Html.DropDownList("CountryId", ViewBag.Branches as SelectList, "Select Country", new { @class = "form-select" })
                                 @* @Html.EditorFor(model => model.CountryId,  new { htmlAttributes = new { @class = "form-control" } }*@
                                 @Html.ValidationMessageFor(model => model.CountryId, "", new { @class = "text-danger" })
                             </div>
@@ -44,7 +44,7 @@
                 </div>
                 <div class="form-group d-flex">
                     <div class="col-md-offset-2 col-md-2">
-                        <input type="submit" value="Save" class="btn btn-primary" />
+                        <input type="submit" value="Update" class="btn btn-primary" />
                     </div>
                     <div class="col-md-offset-2 col-md-2">
                         <input type="reset" value="Clear" class="btn btn-primary" />

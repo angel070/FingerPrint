@@ -5,7 +5,7 @@
 }
 
 
-<div class="card" style="width:500px; height:350px; margin-left:20%;">
+<div class="card" style="width:500px; height:350px; margin-left:20%; margin-top:10%">
 	<div class="card-header">
 		<h4 class="text-center"> Set TimeIn And TimeOut</h4>
 	</div>
@@ -49,7 +49,7 @@
 					<div class="form-group col-6">
 						@Html.LabelFor(model => model.BranchId, htmlAttributes: new { @class = "control-label col-md-" })
 						<div class="col-md-10">
-							@Html.DropDownList("BranchId", ViewBag.Branches as SelectList, "Select Branch", new { @class = "form-control" })
+							@Html.DropDownList("BranchId", ViewBag.Branches as SelectList, "Select Branch", new { @class = "form-select" })
 							@Html.ValidationMessageFor(model => model.BranchId, "", new { @class = "text-danger" })
 						</div>
 					</div>
@@ -58,7 +58,7 @@
 				<div class="form-group col-6">
 					@Html.LabelFor(model => model.DepartmentId, htmlAttributes: new { @class = "control-label col-md-" })
 					<div class="col-md-10">
-						@Html.DropDownList("DepartmentId", ViewBag.Departments as SelectList, "Select Department", new { @class = "form-control" })
+						@Html.DropDownList("DepartmentId", ViewBag.Departments as SelectList, "Select Department", new { @class = "form-select" })
 						@Html.ValidationMessageFor(model => model.DepartmentId, "", new { @class = "text-danger" })
 					</div>
 				</div>

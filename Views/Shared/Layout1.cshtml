@@ -31,82 +31,93 @@
 </head>
 
 <body>
-    <div class="card" style="background: #ffffff; margin-left:20%;margin-right:20%; margin-top:30px; padding-right:0% ">
-        <div class="card-body">
-            <div id="app" style="">
+	<div class="card" style="background: #ffffff; margin-left:20%;margin-right:20%; margin-top:30px; padding-right:0% ">
+		<div class="card-body">
+			<div id="app" style="">
 
-                <div id="">
-                    <header class="mb-3">
-                        <a href="#" class="burger-btn d-block d-xl-none">
-                            <i class="bi bi-justify fs-3"></i>
-                        </a>
-                    </header>
+				<div id="">
+					<header class="mb-3">
+						<a href="#" class="burger-btn d-block d-xl-none">
+							<i class="bi bi-justify fs-3"></i>
+						</a>
+					</header>
 
-                    <section class="nav-section">
-                        <div class="card">
-                            <div class="card-header ">
-                                <h4 class="card-title text-center">WELCOME STAFF AT BIZ-LOGIC SOLUTIONS BIOMETRIC ATTENDANCE SYSTEM </h4>
-                            </div>
-                        </div>
-                    </section>
+					<section class="nav-section">
+						<div class="card">
+							<div class="card-header ">
+								<h4 class="card-title text-center">WELCOME STAFF AT BIZ-LOGIC SOLUTIONS BIOMETRIC ATTENDANCE SYSTEM </h4>
+							</div>
+						</div>
+					</section>
 
-                    <div class="page-heading">
-                        <div class="page-title">
-                            <div class="row">
-                                <div class="col-12 col-md-6 order-md-1 order-last">
+					<div class="page-heading">
+						<div class="page-title">
+							<div class="row">
+								<div class="col-12 col-md-6 order-md-1 order-last">
 
-                                    <p></p>
-                                </div>
-                                @*<div class="col-12 col-md-6 order-md-2 order-first">
-                                    <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
-                                        <ol class="breadcrumb">
-                                            <li class="breadcrumb-item">
-                                                
-                                            </li>
+									<p></p>
+								</div>
+								@*<div class="col-12 col-md-6 order-md-2 order-first">
+									<nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
+										<ol class="breadcrumb">
+											<li class="breadcrumb-item">
 
-                                        </ol>
-                                    </nav>*@
-                                </div>
-                            </div>
-                        </div>
+											</li>
 
-                    </div>
-                    @RenderBody()
+										</ol>
+									</nav>*@
+							</div>
+						</div>
+					</div>
 
-                </div>
-            </div>
+				</div>
+				@RenderBody()
 
-        </div>
+			</div>
+		</div>
 
- 
-
-    <footer style="; top:95%; position:fixed; height:100%">
-        <div class="footer clearfix mb-0 text-muted text-center">
-            <div class="float-start ">
-                <p>@DateTime.Now.Year &copy; Mazer</p>
-            </div>
-            <div class="float-start">
-                <p class="text-center">
-                    Crafted with
-                    <span class="text-danger"><i class="bi bi-heart"></i></span> by
-                    <a href="http://ahmadsaugi.com">Biz-Logic Solution</a>
-                </p>
-            </div>
-        </div>
-    </footer>
+	</div>
 
 
-    <script src="~/assets/js/bootstrap.bundle.min.js"></script>
-    <script src="~/assets/vendors/simple-datatables/simple-datatables.js">
-    </script>
-    <script src=" ~/js/mfs.js"></script>
-    <script src="~/js/mfs100Scripts.js"></script>
+	@*<footer style="top:90%; position:fixed; " class="text-center">
+		<div class="footer clearfix mb-0 text-muted footer-static ">
+
+			<div class="text-center">
+				<p  >
+					@DateTime.Now.Year &copy; Bizlogic Solutions Company Ltd <a href="http://ahmadsaugi.com">
+					</a>
+				</p>
+			</div>
+		</div>
+	</footer>*@
+
+	@*<footer style="" ; top:95%; position:fixed; height:100%" class="text-center">
+		<div class="footer clearfix mb-0 text-muted text-center">
+			<div class="float-start ">
+				<p class="text-center">@DateTime.Now.Year &copy; Mazer</p>
+			</div>
+			<div class="float-start">
+				<p class="text-center">
+					Crafted with
+					<span class="text-danger"><i class="bi bi-heart"></i></span> by
+					<a href="http://ahmadsaugi.com">Biz-Logic Solution</a>
+				</p>
+			</div>
+		</div>
+	</footer>*@
+
+
+	<script src="~/assets/js/bootstrap.bundle.min.js"></script>
+	<script src="~/assets/vendors/simple-datatables/simple-datatables.js">
+	</script>
+	<script src=" ~/js/mfs.js"></script>
+	<script src="~/js/mfs100Scripts.js"></script>
 
 
 
-    @Scripts.Render("~/bundles/jquery")
-    @*    @Scripts.Render("~/bundles/bootstrap")*@
-    @RenderSection("scripts", required: false)
+	@Scripts.Render("~/bundles/jquery")
+	@*    @Scripts.Render("~/bundles/bootstrap")*@
+	@RenderSection("scripts", required: false)
 </body>
 
 </html>

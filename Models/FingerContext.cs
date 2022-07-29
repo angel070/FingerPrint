@@ -22,6 +22,7 @@ namespace FingerPrint.Models
         public DbSet<StaffCheckInAndOutReport> StaffCheckInAndOutReports { get; set; }
         public DbSet<LeaveType> LeaveTypes { get; set; }
         public DbSet<Leave> Leaves { get; set; }
+        public DbSet<Logo> Logos { get; set; }
 
 	}
 }

@@ -22,5 +22,7 @@ namespace FingerPrint.Models
 		[Display(Name = "Leave Name")]
 		public int LeaveTypeId { get; set; }
 		public LeaveType LeaveType { get; set; }
+		public string Name { get; set; }
+
 	}
 }

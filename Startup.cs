@@ -29,15 +29,6 @@ namespace FingerPrint
 			yield return new BackgroundJobServer();
 		}
 
-		public void Configuration(IAppBuilder app)
-		{
-			app.UseHangfireAspNet(GetHangfireServers);
-			app.UseHangfireDashboard();
-
-			// Let's also create a sample background job
-			BackgroundJob.Enqueue(() => Debug.WriteLine("Hello world from Hangfire!"));
-
-			// ...other configuration logic
-		}
+	
 	}
 }
