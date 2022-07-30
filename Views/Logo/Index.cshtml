@@ -1,45 +1,126 @@
 @model IEnumerable<FingerPrint.Models.Logo>
 
 @{
-    ViewBag.Title = "Index";
+	ViewBag.Title = "Index";
 }
 
-<h2>Upload Logo</h2>
+<div class="card">
+	<div class="card-header">
+		<h2 class="text-center">Upload Logo</h2>
+	</div>
+	<div class="card-body">
+		<p style="text-align:right"><a href="~/Logo/Create" class="btn btn-primary  mb-4 mt-4" style="margin-left:830px">Create</a></p>
+		<table class="table table-bordered table-striped" id="example">
+			<thead>
+				<tr>
+					<th>
+						@Html.DisplayNameFor(model => model.Name)
+					</th>
+					<th>
+						@Html.DisplayNameFor(model => model.FileName)
+					</th>
+					<th>
+						@Html.DisplayNameFor(model => model.FilePath)
+					</th>
+					<th>Action</th>
+				</tr>
+			</thead>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FileName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FilePath)
-        </th>
-        <th>Action</th>
-    </tr>
+			<tbody>
+				@foreach (var item in Model)
+				{
+					<tr>
+						<td>
+							@Html.DisplayFor(modelItem => item.Name)
+						</td>
+						<td>
+							@Html.DisplayFor(modelItem => item.FileName)
+						</td>
+						<td>
+							@Html.DisplayFor(modelItem => item.FilePath)
+						</td>
+						<td>
+							@Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-primary" })   |
+							<a href="#" id="showModal" class="btn btn-danger" onclick="Confirm(@item.Id)">Delete</a>
+						</td>
+					</tr>
+				}
+			</tbody>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FileName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FilePath)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
+		</table>
+
+		<input type="hidden" id="UploadDelete" />
+
+		<div class="modal fade" id="deleteModal">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h2 class="modal-title"> Confirm</h2>
+					</div>
+					<div class="modal-body">
+						<h4>Are you sure you want to delete?</h4>
+					</div>
+					<div class="modal-footer">
+						<div class="form-group">
+							<a href="#" id="btnDelete" class="btn btn-primary">Delete</a>
+							<a href="#" id="btnCancel" class="btn btn-primary">Cancel</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+@section scripts{
+	<script>
+		$(document).ready(function () {
+			$('#example').DataTable();
+
+			$(document).ready(function () {
+				$("#btnCancel").click(function () {
+					window.location.href = "/Logo/Index";
+				});
+			});
+
+			$("#btnDelete").click(function () {
+				var _id = $("#UploadDelete").val();
+				console.log(_id);
+
+				$.ajax({
+					type: "POST",
+					url: "/Logo/Delete",
+					data: { id: _id },
+					success: function (data) {
+						console.log("true");
+						if (data.status) {
+							$("#deleteModal").modal('hide');
+							$("#UploadDelete").val(null);
+							alert(data.message);
+							 window.location.href = window.location.href;
+							
+						}
+						else {
+							$("#deleteModal").modal('hide');
+							alert(data.message);
+
+						}
+					}
+				});
+			});
+		});
+
+		var Confirm = function (id) {
+			$("#UploadDelete").val(id);
+			$("#deleteModal").modal('show');
+			console.log(id);
+		}
+
+
+
+		$("#btnPdf").click(function () {
+			var element = document.getElementById('example');
+			html2pdf(element);
+		});
+	</script>
 }
-
-</table>

@@ -13,7 +13,7 @@ namespace FingerPrint.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "202207290854585_AddingTableLogo"; }
+            get { return "202207300645573_AddingTableLogo"; }
         }
         
         string IMigrationMetadata.Source

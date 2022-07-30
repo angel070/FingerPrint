@@ -46,7 +46,7 @@ namespace FingerPrint.Controllers
 				//File Name
 				string imageName = (picture == null) ? null : System.IO.Path.GetFileName(picture.FileName);
 
-				if(picture == null)
+				if (picture == null)
 				{
 					return Content("Null reference");
 				}
@@ -60,10 +60,35 @@ namespace FingerPrint.Controllers
 
 				_context.Logos.Add(logo);
 				_context.SaveChanges();
-				return Content("saved successfully");
+				return RedirectToAction("Index");
 			}
 			else
 				return RedirectToAction("Login", "User");
+		}
+
+		public JsonResult Delete(int? id)
+		{
+			try
+			{
+
+				bool result = false;
+
+				var logo = _context.Logos.SingleOrDefault(c => c.Id == id);
+
+				if (logo != null)
+				{
+					_context.Logos.Remove(logo);
+					_context.SaveChanges();
+
+					result = true;
+				}
+				return Json(new { status = result, message = "successfully deleted" });
+			}
+			catch (Exception e)
+			{
+				return Json(new { status = false, message = "This Logo is already used" });
+			}
+
 		}
 	}
 }

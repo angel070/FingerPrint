@@ -379,13 +379,9 @@
     <Compile Include="Migrations\202207270826187_AddnameToLeave.designer.cs">
       <DependentUpon>202207270826187_AddnameToLeave.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202207290854585_AddingTableLogo.cs" />
-    <Compile Include="Migrations\202207290854585_AddingTableLogo.designer.cs">
-      <DependentUpon>202207290854585_AddingTableLogo.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202207290901582_ModifyTableLogo.cs" />
-    <Compile Include="Migrations\202207290901582_ModifyTableLogo.designer.cs">
-      <DependentUpon>202207290901582_ModifyTableLogo.cs</DependentUpon>
+    <Compile Include="Migrations\202207300645573_AddingTableLogo.cs" />
+    <Compile Include="Migrations\202207300645573_AddingTableLogo.designer.cs">
+      <DependentUpon>202207300645573_AddingTableLogo.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Branch.cs" />
@@ -2925,11 +2921,8 @@
     <EmbeddedResource Include="Migrations\202207270826187_AddnameToLeave.resx">
       <DependentUpon>202207270826187_AddnameToLeave.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202207290854585_AddingTableLogo.resx">
-      <DependentUpon>202207290854585_AddingTableLogo.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202207290901582_ModifyTableLogo.resx">
-      <DependentUpon>202207290901582_ModifyTableLogo.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202207300645573_AddingTableLogo.resx">
+      <DependentUpon>202207300645573_AddingTableLogo.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
