@@ -73,6 +73,37 @@ namespace FingerPrint.Controllers
 			
 		}
 
+		[HttpPost]
+		public ActionResult CheckStaffIdExists(string Staff_id, string StaffId_clone)
+		{
+
+			try
+			{
+				//if (Staff_id == StaffId_clone)
+				//{
+				//	return Json(true);
+				//}
+				
+				var nameexits = _context.Staffs.Where(c => c.Staff_id == Staff_id).SingleOrDefault();
+				
+				bool UserExists = (nameexits == null) ? true: false;
+				//if(nameexits != null)
+				//{
+				//	TempData["ExistStaff"] = nameexits.FirstName + " " + nameexits.LastName;
+				//	return Json (UserExists);
+				//}
+
+				return Json(UserExists);
+
+			}
+
+			catch (Exception)
+
+			{
+				return Json(false);
+			}
+		}
+
 		public ActionResult Edit(int? id)
 		{
 			if (Session["UserRoles"] != null)

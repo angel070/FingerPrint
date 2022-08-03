@@ -3,9 +3,7 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 <!DOCTYPE html>
-
 <html>
 <head>
 	<meta name="viewport" content="width=device-width" />
@@ -13,7 +11,7 @@
 
 	<style>
 		.container {
-			padding: 2rem;
+			padding: 1rem;
 		}
 
 		button {
@@ -50,124 +48,143 @@
 	</style>
 </head>
 <body>
-	<div class="card">
-		<div class="card-header mb-4  ">
+	@*<div class="card-header mb-4  ">
 			<h3 class="text-center"> Staff Check In And Out Report</h3>
-		</div>
-		<div style="text-align: right; margin-bottom: 1rem;">	
-			<button id="pdf-btn">PDF</button>
-			<button id="excel-btn">Excel</button>
-		</div>
+		</div>*@
 
-		<div class="card-body" style="overflow-x: auto;">
+	<div >
 
-			<table class="table table-bordered table-striped" id="example" style="overflow-x: auto;">
-				<thead>
-					<tr>
-						<th>
-							@Html.DisplayNameFor(model => model.StaffId)
-						</th>
-						<th>
-							@Html.DisplayNameFor(model => model.firstName)
-						</th>
-						<th>
-							@Html.DisplayNameFor(model => model.LastName)
-						</th>
-						<th>
-							@Html.DisplayNameFor(model => model.Department)
-						</th>
-						<th>
-							@Html.DisplayNameFor(model => model.Branch)
-						</th>
-						<th>
-							@Html.DisplayNameFor(model => model.Date)
-						</th>
-						<th>
-							@Html.DisplayNameFor(model => model.TimeIn)
-						</th>
-						<th>
-							@Html.DisplayNameFor(model => model.TimeOut)
-						</th>
-						<th>
-							@Html.DisplayNameFor(model => model.status)
-						</th>
-						<th>
-							@Html.DisplayNameFor(model => model.TotalStaffHours)
-						</th>
-						<th>
-							@Html.DisplayNameFor(model => model.PercentageHours)
-						</th>
-						<th>
-							@Html.DisplayNameFor(model => model.OverTimeHours)
-						</th>
-					</tr>
-				</thead>
+		<div >
 
-				<tbody>
-					@foreach (var item in Model) { 
+			<div class="page-header">
+				<div class="row">
+					<div class="col-sm-12">
+						<h3 class="page-title">Attendance Reports</h3>
+						@*<ul class="breadcrumb">
+							<li class="breadcrumb-item"><a href="admin-dashboard.html">Dashboard</a></li>
+							<li class="breadcrumb-item active">Attendance Reports</li>
+						</ul>*@
+					</div>
+				</div>
+			</div>
 
-					  <tr>
-						<td>
-							@Html.DisplayFor(modelItem => item.StaffId)
-						</td>
-						<td>
-							@Html.DisplayFor(modelItem => item.firstName)
-						</td>
-						<td>
-							@Html.DisplayFor(modelItem => item.LastName)
-						</td>
-						<td>
-							@Html.DisplayFor(modelItem => item.DepartmentStr)
-						</td>
-						<td>
-							@Html.DisplayFor(modelItem => item.BranchStr)
-						</td>
-						<td>
-							@Html.DisplayFor(modelItem => item.Date)
-						</td>
-						<td>
-							@Html.DisplayFor(modelItem => item.TimeIn)
-						</td>
-						<td>
-							@Html.DisplayFor(modelItem => item.TimeOut)
-						</td>
-						@if (item.status == "Arrived on time")
+		
+
+			<div class="card" style="overflow-x: auto; padding:10px">
+				<div style="text-align: right; margin-bottom: 1rem;">
+					<button id="pdf-btn">PDF</button>
+					<button id="excel-btn">Excel</button>
+				</div>
+
+				<table class="table table-bordered table-striped custom-table mb-0" id="example">
+					<thead>
+						<tr>
+							<th>
+								@Html.DisplayNameFor(model => model.StaffId)
+							</th>
+							<th>
+								@Html.DisplayNameFor(model => model.firstName)
+							</th>
+							<th>
+								@Html.DisplayNameFor(model => model.LastName)
+							</th>
+							<th>
+								@Html.DisplayNameFor(model => model.Department)
+							</th>
+							<th>
+								@Html.DisplayNameFor(model => model.Branch)
+							</th>
+							<th>
+								@Html.DisplayNameFor(model => model.Date)
+							</th>
+							<th>
+								@Html.DisplayNameFor(model => model.TimeIn)
+							</th>
+							<th>
+								@Html.DisplayNameFor(model => model.TimeOut)
+							</th>
+							<th>
+								@Html.DisplayNameFor(model => model.status)
+							</th>
+							<th>
+								@Html.DisplayNameFor(model => model.TotalStaffHours)
+							</th>
+							<th>
+								@Html.DisplayNameFor(model => model.PercentageHours)
+							</th>
+							<th>
+								@Html.DisplayNameFor(model => model.OverTimeHours)
+							</th>
+						</tr>
+					</thead>
+
+					<tbody>
+						@foreach (var item in Model)
 						{
-							<td class="text-primary">
-								@Html.DisplayFor(modelItem => item.status)
-							</td>
-						}
-						@if (item.status == "Arrived Late")
-						{
-							<td class="text-danger">
-								@Html.DisplayFor(modelItem => item.status)
-							</td>
-						}
-						@if (item.status != "Arrived Late" && item.status != "Arrived on time")
-						{
-							<td class="text-secondary">
-								@Html.DisplayFor(modelItem => item.status)
-							</td>
-						}
 
-						<td>
-							@Html.DisplayFor(modelItem => item.TotalStaffHours)
-						</td>
-						<td>
-							@Html.DisplayFor(modelItem => item.PercentageHours)%
-						</td>
-						<td>
-							@Html.DisplayFor(modelItem => item.OverTimeHours)
-						</td>
+							<tr>
+								<td>
+									@Html.DisplayFor(modelItem => item.StaffId)
+								</td>
+								<td>
+									@Html.DisplayFor(modelItem => item.firstName)
+								</td>
+								<td>
+									@Html.DisplayFor(modelItem => item.LastName)
+								</td>
+								<td>
+									@Html.DisplayFor(modelItem => item.DepartmentStr)
+								</td>
+								<td>
+									@Html.DisplayFor(modelItem => item.BranchStr)
+								</td>
+								<td>
+									@Html.DisplayFor(modelItem => item.Date)
+								</td>
+								<td>
+									@Html.DisplayFor(modelItem => item.TimeIn)
+								</td>
+								<td>
+									@Html.DisplayFor(modelItem => item.TimeOut)
+								</td>
+								@if (item.status == "Arrived on time")
+								{
+									<td class="text-primary">
+										@Html.DisplayFor(modelItem => item.status)
+									</td>
+								}
+								@if (item.status == "Arrived Late")
+								{
+									<td class="text-danger">
+										@Html.DisplayFor(modelItem => item.status)
+									</td>
+								}
+								@if (item.status != "Arrived Late" && item.status != "Arrived on time")
+								{
+									<td class="text-secondary">
+										@Html.DisplayFor(modelItem => item.status)
+									</td>
+								}
 
-						@*<td>
+								<td>
+									@Html.DisplayFor(modelItem => item.TotalStaffHours)
+								</td>
+								<td>
+									@Html.DisplayFor(modelItem => item.PercentageHours)%
+								</td>
+								<td>
+									@Html.DisplayFor(modelItem => item.OverTimeHours)
+								</td>
+
+								@*<td>
 							@Html.ActionLink("Delete", "Delete", new { id = item.Id })
 						</td>*@
-					</tr>
-					}
+							</tr>
+						}
 
-				</tbody>
-			</table>
+					</tbody>
+				</table>
+			</div>
 		</div>
 	</div>
 </body>
@@ -225,8 +242,8 @@
 
                                     tbody_row[0].alignment = 'center';
                                     tbody_row[4].alignment = 'center';
-                                    tbody_row[5].alignment = 'right';
-                                    tbody_row[6].alignment = 'right';
+                                    tbody_row[5].alignment = 'left';
+                                    tbody_row[6].alignment = 'left';
                                 }
                             });
                         }

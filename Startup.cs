@@ -17,7 +17,7 @@ namespace FingerPrint
 				.SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
 				.UseSimpleAssemblyNameTypeSerializer()
 				.UseRecommendedSerializerSettings()
-				.UseSqlServerStorage("Server = DESKTOP-5H8PIC3/SQLEXPRESS2014; Database=FingerPrintDb; Integrated Security=True;", new SqlServerStorageOptions
+				.UseSqlServerStorage("Data Source =DESKTOP-5H8PIC3\\SQLEXPRESS2014; Initial Catalog = FingerPrintDb; User Id = angel; password = 1234e;", new SqlServerStorageOptions
 				{
 					CommandBatchMaxTimeout = TimeSpan.FromMinutes(5),
 					SlidingInvisibilityTimeout = TimeSpan.FromMinutes(5),

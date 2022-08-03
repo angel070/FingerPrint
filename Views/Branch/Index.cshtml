@@ -19,125 +19,136 @@ else
         </div>
 		<div class="card-body">
 			@if (Session["UserRoles"].ToString() == "Admin")
-			 {
+			{
 				<p style="text-align:right"><a href="~/Branch/Create" class="btn btn-primary  mb-4 mt-4" style="margin-left:830px">Create</a></p>
-			 }
-
-			<table class="table table-bordered table-striped zero-bottom display" id="example" aria-describedby="tbl-smtp-info" id="example">
-				<thead>
-					<tr>
-						<th>
-							@Html.DisplayNameFor(model => model.Name)
-						</th>
-						<th>
-							@Html.DisplayNameFor(model => model.CountryId)
-						</th>
-						<th>Action</th>
-					</tr>
-				</thead>
-
-				<tbody>
-					@foreach (var item in Model)
-					{
-						<tr>
-							<td>
-								@Html.DisplayFor(modelItem => item.Name)
-							</td>
-							<td>
-								@Html.DisplayFor(modelItem => item.Country.Name)
-							</td>
-							<td>
-								@Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-primary" })   |
-								<a href="#" id="showModal" class="btn btn-danger" onclick="Confirm(@item.Id)">Delete</a>
-							</td>
-						</tr>
-					}
-
-				</tbody>
-			</table>
-
-			<input type="text" id="BranchDelete" />
-
-			<div class="modal fade" id="deleteModal">
-				<div class="modal-dialog">
-					<div class="modal-content">
-						<div class="modal-header">
-							<h2 class="modal-title"> Confirm</h2>
+				<div class="page-header">
+					<div class="row align-items-center">
+						<div class="col-auto float-end ms-auto">
+							<a href="~/Branch/Create" class="btn add-btn"><i class="fa fa-plus"></i> Add Client</a>
+							<div class="view-icons">
+								<a href="clients.html" class="grid-view btn btn-link active"><i class="fa fa-th"></i></a>
+								<a href="clients-list.html" class="list-view btn btn-link"><i class="fa fa-bars"></i></a>
+							</div>
 						</div>
-						<div class="modal-body">
-							<h4>Are you sure you want to delete this country?</h4>
 						</div>
-						<div class="modal-footer">
-							<div class="form-group">
-								<a href="#" id="btnDelete" class="btn btn-primary">Delete</a>
-								<a href="#" id="btnCancel" class="btn btn-primary">Cancel</a>
+					</div>
+						}
+
+						<table class="table table-bordered table-striped zero-bottom display" id="example" aria-describedby="tbl-smtp-info" id="example">
+							<thead>
+								<tr>
+									<th>
+										@Html.DisplayNameFor(model => model.Name)
+									</th>
+									<th>
+										@Html.DisplayNameFor(model => model.CountryId)
+									</th>
+									<th>Action</th>
+								</tr>
+							</thead>
+
+							<tbody>
+								@foreach (var item in Model)
+								{
+									<tr>
+										<td>
+											@Html.DisplayFor(modelItem => item.Name)
+										</td>
+										<td>
+											@Html.DisplayFor(modelItem => item.Country.Name)
+										</td>
+										<td>
+											@Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-primary" })   |
+											<a href="#" id="showModal" class="btn btn-danger" onclick="Confirm(@item.Id)">Delete</a>
+										</td>
+									</tr>
+								}
+
+							</tbody>
+						</table>
+
+						<input type="hidden" id="BranchDelete" />
+
+						<div class="modal fade" id="deleteModal">
+							<div class="modal-dialog">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h2 class="modal-title"> Confirm</h2>
+									</div>
+									<div class="modal-body">
+										<h4>Are you sure you want to delete this country?</h4>
+									</div>
+									<div class="modal-footer">
+										<div class="form-group">
+											<a href="#" id="btnDelete" class="btn btn-primary">Delete</a>
+											<a href="#" id="btnCancel" class="btn btn-primary">Cancel</a>
+										</div>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-			</div>
-		</div>
-    </div>
 
-    @section scripts{
-        <script>
-            $(document).ready(function () {
-                $('#example').DataTable();
+				@section scripts{
+					<script>
+						$(document).ready(function () {
+							$('#example').DataTable();
 
 
 
-                $(document).ready(function () {
-                    $("#btnCancel").click(function () {
-                        window.location.href = "/Branch/Index";
-                    });
-                });
+							$(document).ready(function () {
+								$("#btnCancel").click(function () {
+									window.location.href = "/Branch/Index";
+								});
+							});
 
-                $("#btnDelete").click(function () {
-                    var _id = $("#BranchDelete").val();
+							$("#btnDelete").click(function () {
+								var _id = $("#BranchDelete").val();
 
-                    $.ajax({
-                        type: "POST",
-                        url: "/Branch/Delete",
-                        data: { id: _id },
-                        success: function (data) {
-							if (data.status) {
-								$("#deleteModal").modal('hide');
-								 $("#BranchDelete").val(null);
-								alert(data.message);
-                               
-                                window.location.href = "/Branch/Index";
-                            }
-							else {
-								  $("#deleteModal").modal('hide');
-								   alert(data.message);
+								$.ajax({
+									type: "POST",
+									url: "/Branch/Delete",
+									data: { id: _id },
+									success: function (data) {
+										if (data.status) {
+											$("#deleteModal").modal('hide');
+											$("#BranchDelete").val(null);
+											alert(data.message);
 
-                            }
-                        }
-                    });
-                });
-            });
+											window.location.href = "/Branch/Index";
+										}
+										else {
+											$("#deleteModal").modal('hide');
+											alert(data.message);
 
-            var Confirm = function (id) {
-                $("#BranchDelete").val(id);
-                $("#deleteModal").modal('show');
-            }
+										}
+									}
+								});
+							});
+						});
+
+						var Confirm = function (id) {
+							$("#BranchDelete").val(id);
+							$("#deleteModal").modal('show');
+						}
 
 
 
-            $("#btnPdf").click(function () {
-                var element = document.getElementById('example');
-                html2pdf(element);
-            });
+						$("#btnPdf").click(function () {
+							var element = document.getElementById('example');
+							html2pdf(element);
+						});
 
-    //$(document).on('click', '#btn', function () {
-    //    let pdf = new jsPDF();
-    //    let section = $('div.h3,table');
-    //    let page = function () {
-    //        pdf.save('Branches.pdf');
+					//$(document).on('click', '#btn', function () {
+					//    let pdf = new jsPDF();
+					//    let section = $('div.h3,table');
+					//    let page = function () {
+					//        pdf.save('Branches.pdf');
 
-    //    };
-    //    pdf.addHTML(section, page);
-    //});
+					//    };
+					//    pdf.addHTML(section, page);
+					//});
 
-        </script>
-    }
+					</script>
+				}

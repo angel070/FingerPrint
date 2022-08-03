@@ -383,6 +383,10 @@
     <Compile Include="Migrations\202207300645573_AddingTableLogo.designer.cs">
       <DependentUpon>202207300645573_AddingTableLogo.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202208010623079_abc1.cs" />
+    <Compile Include="Migrations\202208010623079_abc1.designer.cs">
+      <DependentUpon>202208010623079_abc1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Branch.cs" />
     <Compile Include="Models\BranchLog.cs" />
@@ -410,6 +414,87 @@
     <Compile Include="View_Model\LoginViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="assetsnew\css\bootstrap-datetimepicker.min.css" />
+    <Content Include="assetsnew\css\bootstrap.min.css" />
+    <Content Include="assetsnew\css\ckeditor.css" />
+    <Content Include="assetsnew\css\dataTables.bootstrap4.min.css" />
+    <Content Include="assetsnew\css\font-awesome.min.css" />
+    <Content Include="assetsnew\css\fullcalendar.min.css" />
+    <Content Include="assetsnew\css\line-awesome.min.css" />
+    <Content Include="assetsnew\css\select2.min.css" />
+    <Content Include="assetsnew\css\style.css" />
+    <Content Include="assetsnew\fonts\fontawesome-webfont.svg" />
+    <Content Include="assetsnew\fonts\la-brands-400.svg" />
+    <Content Include="assetsnew\fonts\la-regular-400.svg" />
+    <Content Include="assetsnew\fonts\la-solid-900.svg" />
+    <Content Include="assetsnew\img\attachment.png" />
+    <Content Include="assetsnew\img\favicon.png" />
+    <Content Include="assetsnew\img\flags\de.png" />
+    <Content Include="assetsnew\img\flags\es.png" />
+    <Content Include="assetsnew\img\flags\fr.png" />
+    <Content Include="assetsnew\img\flags\us.png" />
+    <Content Include="assetsnew\img\img-01.jpg" />
+    <Content Include="assetsnew\img\logo.png" />
+    <Content Include="assetsnew\img\logo2.png" />
+    <Content Include="assetsnew\img\logo3.png" />
+    <Content Include="assetsnew\img\placeholder.jpg" />
+    <Content Include="assetsnew\img\profiles\avatar-01.jpg" />
+    <Content Include="assetsnew\img\profiles\avatar-02.jpg" />
+    <Content Include="assetsnew\img\profiles\avatar-03.jpg" />
+    <Content Include="assetsnew\img\profiles\avatar-04.jpg" />
+    <Content Include="assetsnew\img\profiles\avatar-05.jpg" />
+    <Content Include="assetsnew\img\profiles\avatar-06.jpg" />
+    <Content Include="assetsnew\img\profiles\avatar-07.jpg" />
+    <Content Include="assetsnew\img\profiles\avatar-08.jpg" />
+    <Content Include="assetsnew\img\profiles\avatar-09.jpg" />
+    <Content Include="assetsnew\img\profiles\avatar-10.jpg" />
+    <Content Include="assetsnew\img\profiles\avatar-11.jpg" />
+    <Content Include="assetsnew\img\profiles\avatar-12.jpg" />
+    <Content Include="assetsnew\img\profiles\avatar-13.jpg" />
+    <Content Include="assetsnew\img\profiles\avatar-14.jpg" />
+    <Content Include="assetsnew\img\profiles\avatar-15.jpg" />
+    <Content Include="assetsnew\img\profiles\avatar-16.jpg" />
+    <Content Include="assetsnew\img\profiles\avatar-17.jpg" />
+    <Content Include="assetsnew\img\profiles\avatar-18.jpg" />
+    <Content Include="assetsnew\img\profiles\avatar-19.jpg" />
+    <Content Include="assetsnew\img\profiles\avatar-20.jpg" />
+    <Content Include="assetsnew\img\profiles\avatar-21.jpg" />
+    <Content Include="assetsnew\img\profiles\avatar-22.jpg" />
+    <Content Include="assetsnew\img\profiles\avatar-24.jpg" />
+    <Content Include="assetsnew\img\profiles\avatar-25.jpg" />
+    <Content Include="assetsnew\img\profiles\avatar-26.jpg" />
+    <Content Include="assetsnew\img\profiles\avatar-28.jpg" />
+    <Content Include="assetsnew\img\profiles\avatar-29.jpg" />
+    <Content Include="assetsnew\img\user.jpg" />
+    <Content Include="assetsnew\img\video-call.jpg" />
+    <Content Include="assetsnew\js\app.js" />
+    <Content Include="assetsnew\js\bootstrap-datetimepicker.min.js" />
+    <Content Include="assetsnew\js\bootstrap.bundle.min.js" />
+    <Content Include="assetsnew\js\chart.js" />
+    <Content Include="assetsnew\js\Chart.min.js" />
+    <Content Include="assetsnew\js\ckeditor.js" />
+    <Content Include="assetsnew\js\dataTables.bootstrap4.min.js" />
+    <Content Include="assetsnew\js\dropfiles.js" />
+    <Content Include="assetsnew\js\fullcalendar.min.js" />
+    <Content Include="assetsnew\js\jquery-3.6.0.min.js" />
+    <Content Include="assetsnew\js\jquery-ui.min.js" />
+    <Content Include="assetsnew\js\jquery.dataTables.min.js" />
+    <Content Include="assetsnew\js\jquery.fullcalendar.js" />
+    <Content Include="assetsnew\js\jquery.maskedinput.min.js" />
+    <Content Include="assetsnew\js\jquery.slimscroll.min.js" />
+    <Content Include="assetsnew\js\jquery.ui.touch-punch.min.js" />
+    <Content Include="assetsnew\js\line-chart.js" />
+    <Content Include="assetsnew\js\mask.js" />
+    <Content Include="assetsnew\js\moment.min.js" />
+    <Content Include="assetsnew\js\multiselect.min.js" />
+    <Content Include="assetsnew\js\select2.min.js" />
+    <Content Include="assetsnew\js\task.js" />
+    <Content Include="assetsnew\plugins\bootstrap-tagsinput\bootstrap-tagsinput.css" />
+    <Content Include="assetsnew\plugins\bootstrap-tagsinput\bootstrap-tagsinput.min.js" />
+    <Content Include="assetsnew\plugins\morris\morris.css" />
+    <Content Include="assetsnew\plugins\morris\morris.min.js" />
+    <Content Include="assetsnew\plugins\raphael\raphael.min.js" />
+    <Content Include="assetsnew\plugins\sticky-kit-master\dist\sticky-kit.min.js" />
     <Content Include="assets\css\app.css" />
     <Content Include="assets\css\app.min.css" />
     <Content Include="assets\css\bootstrap.css" />
@@ -2644,6 +2729,38 @@
     <Content Include="Scripts\dhtmlxScheduler\locale\recurring\repeat_template_ro.html" />
     <Content Include="Scripts\dhtmlxScheduler\locale\recurring\repeat_template_ru.html" />
     <Content Include="Scripts\dhtmlxScheduler\locale\recurring\repeat_template_sk.html" />
+    <Content Include="assetsnew\fonts\CircularStd-Black.woff" />
+    <Content Include="assetsnew\fonts\CircularStd-BlackItalic.woff" />
+    <Content Include="assetsnew\fonts\CircularStd-Bold.woff" />
+    <Content Include="assetsnew\fonts\CircularStd-BoldItalic.woff" />
+    <Content Include="assetsnew\fonts\CircularStd-Book.woff" />
+    <Content Include="assetsnew\fonts\CircularStd-BookItalic.woff" />
+    <Content Include="assetsnew\fonts\CircularStd-Medium.woff" />
+    <Content Include="assetsnew\fonts\CircularStd-MediumItalic.woff" />
+    <Content Include="assetsnew\fonts\fontawesome-webfont-1.eot" />
+    <Content Include="assetsnew\fonts\fontawesome-webfont.eot" />
+    <Content Include="assetsnew\fonts\fontawesome-webfont.ttf" />
+    <Content Include="assetsnew\fonts\fontawesome-webfont.woff" />
+    <Content Include="assetsnew\fonts\fontawesome-webfont.woff2" />
+    <Content Include="assetsnew\fonts\la-brands-400-1.eot" />
+    <Content Include="assetsnew\fonts\la-brands-400.eot" />
+    <Content Include="assetsnew\fonts\la-brands-400.ttf" />
+    <Content Include="assetsnew\fonts\la-brands-400.woff" />
+    <Content Include="assetsnew\fonts\la-brands-400.woff2" />
+    <Content Include="assetsnew\fonts\la-regular-400-1.eot" />
+    <Content Include="assetsnew\fonts\la-regular-400.eot" />
+    <Content Include="assetsnew\fonts\la-regular-400.ttf" />
+    <Content Include="assetsnew\fonts\la-regular-400.woff" />
+    <Content Include="assetsnew\fonts\la-regular-400.woff2" />
+    <Content Include="assetsnew\fonts\la-solid-900-1.eot" />
+    <Content Include="assetsnew\fonts\la-solid-900.eot" />
+    <Content Include="assetsnew\fonts\la-solid-900.ttf" />
+    <Content Include="assetsnew\fonts\la-solid-900.woff" />
+    <Content Include="assetsnew\fonts\la-solid-900.woff2" />
+    <Content Include="assetsnew\fonts\MaterialIcons-Regular.eot" />
+    <Content Include="assetsnew\fonts\MaterialIcons-Regular.ttf" />
+    <Content Include="assetsnew\fonts\MaterialIcons-Regular.woff" />
+    <Content Include="assetsnew\fonts\MaterialIcons-Regular.woff2" />
     <None Include="Properties\PublishProfiles\FingerPrintProject.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile1.pubxml" />
@@ -2707,7 +2824,6 @@
     <Content Include="Views\UserRoles\Create.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\User\Create.cshtml" />
-    <Content Include="Views\User\Login.cshtml" />
     <Content Include="Views\Staff\FingerPrintForm.cshtml" />
     <Content Include="Views\Staff\FingerPrint.cshtml" />
     <Content Include="Views\Staff\EventAdminDashboard.cshtml" />
@@ -2750,6 +2866,7 @@
     <Content Include="Views\LeaveType\Edit.cshtml" />
     <Content Include="Views\Logo\Create.cshtml" />
     <Content Include="Views\Logo\Index.cshtml" />
+    <Content Include="Views\User\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -2923,6 +3040,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202207300645573_AddingTableLogo.resx">
       <DependentUpon>202207300645573_AddingTableLogo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202208010623079_abc1.resx">
+      <DependentUpon>202208010623079_abc1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
