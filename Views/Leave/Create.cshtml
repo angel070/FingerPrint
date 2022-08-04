@@ -13,66 +13,67 @@
 		{
 			@Html.AntiForgeryToken()
 
-		<div class="form-horizontal">
-			@Html.ValidationSummary(true, "", new { @class = "text-danger" })
-			<div class="row">
-				<div class="col-md-6">
-					<div class="form-group">
-						@Html.LabelFor(model => model.StaffId, htmlAttributes: new { @class = "control-label col-md-" })
-						<div class="col-md-10">
-							@Html.EditorFor(model => model.StaffId, new { htmlAttributes = new { @class = "form-control" } })
-							@Html.ValidationMessageFor(model => model.StaffId, "", new { @class = "text-danger" })
+			<div class="form-horizontal">
+				@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+				<div class="row">
+					<div class="col-md-6">
+						<div class="form-group">
+							@Html.LabelFor(model => model.StaffId, htmlAttributes: new { @class = "control-label col-md-" })
+							<div class="col-md-10">
+								@Html.EditorFor(model => model.StaffId, new { htmlAttributes = new { @class = "form-control", @oninput = "MyFunction()" } })
+								@Html.ValidationMessageFor(model => model.StaffId, "", new { @class = "text-danger" })
+							</div>
 						</div>
-					</div>
-					<h6 class="text-danger">@TempData["ExistId"]</h6>
+						@*<input oninput="MyFunction()" type="text" id="StaffId"/>*@
+						<h6 class="text-danger">@TempData["ExistId"]</h6>
 
+					</div>
+
+
+					<div class="col-md-6">
+						<div class="form-group">
+							@Html.LabelFor(model => model.LeaveTypeId, htmlAttributes: new { @class = "control-label" })
+							<div class="col-md-10">
+								@Html.DropDownList("LeaveTypeId", ViewBag.Leaves as SelectList, "Select Leave", new { @class = "form-select" })
+
+								@Html.ValidationMessageFor(model => model.LeaveTypeId, "", new { @class = "text-danger" })
+							</div>
+						</div>
+
+					</div>
 				</div>
 
-
-				<div class="col-md-6">
-					<div class="form-group">
-						@Html.LabelFor(model => model.LeaveTypeId, htmlAttributes: new { @class = "control-label" })
-						<div class="col-md-10">
-							@Html.DropDownList("LeaveTypeId", ViewBag.Leaves as SelectList, "Select Leave", new { @class = "form-select" })
-
-							@Html.ValidationMessageFor(model => model.LeaveTypeId, "", new { @class = "text-danger" })
+				<div class="row">
+					<div class="col-md-6">
+						<div class="form-group">
+							@Html.LabelFor(model => model.DateFrom, htmlAttributes: new { @class = "control-label col-md-" })
+							<div class="col-md-10">
+								@Html.EditorFor(model => model.DateFrom, new { htmlAttributes = new { @class = "form-control" } })
+								@Html.ValidationMessageFor(model => model.DateFrom, "", new { @class = "text-danger" })
+							</div>
 						</div>
 					</div>
 
+					<div class="col-md-6">
+						<div class="form-group">
+							@Html.LabelFor(model => model.DateTo, htmlAttributes: new { @class = "control-label col-md-" })
+							<div class="col-md-10">
+								@Html.EditorFor(model => model.DateTo, new { htmlAttributes = new { @class = "form-control" } })
+								@Html.ValidationMessageFor(model => model.DateTo, "", new { @class = "text-danger" })
+							</div>
+						</div>
+					</div>
+				</div>
+				<h6 class="text-success">@TempData["ExistStaff"]</h6>
+
+				<p id="myId" class="text-danger" ></p>
+				<div class="form-group">
+					<div class="col-md-offset-2 col-md-10">
+						<input type="submit" value="Create" class="btn btn-primary" />
+					</div>
 				</div>
 			</div>
-
-			<div class="row">
-				<div class="col-md-6">
-					<div class="form-group">
-						@Html.LabelFor(model => model.DateFrom, htmlAttributes: new { @class = "control-label col-md-" })
-						<div class="col-md-10">
-							@Html.EditorFor(model => model.DateFrom, new { htmlAttributes = new { @class = "form-control" } })
-							@Html.ValidationMessageFor(model => model.DateFrom, "", new { @class = "text-danger" })
-						</div>
-					</div>
-				</div>
-
-				<div class="col-md-6">
-					<div class="form-group">
-						@Html.LabelFor(model => model.DateTo, htmlAttributes: new { @class = "control-label col-md-" })
-						<div class="col-md-10">
-							@Html.EditorFor(model => model.DateTo, new { htmlAttributes = new { @class = "form-control" } })
-							@Html.ValidationMessageFor(model => model.DateTo, "", new { @class = "text-danger" })
-						</div>
-					</div>
-				</div>
-			</div>
-			<h6 class="text-success">@TempData["ExistStaff"]</h6>
-
-			<div class="form-group">
-				<div class="col-md-offset-2 col-md-10">
-					<input type="submit" value="Create" class="btn btn-primary" />
-				</div>
-			</div>
-		</div>
 		}
-
 
 	</div>
 
@@ -80,4 +81,27 @@
 
 @section Scripts {
 	@Scripts.Render("~/bundles/jqueryval")
+    <script>
+		function MyFunction() {
+			var x = document.getElementById("StaffId").value;
+			CheckStaffName(x);
+		}
+
+		function CheckStaffName(x) {
+	                   $.ajax({
+							type: "POST",
+							url: "/Leave/checkNameOfStaff",
+							data: { StaffId: x},
+						   success: function (data) {
+							   if (data = "Staff Id does not Exist") {
+								   document.getElementById("myId").innerHTML = data;
+							   }
+									
+						   }		
+					   });
+		}
+
+
+	</script>
+	
 }

@@ -83,7 +83,6 @@
 							<span>@Session["UserRoles"]</span>
 						</a>
 						<div class="dropdown-menu">
-
 							<a class="dropdown-item" href="~/ChangePassword/Create">Change Password</a>
 							<a class="dropdown-item" href="~/User/Logout">Logout</a>
 						</div>
@@ -194,14 +193,11 @@
 		</div>*@
 
 		@* ...............................SIDE BAR START FROM HERE...................................... *@
-
 		<div class="sidebar" id="sidebar">
 			<div class="sidebar-inner slimscroll">
 				<div id="sidebar-menu" class="sidebar-menu">
+					@*<img src="~/assetsnew/avatar.png" alt="">*@
 					<ul>
-						<li class="menu-title">
-							<span>Main</span>
-						</li>
 						<li>
 							<a href="~/DashBoard/Index" style="text-decoration:none"><i class="la la-dashboard"></i> <span>Dashboard</span></a>
 						</li>
@@ -233,7 +229,8 @@
 								<li><a href="~/BranchReport/Create" style="text-decoration:none">BranchReport</a></li>
 								<li><a href="~/DepartmentReport/Create" style="text-decoration:none">Department Report</a></li>
 								<li><a href="~/DailyReport/Create" style="text-decoration:none">Daily Report</a></li>
-								<li><a href="~/DateRange/DateRange" style="text-decoration:none">Individual Report</a><li>
+								<li><a href="~/DateRange/DateRange" style="text-decoration:none">Individual Report</a>
+								<li>
 								<li><a href="~/LateReport/LateStaffs" style="text-decoration:none">Late Report</a></li>
 								<li><a href="~/OverTimeHours/Index" style="text-decoration:none">Over Time Report</a></li>
 								<li><a href="~/Absentees/Create" style="text-decoration:none">Absentees Report</a></li>
@@ -257,7 +254,7 @@
 				</a>
 			</header>
 
-			
+
 
 			<footer style="top:90%; position:fixed; height:100% ; margin-left:20%" class="text-center">
 				<div class="footer clearfix mb-0 text-muted footer-static ">
@@ -273,47 +270,47 @@
 				<div class="content">
 					@RenderBody()
 				</div>
-				
+
 			</div>
 		</div>
-				@Scripts.Render("~/bundles/jquery")
-				<script src="~/assetsnew/js/jquery-3.6.0.min.js"></script>
-				<script src="~/assetsnew/js/bootstrap.bundle.min.js"></script>
+		@Scripts.Render("~/bundles/jquery")
+		<script src="~/assetsnew/js/jquery-3.6.0.min.js"></script>
+		<script src="~/assetsnew/js/bootstrap.bundle.min.js"></script>
 
-				<script src="~/assetsnew/js/select2.min.js"></script>
-				<script src="~/assetsnew/js/moment.min.js"></script>
-				<script src="~/assetsnew/js/bootstrap-datetimepicker.min.js"></script>
-				<script src="~/assetsnew/js/app.js"></script>
+		<script src="~/assetsnew/js/select2.min.js"></script>
+		<script src="~/assetsnew/js/moment.min.js"></script>
+		<script src="~/assetsnew/js/bootstrap-datetimepicker.min.js"></script>
+		<script src="~/assetsnew/js/app.js"></script>
 
-				<script src=" ~/js/mfs.js"></script>
-				<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.8.0/html2pdf.bundle.min.js"></script>
+		<script src=" ~/js/mfs.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.8.0/html2pdf.bundle.min.js"></script>
 
-				<script src="~/assets/js/bootstrap.bundle.min.js"></script>
-				<script src="~/assets/vendors/simple-datatables/simple-datatables.js">
-				</script>
-				<script src="~/Datatable/datatables.min.js"></script>
-				<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script>
-				<script src="~/js/mfs100Scripts.js"></script>
-				<script src='https://cdn.rawgit.com/simonbengtsson/jsPDF/requirejs-fix-dist/dist/jspdf.debug.js'></script>
+		<script src="~/assets/js/bootstrap.bundle.min.js"></script>
+		<script src="~/assets/vendors/simple-datatables/simple-datatables.js">
+		</script>
+		<script src="~/Datatable/datatables.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script>
+		<script src="~/js/mfs100Scripts.js"></script>
+		<script src='https://cdn.rawgit.com/simonbengtsson/jsPDF/requirejs-fix-dist/dist/jspdf.debug.js'></script>
 
-				<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-				<script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
-				<script src="https://cdn.datatables.net/buttons/2.2.3/js/dataTables.buttons.min.js"></script>
-				<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-				<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
-				<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
-				<script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.html5.min.js"></script>
-				<script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.print.min.js"></script>
-				<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
-				<script src="https://cdn.datatables.net/plug-ins/1.12.1/api/sum().js"></script>
+		<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+		<script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+		<script src="https://cdn.datatables.net/buttons/2.2.3/js/dataTables.buttons.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+		<script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.html5.min.js"></script>
+		<script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.print.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+		<script src="https://cdn.datatables.net/plug-ins/1.12.1/api/sum().js"></script>
 
-				<script src="~/assetsnew/js/jquery.slimscroll.min.js"></script>
-
-
+		<script src="~/assetsnew/js/jquery.slimscroll.min.js"></script>
 
 
-				@RenderSection("scripts", required: false)
-				@*<script src="~/assets/table2excel.jquery.json"></script>*@
-			</div>
+
+
+		@RenderSection("scripts", required: false)
+		@*<script src="~/assets/table2excel.jquery.json"></script>*@
+	</div>
 </body>
 </html>

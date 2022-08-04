@@ -120,9 +120,9 @@ function Match(id) {
 
     try {
         /*var user_id = document.getElementById('Staff_id').value;*/
-        var x = "txtIsoTemplate&" + id;
+        var x = "txt&" + id;
        
-        var isotemplate = document.getElementById(x).value;
+		var isotemplate = document.getElementById(x).value;
         // alert(userID);
 
         //alert(isotemplate);

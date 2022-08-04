@@ -1,27 +1,27 @@
 @model FingerPrint.View_Model.CheckIdViewModel
 
 @{
-    Layout = "~/Views/Shared/Layout1.cshtml";
+	Layout = "~/Views/Shared/Layout1.cshtml";
 }
 
 @using (Html.BeginForm())
 {
-    <div class="card" style="border-radius:5%; width:400px; margin-left:25%; margin-top:10px;">
-        <div class="card-header">
-            <h4 class="text-center">Please Enter your ID</h4>
-        </div>
+	<div class="card" style="border-radius:5%; width:400px; margin-left:25%; margin-top:10px;">
+		<div class="card-header">
+			<h4 class="text-center">Please Enter your ID</h4>
+		</div>
 
-        <div class="card-body" style="margin-left:20%">
+		<div class="card-body" style="margin-left:20%">
 
-            @Html.AntiForgeryToken()
+			@Html.AntiForgeryToken()
 
-            <div class="form-horizontal">
+			<div class="form-horizontal">
 
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+				@Html.ValidationSummary(true, "", new { @class = "text-danger" })
 				<div class="form-group">
 					@Html.LabelFor(model => model.Userid, htmlAttributes: new { @class = "control-label " })
 					<div class="col-md-10">
-						@Html.EditorFor(model => model.Userid, new { htmlAttributes = new { @class = "form-control" } })
+						@Html.EditorFor(model => model.Userid, new { htmlAttributes = new { @class = "form-control", @oninput = "MyFunction()" } })
 						@Html.ValidationMessageFor(model => model.Userid, "", new { @class = "text-danger" })
 
 					</div>
@@ -29,18 +29,58 @@
 					<h6 class="text-danger">@TempData["EmptyFinger"]</h6>
 				</div>
 
-            </div>
-           
-        </div>
+				@*<div class="col-md-10">
+					<input  type="text" id="txt&@TempData["id"]" class="finger" value="" />
+					
+				</div>*@
+				<p id="finger">
 
-        <div class="card-footer">
-            <div style="margin-left:25%">
-                <input type="submit" value="Capture" class="btn btn-primary" />
-                <a href="~/User/Login">Admin Login</a>
-            </div>
-        </div>
-    </div>
+				</p>
+				
+
+			</div>
+
+		</div>
+
+		<div class="card-footer">
+			<div style="margin-left:25%">
+				<input type="submit" value="Capture" class="btn btn-primary" />
+					@*<input type="button" value="Capture" id="@TempData["id"]"
+						   class="capturebuttonpadding btn btn-primary btn-sm" style="margin-left:80px"
+						   onclick="Match(@TempData["id"])" />*@
+				<a href="~/User/Login">Admin Login</a>
+			</div>
+		</div>
+	</div>
 }
 
 
 
+@section Scripts {
+	@Scripts.Render("~/bundles/jqueryval")
+<script>
+	function MyFunction() {
+		var x = document.getElementById("Userid").value;
+		console.log(x);
+		CheckStaffFingerPrint(x);
+	}
+
+	function CheckStaffFingerPrint(x) {
+		$.ajax({
+			type: "POST",
+			url: "/User/checkStaffFingerPrint",
+			data: { StaffId: x },
+			success: function (data) {
+				console.log(x);
+				document.getElementsByName("s").innerHTML = data;
+				/**/
+				//$('.finger').val(data);
+				/**/
+			}
+});
+}
+
+
+</script>
+
+}

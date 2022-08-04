@@ -20,19 +20,8 @@ else
 		<div class="card-body">
 			@if (Session["UserRoles"].ToString() == "Admin")
 			{
-				<p style="text-align:right"><a href="~/Branch/Create" class="btn btn-primary  mb-4 mt-4" style="margin-left:830px">Create</a></p>
-				<div class="page-header">
-					<div class="row align-items-center">
-						<div class="col-auto float-end ms-auto">
-							<a href="~/Branch/Create" class="btn add-btn"><i class="fa fa-plus"></i> Add Client</a>
-							<div class="view-icons">
-								<a href="clients.html" class="grid-view btn btn-link active"><i class="fa fa-th"></i></a>
-								<a href="clients-list.html" class="list-view btn btn-link"><i class="fa fa-bars"></i></a>
-							</div>
-						</div>
-						</div>
-					</div>
-						}
+				<p style="text-align:right"><a href="~/Branch/Create" class="btn btn-primary  mb-4 mt-4" style="margin-left:830px">Create</a></p>	
+			 }
 
 						<table class="table table-bordered table-striped zero-bottom display" id="example" aria-describedby="tbl-smtp-info" id="example">
 							<thead>

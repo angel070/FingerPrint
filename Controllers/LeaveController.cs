@@ -74,6 +74,18 @@ namespace FingerPrint.Controllers
 		}
 
 		[HttpPost]
+		public JsonResult checkNameOfStaff(string StaffId)
+		{
+			var StaffNames = _context.Staffs.Where(c => c.Staff_id == StaffId).SingleOrDefault();
+
+			if(StaffNames != null)
+			{
+				return Json(StaffNames.FirstName + " " + StaffNames.LastName);
+			}
+			return Json("Staff Id does not Exist");
+		}
+
+		[HttpPost]
 		public ActionResult CheckStaffIdExists(string Staff_id, string StaffId_clone)
 		{
 
