@@ -119,18 +119,17 @@ function Verify() {
 function Match(id) {
 
     try {
-        /*var user_id = document.getElementById('Staff_id').value;*/
-        var x = "txt&" + id;
+		/*var user_id = document.getElementById('Staff_id').value;*/
+		console.log(id + "hello");
+		var x = "txtisotemplate&" + id;
        
 		var isotemplate = document.getElementById(x).value;
-        // alert(userID);
-
-        //alert(isotemplate);
-        console.log("hellow");
+       
+        //alert(isotemplate); 
         var res = MatchFinger(quality, timeout, isotemplate);
         if (res.httpStaus) {
             if (res.data.Status) {
-                console.log("hellow");
+                
                 ("Finger Matched");
                 // alert(userID);
                 //let base_url = "{{ url('') }}";

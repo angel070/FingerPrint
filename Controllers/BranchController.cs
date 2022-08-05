@@ -60,6 +60,7 @@ namespace FingerPrint.Controllers
 					return RedirectToAction("Create");
 				}
 				else
+					
 				_context.Branches.Add(_branch);
 				_context.SaveChanges();
 				return RedirectToAction("Index");

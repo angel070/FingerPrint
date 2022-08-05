@@ -21,7 +21,7 @@
 				<div class="form-group">
 					@Html.LabelFor(model => model.Userid, htmlAttributes: new { @class = "control-label " })
 					<div class="col-md-10">
-						@Html.EditorFor(model => model.Userid, new { htmlAttributes = new { @class = "form-control", @oninput = "MyFunction()" } })
+						@Html.EditorFor(model => model.Userid, new { htmlAttributes = new { @class = "form-control", @oninput = "MyFunction()",} })
 						@Html.ValidationMessageFor(model => model.Userid, "", new { @class = "text-danger" })
 
 					</div>
@@ -29,32 +29,133 @@
 					<h6 class="text-danger">@TempData["EmptyFinger"]</h6>
 				</div>
 
-				@*<div class="col-md-10">
-					<input  type="text" id="txt&@TempData["id"]" class="finger" value="" />
-					
-				</div>*@
-				<p id="finger">
-
-				</p>
+				<div class="col-md-10" id="txte">
 				
-
+				</div>	
 			</div>
-
 		</div>
 
 		<div class="card-footer">
 			<div style="margin-left:25%">
-				<input type="submit" value="Capture" class="btn btn-primary" />
-					@*<input type="button" value="Capture" id="@TempData["id"]"
+				@*<input type="submit" value="Capture" class="btn btn-primary" />*@
+					<input type="button" value="capture" id="capture"
 						   class="capturebuttonpadding btn btn-primary btn-sm" style="margin-left:80px"
-						   onclick="Match(@TempData["id"])" />*@
+						  />
 				<a href="~/User/Login">Admin Login</a>
 			</div>
 		</div>
 	</div>
 }
 
+<div class="panel">
+	<table class="d-none" width="100%">
+		<tr class="hide">
+			<td>
+				<input type="text" value="" id="txtStatus" class="form-control hide" />
+			</td>
+		</tr>
+		<tr class="hide">
+			<td>
+				<input type="text" value="" id="id" class="form-control hide" />
+			</td>
+		</tr>
+		<tr class="hide">
+			<td>
+				Quality:
+			</td>
+			<td>
+				<input type="text" value="" id="txtImageInfo" class="form-control" />
+			</td>
+		</tr>
 
+		<tr class="hide">
+			<td>
+				Base64Encoded ISO Template
+			</td>
+			<td>
+				<textarea id="txtIsoTemplate" name="txtIsoTemplate" style="width: 100%; height:50px;"
+						  value="" class="form-control"> </textarea>
+			</td>
+		</tr>
+		<tr class="hide">
+			<td>
+				Base64Encoded ANSI Template
+			</td>
+			<td>
+				<textarea id="txtAnsiTemplate" style="width: 100%; height:50px;"
+						  class="form-control"> </textarea>
+			</td>
+		</tr>
+		<tr class="hide">
+			<td>
+				Base64Encoded ISO Image
+			</td>
+			<td>
+				<textarea id="txtIsoImage" style="width: 100%; height:50px;"
+						  class="form-control"> </textarea>
+			</td>
+		</tr>
+		<tr class="hide">
+			<td>
+				Base64Encoded Raw Data
+			</td>
+			<td>
+				<textarea id="txtRawData" style="width: 100%; height:50px;"
+						  class="form-control"> </textarea>
+			</td>
+		</tr>
+		<tr class="hide">
+			<td>
+				Base64Encoded Wsq Image Data
+			</td>
+			<td>
+				<textarea id="txtWsqData" style="width: 100%; height:50px;"
+						  class="form-control"> </textarea>
+			</td>
+		</tr>
+		<tr class="hide">
+			<td>
+				Encrypted Base64Encoded Pid/Rbd
+			</td>
+			<td>
+				<textarea id="txtPid" style="width: 100%; height:50px;" class="form-control"> </textarea>
+			</td>
+		</tr>
+		<tr class="hide">
+			<td>
+				Encrypted Base64Encoded Session Key
+			</td>
+			<td>
+				<textarea id="txtSessionKey" style="width: 100%; height:50px;"
+						  class="form-control"> </textarea>
+			</td>
+		</tr>
+		<tr class="hide">
+			<td>
+				Encrypted Base64Encoded Hmac
+			</td>
+			<td>
+				<input type="text" value="" id="txtHmac" class="form-control" />
+			</td>
+		</tr>
+		<tr class="hide">
+			<td>
+				Ci
+			</td>
+			<td>
+				<input type="text" value="" id="txtCi" class="form-control" />
+			</td>
+		</tr>
+		<tr class="hide">
+			<td>
+				Pid/Rbd Ts
+			</td>
+			<td>
+				<input type="text" value="" id="txtPidTs" class="form-control" />
+			</td>
+		</tr>
+	</table>
+</div>
 
 @section Scripts {
 	@Scripts.Render("~/bundles/jqueryval")
@@ -71,16 +172,19 @@
 			url: "/User/checkStaffFingerPrint",
 			data: { StaffId: x },
 			success: function (data) {
-				console.log(x);
-				document.getElementsByName("s").innerHTML = data;
-				/**/
-				//$('.finger').val(data);
-				/**/
+				var MyId = "txtisotemplate&" + data.Staff_id;
+				var MyFingerPrint = data.Fingerprint;
+				$('#txte').append(" <input  type='hidden' id='"+MyId +"' value='"+MyFingerPrint+"'/>");
+				
 			}
-});
-}
+        });
+	}
 
-
+	$(document).ready(function () {
+		$('#capture').on('click', function (e) {
+			var Id = document.getElementById("Userid").value;
+			Match(Id);
+        });
+	});
 </script>
-
 }

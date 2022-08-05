@@ -134,8 +134,8 @@ namespace FingerPrint.Controllers
 		public JsonResult checkStaffFingerPrint(string StaffId)
 		{
 			var staffDetails = _context.Staffs.Where(c => c.Staff_id == StaffId).SingleOrDefault();
-			TempData["Id"] = staffDetails.Staff_id;
-			return Json(staffDetails.Fingerprint);
+			TempData["Id"] = StaffId;
+			return Json(staffDetails);
 		}
 
 		public ActionResult Login()
@@ -239,7 +239,7 @@ namespace FingerPrint.Controllers
         }
 
         [HttpPost]
-        public ActionResult MatchFinger(int?id)
+        public ActionResult MatchFinger(string id)
         {
 			   
                StaffCheckInAndOutReport staff = new StaffCheckInAndOutReport();
@@ -250,9 +250,9 @@ namespace FingerPrint.Controllers
 			    var todayDate = time.Date; 
 				var todaysDay = time.DayOfWeek;
 				var workingHours = _context.WorkingHourse.Find(id2);
-                var StaffFound = _context.Staffs.Find(id);
+                var StaffFound = _context.Staffs.Where(c=>c.Staff_id ==id ).SingleOrDefault();
                 var FullName = $"{StaffFound.FirstName} {StaffFound.LastName}";
-
+			
 			   var holiday = _context.Holdays.Where(c => c.DateFrom == todayDate).SingleOrDefault();
                 var staffLogout = _context.StaffCheckInAndOutReports.Where(c=>c.StaffId == StaffFound.Staff_id && c.TimeOut == null && c.Date == todayDate).SingleOrDefault();
 

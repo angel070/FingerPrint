@@ -20,7 +20,7 @@
 						<div class="form-group">
 							@Html.LabelFor(model => model.StaffId, htmlAttributes: new { @class = "control-label col-md-" })
 							<div class="col-md-10">
-								@Html.EditorFor(model => model.StaffId, new { htmlAttributes = new { @class = "form-control", @oninput = "MyFunction()" } })
+								@Html.EditorFor(model => model.StaffId, new { htmlAttributes = new { @class = "form-control", @onchange = "MyFunction()" } })
 								@Html.ValidationMessageFor(model => model.StaffId, "", new { @class = "text-danger" })
 							</div>
 						</div>
@@ -92,10 +92,9 @@
 							type: "POST",
 							url: "/Leave/checkNameOfStaff",
 							data: { StaffId: x},
-						   success: function (data) {
-							   if (data = "Staff Id does not Exist") {
-								   document.getElementById("myId").innerHTML = data;
-							   }
+						   success: function (data) {	   
+							   document.getElementById("myId").innerHTML = data;
+							   alert(data);
 									
 						   }		
 					   });
