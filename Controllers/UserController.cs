@@ -131,7 +131,7 @@ namespace FingerPrint.Controllers
 
 
 		[HttpPost]
-		public JsonResult checkStaffFingerPrint(string StaffId)
+		public ActionResult checkStaffFingerPrint(string StaffId)
 		{
 			var staffDetails = _context.Staffs.Where(c => c.Staff_id == StaffId).SingleOrDefault();
 			TempData["Id"] = StaffId;

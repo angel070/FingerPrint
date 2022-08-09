@@ -21,17 +21,19 @@
 				<div class="form-group">
 					@Html.LabelFor(model => model.Userid, htmlAttributes: new { @class = "control-label " })
 					<div class="col-md-10">
-						@Html.EditorFor(model => model.Userid, new { htmlAttributes = new { @class = "form-control", @oninput = "MyFunction()",} })
+						@Html.EditorFor(model => model.Userid, new { htmlAttributes = new { @class = "form-control", @onchange = "MyFunction()", } })
 						@Html.ValidationMessageFor(model => model.Userid, "", new { @class = "text-danger" })
 
 					</div>
-					<h6 class="text-danger">@TempData["WrongId"]</h6>
-					<h6 class="text-danger">@TempData["EmptyFinger"]</h6>
-				</div>
 
-				<div class="col-md-10" id="txte">
-				
-				</div>	
+				</div>
+				<p class="invalidId text-danger">Enter Valid Id!!!</p>
+				<p class="EmptyFinger text-danger">Please Register your Finger</p>
+
+				<div class="col-md-10 text-danger" id="txte">
+
+				</div>
+				<p id="staffName"></p>
 			</div>
 		</div>
 
@@ -162,7 +164,6 @@
 <script>
 	function MyFunction() {
 		var x = document.getElementById("Userid").value;
-		console.log(x);
 		CheckStaffFingerPrint(x);
 	}
 
@@ -172,15 +173,33 @@
 			url: "/User/checkStaffFingerPrint",
 			data: { StaffId: x },
 			success: function (data) {
-				var MyId = "txtisotemplate&" + data.Staff_id;
-				var MyFingerPrint = data.Fingerprint;
-				$('#txte').append(" <input  type='hidden' id='"+MyId +"' value='"+MyFingerPrint+"'/>");
+				$('.invalidId').hide();
+				$('.EmptyFinger').hide();
+				$('#txte').hide();
+				if (data.Fingerprint == null) {
+					$('#txte').hide();
+					$('.EmptyFinger').show();
+				} else {
+					var MyId = "txtisotemplate&" + data.Staff_id;
+					var MyFingerPrint = data.Fingerprint;
+					$('#txte').append(" <input  type='hidden' id='" + MyId + "' value='" + MyFingerPrint + "'/>");
 				
+				}
+					
+			},
+			error: function (error) {
+				$('#txte').hide();
+				$('.EmptyFinger').hide();
+				$('.invalidId').show();
 			}
-        });
+			
+		});
+		
 	}
 
 	$(document).ready(function () {
+		$('.invalidId').hide();
+		$('.EmptyFinger').hide();
 		$('#capture').on('click', function (e) {
 			var Id = document.getElementById("Userid").value;
 			Match(Id);

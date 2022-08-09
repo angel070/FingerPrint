@@ -31,6 +31,7 @@ namespace FingerPrint.Models
 		[DataType(DataType.Date)]
 		[Display(Name = "Created Date")]
 		public Nullable<DateTime> CreatedDate { get; set; }
+	
 		
     }
 }

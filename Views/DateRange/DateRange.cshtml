@@ -217,37 +217,7 @@
 	<script>
 		var pdfDoc;
 		$(document).ready(function () {
-			//jQuery.fn.dataTable.Api.register( 'sum()', function ( ) {
-   //     return this.flatten().reduce( function ( a, b ) {
-   //       if ( typeof a === 'string' ) {
-   //         a = a.replace(/[^\d.-]/g, '') * 1;
-   //       }
-   //       if ( typeof b === 'string' ) {
-   //         b = b.replace(/[^\d.-]/g, '') * 1;
-   //       }
-
-   //       return a + b;
-   //     }, 0 );
-  	//});
-
-    //jQuery.fn.dataTable.Api.register('sum()', function () {
-    //    return this.flatten().reduce(function (a, b) {
-    //        if (typeof a === 'string') {
-    //            a = a.replace(/[^\d.-]/g, '') * 1;
-    //        }
-    //        if (typeof b === 'string') {
-    //            b = b.replace(/[^\d.-]/g, '') * 1;
-    //        }
-    //        return a + b;
-    //    }, 0);
-    //});
-
-    //function formatNumber(num, isDollars) {
-    //    if (num && isDollars) {
-    //        return `$${num.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`;
-    //    }
-    //    return num.toFixed(2);
-    //}
+		
 			$('#example').DataTable({
 				footerCallback: function (row, data, start, end,display) {
 
@@ -274,9 +244,6 @@
  
 					// Update footer
 					$(api.column(11).footer()).html(' total: ' + total.toFixed(2));
-
-
-
 				},
 
 				

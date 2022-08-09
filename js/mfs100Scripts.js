@@ -120,11 +120,13 @@ function Match(id) {
 
     try {
 		/*var user_id = document.getElementById('Staff_id').value;*/
-		console.log(id + "hello");
+		
 		var x = "txtisotemplate&" + id;
-       
 		var isotemplate = document.getElementById(x).value;
-       
+
+		if (isotemplate == null) {
+			console.log("Enter valid staff Id");
+		}
         //alert(isotemplate); 
         var res = MatchFinger(quality, timeout, isotemplate);
         if (res.httpStaus) {
