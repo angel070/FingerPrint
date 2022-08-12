@@ -288,7 +288,7 @@ namespace FingerPrint.Controllers
 						staff.status = "Arrived on time";
 						_context.StaffCheckInAndOutReports.Add(staff);
 						_context.SaveChanges();
-						return Json("You have successfull Check In");
+						return Json(FullName + " " + "You have successfull Check In");
 
 					}
 
@@ -297,7 +297,7 @@ namespace FingerPrint.Controllers
 						staff.status = "Arrived Late";
 						_context.StaffCheckInAndOutReports.Add(staff);
 						_context.SaveChanges();
-						return Json("You have successfull Check In");
+						return Json(FullName+ " " + "You have successfull Check In");
 					}
 
 					if(holiday != null)
@@ -305,14 +305,14 @@ namespace FingerPrint.Controllers
 						staff.status = holiday.Name + "Holiday";
 						_context.StaffCheckInAndOutReports.Add(staff);
 						_context.SaveChanges();
-						return Json("You have successfull Check In");
+						return Json(FullName + " " + "You have successfull Check In");
 					}
 				}
 				else
 					staff.status = "Department Time is not Defined";
 				    _context.StaffCheckInAndOutReports.Add(staff);
 				     _context.SaveChanges();
-				    return Json("You have successfull Check In");
+				    return Json(FullName + " " + "You have successfull Check In");
 			}
 
             else
@@ -352,7 +352,7 @@ namespace FingerPrint.Controllers
              
                 _context.Entry(staffLogout).State = System.Data.Entity.EntityState.Modified;
                 _context.SaveChanges();
-                return Json("you have successfull Check out");
+                return Json(FullName + " "+"you have successfull Check out");
                 //TempData["Message"] = "You have successfull check Out";
                 
             }

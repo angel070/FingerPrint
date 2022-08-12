@@ -2446,6 +2446,7 @@
     <Content Include="js\custom\department.js" />
     <Content Include="js\custom\device.js" />
     <Content Include="js\custom\organization.js" />
+    <Content Include="Scripts\custom\periodFilter.js" />
     <Content Include="js\custom\user.js" />
     <Content Include="js\jquery.js" />
     <Content Include="js\jquery.tableToExcel.js" />
@@ -2761,12 +2762,12 @@
     <Content Include="assetsnew\fonts\MaterialIcons-Regular.ttf" />
     <Content Include="assetsnew\fonts\MaterialIcons-Regular.woff" />
     <Content Include="assetsnew\fonts\MaterialIcons-Regular.woff2" />
+    <None Include="Properties\PublishProfiles\AttendanceProject.pubxml" />
     <None Include="Properties\PublishProfiles\Fingerprint.pubxml" />
     <None Include="Properties\PublishProfiles\FingerPrintProject.pubxml" />
     <None Include="Properties\PublishProfiles\FingerPrintPublished.pubxml" />
     <None Include="Properties\PublishProfiles\FingerProject.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
-    <None Include="Properties\PublishProfiles\FolderProfile1.pubxml" />
     <None Include="Scripts\jquery-3.6.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.6.0.js" />
     <Content Include="Scripts\jquery-3.6.0.min.js" />

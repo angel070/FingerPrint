@@ -5,6 +5,8 @@ var timeout = 10; // seconds (minimum=10(recommanded), maximum=60, unlimited=0 )
 
 //function to initialize the device
 
+
+
 function GetInfo() {
     document.getElementById('tdSerial').innerHTML = "";
     document.getElementById('tdCertification').innerHTML = "";

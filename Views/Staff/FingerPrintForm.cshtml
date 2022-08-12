@@ -84,21 +84,24 @@
                     <!-- /.card-body -->
                     <!--FINGER ENROLL BUTTON-->
                     <div class=" card-footer clearfix ">
+						<div class="row">
+							<div class="col-md-1">
+								<a>
+									@Html.ActionLink("Edit", "Edit", new { id = TempData["Id"] }, new { @class = "btn btn-primary" })
 
-						<a >
-							@Html.ActionLink("Edit", "Edit", new { id = TempData["Id"] }, new { @class = "btn btn-primary" })
-							@*<button type="button" class="btn btn-outline-info mr-2"
-									style="background-color:#25396f; color:white">
-								Edit
-							</button>*@
-						</a>
+								</a>
+							</div>
+							<div class="col-md-3">
+								<button type="button" class="btn btn-outline-primary block"
+										data-bs-toggle="modal" data-bs-target="#exampleModalCenter">
+									Fingerprint Enroll Staff
+								</button>
+							</div>
 
-                       
+						</div>
 
-                        <button type="button" class="btn btn-outline-primary block"
-                                data-bs-toggle="modal" data-bs-target="#exampleModalCenter">
-                            Fingerprint Enroll Staff
-                        </button>
+
+						
 
                         <!-- Vertically Centered modal Modal -->
                         <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"

@@ -47,270 +47,275 @@
 </head>
 
 <body>
-	<div id="app">
+    <div id="app">
 
-		@* ...............................TOPNAVIGATION BAR START FROM HERE...................................... *@
-		<div class="main-wrapper">
-			<div class="header">
+        @* ...............................TOPNAVIGATION BAR START FROM HERE...................................... *@
+        <div class="main-wrapper">
+            <div class="header">
 
-				<div class="header-left">
-					<a href="admin-dashboard.html" class="logo">
-						<img src="~/assetsnew/img/logo.png" width="40" height="40" alt="">
-					</a>
-				</div>
+                <div class="header-left">
+                    <a href="admin-dashboard.html" class="logo">
+                        <img src="~/assetsnew/img/logo.png" width="40" height="40" alt="">
+                    </a>
+                </div>
 
-				<a id="toggle_btn" href="javascript:void(0);">
-					<span class="bar-icon">
-						<span></span>
-						<span></span>
-						<span></span>
-					</span>
-				</a>
+                <a id="toggle_btn" href="javascript:void(0);">
+                    <span class="bar-icon">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </span>
+                </a>
 
-				<div class="page-title-box">
-					<h3>Attendance Management System</h3>
-				</div>
+                <div class="page-title-box">
+                    <h3>Attendance Management System</h3>
+                </div>
 
-				<a id="mobile_btn" class="mobile_btn" href="#sidebar"><i class="fa fa-bars"></i></a>
+                <a id="mobile_btn" class="mobile_btn" href="#sidebar"><i class="fa fa-bars"></i></a>
 
-				<ul class="nav user-menu">
-					<li class="nav-item dropdown has-arrow main-drop">
-						<a href="#" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
-							<span class="user-img">
-								<img src="~/assetsnew/img/profiles/avatar-13.jpg" alt="">
-								<span class="status online"></span>
-							</span>
-							<span>@Session["UserRoles"]</span>
-						</a>
-						<div class="dropdown-menu">
-							<a class="dropdown-item" href="~/ChangePassword/Create">Change Password</a>
-							<a class="dropdown-item" href="~/User/Logout">Logout</a>
-						</div>
-					</li>
-				</ul>
-			</div>
-		</div>
-		@* ...............................END OF TOP NAVIGATION BAR ..................................... *@
+                <ul class="nav user-menu">
+                    <li class="nav-item dropdown has-arrow main-drop">
+                        <a href="#" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
+                            <span class="user-img">
+                                <img src="~/assetsnew/img/profiles/avatar-13.jpg" alt="">
+                                <span class="status online"></span>
+                            </span>
+                            <span>@Session["UserRoles"]</span>
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="~/ChangePassword/Create">Change Password</a>
+                            <a class="dropdown-item" href="~/User/Logout">Logout</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        @* ...............................END OF TOP NAVIGATION BAR ..................................... *@
 
-		@*<div id="sidebar" class="active" >
-			<div class="sidebar-wrapper active bg-light" style="width:17%; padding-top:12%">
-				<div class="sidebar-header">
-					<div class="d-flex justify-content-between">
-						<div class="toggler">
-							<img src="~/assets/images/biz_logo_circle1.png" style="width:100px; margin-left:30px; height:100px; margin-top:50%; margin-bottom:0%" />
-						</div>
-					</div>
-				</div>
+        @*<div id="sidebar" class="active" >
+            <div class="sidebar-wrapper active bg-light" style="width:17%; padding-top:12%">
+                <div class="sidebar-header">
+                    <div class="d-flex justify-content-between">
+                        <div class="toggler">
+                            <img src="~/assets/images/biz_logo_circle1.png" style="width:100px; margin-left:30px; height:100px; margin-top:50%; margin-bottom:0%" />
+                        </div>
+                    </div>
+                </div>
 
-				<div class="sidebar-menu bg-light" style="background-color:#367588;color:white; margin-top:0px; height:50px; width:20px">
+                <div class="sidebar-menu bg-light" style="background-color:#367588;color:white; margin-top:0px; height:50px; width:20px">
 
-					<ul class="menu mb-2">
+                    <ul class="menu mb-2">
 
-						<li class="sidebar-item ">
-							<a href="~/DashBoard/Index"
-							   class='sidebar-link' onclick="toggle_active_class()">
-								<i class="bi bi-grid-fill"></i>
-								<span>Dashboard</span>
-							</a>
-						</li>
+                        <li class="sidebar-item ">
+                            <a href="~/DashBoard/Index"
+                               class='sidebar-link' onclick="toggle_active_class()">
+                                <i class="bi bi-grid-fill"></i>
+                                <span>Dashboard</span>
+                            </a>
+                        </li>
 
-									</ul>
-								</div>
-							</li>
-						}
+                                    </ul>
+                                </div>
+                            </li>
+                        }
 
-						@if (Session["UserRoles"].ToString() == "Branch")
-						{
-							<li class="sidebar-item">
-								<div class="dropdown">
-									<a class=" dropdown-toggle sidebar-link " href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-										<i class="bi bi-gear-fill"></i>
-										<span >Setup</span>
-									</a>
+                        @if (Session["UserRoles"].ToString() == "Branch")
+                        {
+                            <li class="sidebar-item">
+                                <div class="dropdown">
+                                    <a class=" dropdown-toggle sidebar-link " href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="bi bi-gear-fill"></i>
+                                        <span >Setup</span>
+                                    </a>
 
-									<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-										<li><a class="dropdown-item" href="~/Department/Index">Department</a></li>
-										<li><a class="dropdown-item" href="~/TimeInAndOut/Index">Set Time</a></li>
-										<li><a class="dropdown-item" href="~/Holiday/Index">Holidays</a></li>
-										<li><a class="dropdown-item" href="~/LeaveType/Index">Leave Type</a></li>
-										<li><a class="dropdown-item" href="~/Leave/Index">Leave </a></li>
-									</ul>
-								</div>
-							</li>
-						}
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                        <li><a class="dropdown-item" href="~/Department/Index">Department</a></li>
+                                        <li><a class="dropdown-item" href="~/TimeInAndOut/Index">Set Time</a></li>
+                                        <li><a class="dropdown-item" href="~/Holiday/Index">Holidays</a></li>
+                                        <li><a class="dropdown-item" href="~/LeaveType/Index">Leave Type</a></li>
+                                        <li><a class="dropdown-item" href="~/Leave/Index">Leave </a></li>
+                                    </ul>
+                                </div>
+                            </li>
+                        }
 
 
-						@if (Session["UserRoles"].ToString() == "Branch")
-						{
-							<li class="sidebar-item">
-								<a href="~/Holiday/Index" class='sidebar-link' onclick="
-							   toggle_active_class()">
-									<i class="bi bi-calendar-check-fill"></i>
-									<span>Holidays</span>
-								</a>
-							</li>
-						 }
-							<li class="sidebar-item">
-								<a href="~/Staff/Index" class='sidebar-link' onclick="
-							   toggle_active_class()">
-									<i class="bi bi-people-fill"></i>
-									<span>Staff</span>
-								</a>
-							</li>
+                        @if (Session["UserRoles"].ToString() == "Branch")
+                        {
+                            <li class="sidebar-item">
+                                <a href="~/Holiday/Index" class='sidebar-link' onclick="
+                               toggle_active_class()">
+                                    <i class="bi bi-calendar-check-fill"></i>
+                                    <span>Holidays</span>
+                                </a>
+                            </li>
+                         }
+                            <li class="sidebar-item">
+                                <a href="~/Staff/Index" class='sidebar-link' onclick="
+                               toggle_active_class()">
+                                    <i class="bi bi-people-fill"></i>
+                                    <span>Staff</span>
+                                </a>
+                            </li>
 
-							<li class="sidebar-item">
-								<div class="dropdown">
-									<a class=" dropdown-toggle sidebar-link" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-										<i class="bi bi-file-bar-graph-fill"></i>
-										<span>Reports</span>
-									</a>
+                            <li class="sidebar-item">
+                                <div class="dropdown">
+                                    <a class=" dropdown-toggle sidebar-link" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="bi bi-file-bar-graph-fill"></i>
+                                        <span>Reports</span>
+                                    </a>
 
-									<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-										<li><a class="dropdown-item" href="~/StaffCheckInAndOut/Index"> Attendance</a><li>
-										<li><a class="dropdown-item" href="~/DailyReport/Create">Daily Report</a></li>
-										<li><a class="dropdown-item" href="~/BranchReport/Create">Branch Report</a></li>
-										<li><a class="dropdown-item" href="~/DepartmentReport/Create">Department Report</a></li>
-										<li><a class="dropdown-item" href="~/DateRange/DateRange">Individual Report</a></li>
-										<li><a class="dropdown-item" href="~/LateReport/LateStaffs">Late Report</a></li>
-										<li><a class="dropdown-item" href="~/OverTimeHours/Index">OverTimeReport</a></li>
-										<li><a class="dropdown-item" href="~/Absentees/Create">Absentees Report</a></li>
-									</ul>
-								</div>
-							</li>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                        <li><a class="dropdown-item" href="~/StaffCheckInAndOut/Index"> Attendance</a><li>
+                                        <li><a class="dropdown-item" href="~/DailyReport/Create">Daily Report</a></li>
+                                        <li><a class="dropdown-item" href="~/BranchReport/Create">Branch Report</a></li>
+                                        <li><a class="dropdown-item" href="~/DepartmentReport/Create">Department Report</a></li>
+                                        <li><a class="dropdown-item" href="~/DateRange/DateRange">Individual Report</a></li>
+                                        <li><a class="dropdown-item" href="~/LateReport/LateStaffs">Late Report</a></li>
+                                        <li><a class="dropdown-item" href="~/OverTimeHours/Index">OverTimeReport</a></li>
+                                        <li><a class="dropdown-item" href="~/Absentees/Create">Absentees Report</a></li>
+                                    </ul>
+                                </div>
+                            </li>
 
-							<li class="sidebar-item  ">
-								<a href="~/User/Logout" class='sidebar-link'>
-									<form id="logout-form" action="#" method="POST"
-										  class="d-none"></form> <i class="bi bi-box-arrow-down-right"></i>
-									<span> Logout </span>
-								</a>
-							</li>
-						</ul>
-				</div>
-				<button class="sidebar-toggler btn x"><i data-feather="x"></i></button>
-			</div>
-		</div>*@
+                            <li class="sidebar-item  ">
+                                <a href="~/User/Logout" class='sidebar-link'>
+                                    <form id="logout-form" action="#" method="POST"
+                                          class="d-none"></form> <i class="bi bi-box-arrow-down-right"></i>
+                                    <span> Logout </span>
+                                </a>
+                            </li>
+                        </ul>
+                </div>
+                <button class="sidebar-toggler btn x"><i data-feather="x"></i></button>
+            </div>
+        </div>*@
 
-		@* ...............................SIDE BAR START FROM HERE...................................... *@
-		<div class="sidebar" id="sidebar">
-			<div class="sidebar-inner slimscroll">
-				<div id="sidebar-menu" class="sidebar-menu">
-					@*<img src="~/assetsnew/avatar.png" alt="">*@
-					<ul>
-						<li>
-							<a href="~/DashBoard/Index" style="text-decoration:none"><i class="la la-dashboard"></i> <span>Dashboard</span></a>
-						</li>
+        @* ...............................SIDE BAR START FROM HERE...................................... *@
+        <div class="sidebar" id="sidebar">
+            <div class="sidebar-inner slimscroll">
+                <div id="sidebar-menu" class="sidebar-menu">
+                    @*<img src="~/assetsnew/avatar.png" alt="">*@
+                    <ul>
+                        <li>
+                            <a href="~/DashBoard/Index" style="text-decoration:none"><i class="la la-dashboard"></i> <span>Dashboard</span></a>
+                        </li>
 
-						<li class="submenu">
-							<a href="#" style="text-decoration: none;"><i class="la la-cog"></i> <span> Setup</span> <span class="menu-arrow"></span></a>
+                        <li class="submenu">
+                            <a href="#" style="text-decoration: none;"><i class="la la-cog"></i> <span> Setup</span> <span class="menu-arrow"></span></a>
 							<ul style="text-decoration:none">
-								<li><a href="~/Country/Index" style="text-decoration:none">Country</a></li>
-								<li><a href="~/Branch/Index" style="text-decoration:none">Branch</a></li>
-								<li><a href="~/Department/Index" style="text-decoration:none">Department</a></li>
+								@if (Session["UserRoles"].ToString() == "Admin")
+								{
+									<li><a href="~/Country/Index" style="text-decoration:none">Country</a></li>
+									<li><a href="~/Branch/Index" style="text-decoration:none">Branch</a></li>
+									<li><a href="~/Department/Index" style="text-decoration:none">Department</a></li>
+								}
 								<li><a href="~/TimeInAndOut/Index" style="text-decoration:none">Set Time</a></li>
-								<li><a href="~/UserRoles/Index" style="text-decoration:none">User Roles</a></li>
-								<li><a href="~/User/Index" style="text-decoration:none">User</a></li>
+								@if (Session["UserRoles"].ToString() == "Admin")
+								{
+									<li><a href="~/UserRoles/Index" style="text-decoration:none">User Roles</a></li>
+									<li><a href="~/User/Index" style="text-decoration:none">User</a></li>
+								}
 								<li><a href="~/Holiday/Index" style="text-decoration:none">Holidays</a></li>
-								<li><a href="~/LeaveType/Index" style="text-decoration:none">Leave Type</a></li>
-								<li><a href="~/Leave/Index" style="text-decoration:none">Leave </a></li>
-								<li><a href="~/Logo/Index" style="text-decoration:none">Logo</a></li>
+								@if (Session["UserRoles"].ToString() == "Admin")
+								{
+									<li><a href="~/LeaveType/Index" style="text-decoration:none">Leave Type</a></li>
+									<li><a href="~/Leave/Index" style="text-decoration:none">Leave </a></li>
+								}
+									<li><a href="~/Logo/Index" style="text-decoration:none">Logo</a></li>
 
-							</ul>
-						</li>
+								</ul>
+                        </li>
 
-						<li>
-							<a href="~/Staff/Index" style="text-decoration:none"><i class="la la-users"></i> <span>Employees</span></a>
-						</li>
+                        <li>
+                            <a href="~/Staff/Index" style="text-decoration:none"><i class="la la-users"></i> <span>Employees</span></a>
+                        </li>
 
-						<li class="submenu">
-							<a href="#" style="text-decoration: none;"><i class="la la-pie-chart"></i> <span>Reports</span> <span class="menu-arrow"></span></a>
-							<ul style="text-decoration:none">
-								<li><a href="~/StaffCheckInAndOut/Index" style="text-decoration:none">Attendance</a></li>
-								<li><a href="~/BranchReport/Create" style="text-decoration:none">BranchReport</a></li>
-								<li><a href="~/DepartmentReport/Create" style="text-decoration:none">Department Report</a></li>
-								<li><a href="~/DailyReport/Create" style="text-decoration:none">Daily Report</a></li>
-								<li><a href="~/DateRange/DateRange" style="text-decoration:none">Individual Report</a>
-								<li>
-								<li><a href="~/LateReport/LateStaffs" style="text-decoration:none">Late Report</a></li>
-								<li><a href="~/OverTimeHours/Index" style="text-decoration:none">Over Time Report</a></li>
-								<li><a href="~/Absentees/Create" style="text-decoration:none">Absentees Report</a></li>
-							</ul>
-						</li>
+                        <li class="submenu">
+                            <a href="#" style="text-decoration: none;"><i class="la la-pie-chart"></i> <span>Reports</span> <span class="menu-arrow"></span></a>
+                            <ul style="text-decoration:none">
+                                <li><a href="~/StaffCheckInAndOut/Index" style="text-decoration:none">Attendance</a></li>
+                                <li><a href="~/BranchReport/Create" style="text-decoration:none">BranchReport</a></li>
+                                <li><a href="~/DepartmentReport/Create" style="text-decoration:none">Department Report</a></li>
+                                <li><a href="~/DailyReport/Create" style="text-decoration:none">Daily Report</a></li>
+                                <li><a href="~/DateRange/DateRange" style="text-decoration:none">Individual Report</a>
+                                <li>
+                                <li><a href="~/LateReport/LateStaffs" style="text-decoration:none">Late Report</a></li>
+                                <li><a href="~/OverTimeHours/Index" style="text-decoration:none">Over Time Report</a></li>
+                                <li><a href="~/Absentees/Create" style="text-decoration:none">Absentees Report</a></li>
+                            </ul>
+                        </li>
 
-						<li>
-							<a href="~/User/Logout" style="text-decoration:none"><i class="la la-sign-out"></i> <span>Logout</span></a>
-						</li>
-					</ul>
-				</div>
-			</div>
-		</div>
-		@* ...............................END OF SIDE NAVIGATION BAR ...................................... *@
+                        <li>
+                            <a href="~/User/Logout" style="text-decoration:none"><i class="la la-sign-out"></i> <span>Logout</span></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        @* ...............................END OF SIDE NAVIGATION BAR ...................................... *@
 
-		@* ...............................MAIN CONTENT START FROM HERE...................................... *@
-		@*<div id="main">
-			<header class="mb-3">
-				<a href="#" class="burger-btn d-block d-xl-none">
-					<i class="bi bi-justify fs-3"></i>
-				</a>
-			</header>
-
-
-
-			<footer style="top:90%; position:fixed; height:100% ; margin-left:20%" class="text-center">
-				<div class="footer clearfix mb-0 text-muted footer-static ">
-
-					<div class="text-center">
-						<p class="m-lg-4 ">
-							@DateTime.Now.Year &copy; Bizlogic Solutions Company Ltd
-
-			</div>
-		</div>*@
-		<div class="page-wrapper">
-			<div class="content container-fluid">
-				<div class="content">
-					@RenderBody()
-				</div>
-
-			</div>
-		</div>
-		@Scripts.Render("~/bundles/jquery")
-		<script src="~/assetsnew/js/jquery-3.6.0.min.js"></script>
-		<script src="~/assetsnew/js/bootstrap.bundle.min.js"></script>
-
-		<script src="~/assetsnew/js/select2.min.js"></script>
-		<script src="~/assetsnew/js/moment.min.js"></script>
-		<script src="~/assetsnew/js/bootstrap-datetimepicker.min.js"></script>
-		<script src="~/assetsnew/js/app.js"></script>
-
-		<script src=" ~/js/mfs.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.8.0/html2pdf.bundle.min.js"></script>
-
-		<script src="~/assets/js/bootstrap.bundle.min.js"></script>
-		<script src="~/assets/vendors/simple-datatables/simple-datatables.js">
-		</script>
-		<script src="~/Datatable/datatables.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script>
-		<script src="~/js/mfs100Scripts.js"></script>
-		<script src='https://cdn.rawgit.com/simonbengtsson/jsPDF/requirejs-fix-dist/dist/jspdf.debug.js'></script>
-
-		<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-		<script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
-		<script src="https://cdn.datatables.net/buttons/2.2.3/js/dataTables.buttons.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
-		<script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.html5.min.js"></script>
-		<script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.print.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
-		<script src="https://cdn.datatables.net/plug-ins/1.12.1/api/sum().js"></script>
-
-		<script src="~/assetsnew/js/jquery.slimscroll.min.js"></script>
+        @* ...............................MAIN CONTENT START FROM HERE...................................... *@
+        @*<div id="main">
+            <header class="mb-3">
+                <a href="#" class="burger-btn d-block d-xl-none">
+                    <i class="bi bi-justify fs-3"></i>
+                </a>
+            </header>
 
 
 
+            <footer style="top:90%; position:fixed; height:100% ; margin-left:20%" class="text-center">
+                <div class="footer clearfix mb-0 text-muted footer-static ">
 
-		@RenderSection("scripts", required: false)
-		@*<script src="~/assets/table2excel.jquery.json"></script>*@
-	</div>
+                    <div class="text-center">
+                        <p class="m-lg-4 ">
+                            @DateTime.Now.Year &copy; Bizlogic Solutions Company Ltd
+
+            </div>
+        </div>*@
+        <div class="page-wrapper">
+            <div class="content container-fluid">
+                <div class="content">
+                    @RenderBody()
+                </div>
+
+            </div>
+        </div>
+        @Scripts.Render("~/bundles/jquery")
+        <script src="~/assetsnew/js/jquery-3.6.0.min.js"></script>
+        <script src="~/assetsnew/js/bootstrap.bundle.min.js"></script>
+
+        <script src="~/assetsnew/js/select2.min.js"></script>
+        <script src="~/assetsnew/js/moment.min.js"></script>
+        <script src="~/assetsnew/js/bootstrap-datetimepicker.min.js"></script>
+        <script src="~/assetsnew/js/app.js"></script>
+
+        <script src="~/js/mfs.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.8.0/html2pdf.bundle.min.js"></script>
+
+        <script src="~/assets/js/bootstrap.bundle.min.js"></script>
+        <script src="~/assets/vendors/simple-datatables/simple-datatables.js"></script>
+        <script src="~/Datatable/datatables.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script>
+        <script src="~/js/mfs100Scripts.js"></script>
+        <script src='https://cdn.rawgit.com/simonbengtsson/jsPDF/requirejs-fix-dist/dist/jspdf.debug.js'></script>
+
+        <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+        <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/buttons/2.2.3/js/dataTables.buttons.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+        <script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.html5.min.js"></script>
+        <script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.print.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+        <script src="https://cdn.datatables.net/plug-ins/1.12.1/api/sum().js"></script>
+
+        <script src="~/assetsnew/js/jquery.slimscroll.min.js"></script>
+
+        <script src="~/Scripts/custom/periodFilter.js" ></script>
+
+        @RenderSection("scripts", required: false)
+        @*<script src="~/assets/table2excel.jquery.json"></script>*@
+    </div>
 </body>
 </html>
